@@ -15,6 +15,12 @@
 		7C69676020C75BFA00EAC951 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675F20C75BFA00EAC951 /* main.m */; };
 		7C69676A20C75BFA00EAC951 /* LifeScheduleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69676920C75BFA00EAC951 /* LifeScheduleTests.m */; };
 		7C69677520C75BFB00EAC951 /* LifeScheduleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69677420C75BFB00EAC951 /* LifeScheduleUITests.m */; };
+		7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA220C9F21500D648E3 /* CalendarViewController.m */; };
+		7CAC2DA620C9F22C00D648E3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */; };
+		7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */; };
+		7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */; };
+		7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */; };
+		7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,18 @@
 		7C69677020C75BFB00EAC951 /* LifeScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C69677420C75BFB00EAC951 /* LifeScheduleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeScheduleUITests.m; sourceTree = "<group>"; };
 		7C69677620C75BFB00EAC951 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CAC2DA120C9F21500D648E3 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		7CAC2DA220C9F21500D648E3 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		7CAC2DA420C9F22C00D648E3 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7CAC2DA720C9F25500D648E3 /* PlannedTasksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlannedTasksViewController.h; sourceTree = "<group>"; };
+		7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlannedTasksViewController.m; sourceTree = "<group>"; };
+		7CAC2DAA20C9F27E00D648E3 /* TomatoesTimerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TomatoesTimerViewController.h; sourceTree = "<group>"; };
+		7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TomatoesTimerViewController.m; sourceTree = "<group>"; };
+		7CAC2DB020C9F50000D648E3 /* LSMainTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSMainTabBarViewController.h; sourceTree = "<group>"; };
+		7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSMainTabBarViewController.m; sourceTree = "<group>"; };
+		7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavViewController.h; sourceTree = "<group>"; };
+		7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +119,11 @@
 		7C69674F20C75BFA00EAC951 /* LifeSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				7CAC2D9120C9F1D600D648E3 /* Calendar */,
+				7CAC2D9920C9F1D600D648E3 /* Setting */,
+				7CAC2D9520C9F1D600D648E3 /* PlannedTasks */,
+				7CAC2D9D20C9F1D600D648E3 /* Tomatoes */,
+				7CAC2D8320C8A70100D648E3 /* Main */,
 				7C69675020C75BFA00EAC951 /* AppDelegate.h */,
 				7C69675120C75BFA00EAC951 /* AppDelegate.m */,
 				7C69675320C75BFA00EAC951 /* ViewController.h */,
@@ -130,6 +153,173 @@
 				7C69677620C75BFB00EAC951 /* Info.plist */,
 			);
 			path = LifeScheduleUITests;
+			sourceTree = "<group>";
+		};
+		7CAC2D8320C8A70100D648E3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DAF20C9F49200D648E3 /* Controllers */,
+				7CAC2DAE20C9F47B00D648E3 /* Libs */,
+				7CAC2DAD20C9F46C00D648E3 /* Others */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		7CAC2D9120C9F1D600D648E3 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2D9220C9F1D600D648E3 /* Models */,
+				7CAC2D9320C9F1D600D648E3 /* Controllers */,
+				7CAC2D9420C9F1D600D648E3 /* Views */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		7CAC2D9220C9F1D600D648E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7CAC2D9320C9F1D600D648E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DA120C9F21500D648E3 /* CalendarViewController.h */,
+				7CAC2DA220C9F21500D648E3 /* CalendarViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7CAC2D9420C9F1D600D648E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7CAC2D9520C9F1D600D648E3 /* PlannedTasks */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2D9620C9F1D600D648E3 /* Models */,
+				7CAC2D9720C9F1D600D648E3 /* Controllers */,
+				7CAC2D9820C9F1D600D648E3 /* Views */,
+			);
+			path = PlannedTasks;
+			sourceTree = "<group>";
+		};
+		7CAC2D9620C9F1D600D648E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7CAC2D9720C9F1D600D648E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DA720C9F25500D648E3 /* PlannedTasksViewController.h */,
+				7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7CAC2D9820C9F1D600D648E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7CAC2D9920C9F1D600D648E3 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2D9A20C9F1D600D648E3 /* Models */,
+				7CAC2D9B20C9F1D600D648E3 /* Controllers */,
+				7CAC2D9C20C9F1D600D648E3 /* Views */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		7CAC2D9A20C9F1D600D648E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7CAC2D9B20C9F1D600D648E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DA420C9F22C00D648E3 /* SettingViewController.h */,
+				7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7CAC2D9C20C9F1D600D648E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7CAC2D9D20C9F1D600D648E3 /* Tomatoes */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2D9E20C9F1D600D648E3 /* Models */,
+				7CAC2D9F20C9F1D600D648E3 /* Controllers */,
+				7CAC2DA020C9F1D600D648E3 /* Views */,
+			);
+			path = Tomatoes;
+			sourceTree = "<group>";
+		};
+		7CAC2D9E20C9F1D600D648E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7CAC2D9F20C9F1D600D648E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DAA20C9F27E00D648E3 /* TomatoesTimerViewController.h */,
+				7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7CAC2DA020C9F1D600D648E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7CAC2DAD20C9F46C00D648E3 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		7CAC2DAE20C9F47B00D648E3 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		7CAC2DAF20C9F49200D648E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2DB020C9F50000D648E3 /* LSMainTabBarViewController.h */,
+				7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */,
+				7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */,
+				7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +452,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
+				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
+				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
 				7C69676020C75BFA00EAC951 /* main.m in Sources */,
 				7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */,
+				7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */,
+				7CAC2DA620C9F22C00D648E3 /* SettingViewController.m in Sources */,
+				7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
