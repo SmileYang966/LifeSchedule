@@ -38,7 +38,8 @@
     UIViewController *vc = [[class alloc]init];
     //Below code  - Navigation Title and TabBarItem will be set the same title string
     vc.title = itemTitle;
-    [vc.tabBarItem setImage:[UIImage imageNamed:itemImageName]];
+    //image有一个UIImageRenderingModeAlwaysOriginal这个属性，可以防止image被ios系统自动渲染
+    [vc.tabBarItem setImage:[[UIImage imageNamed:itemImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     LSNavViewController *nav = [[LSNavViewController alloc]initWithRootViewController:vc];
     [self addChildViewController:nav];
 }
