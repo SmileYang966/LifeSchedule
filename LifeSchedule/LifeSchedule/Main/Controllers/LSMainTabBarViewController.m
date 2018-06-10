@@ -7,12 +7,15 @@
 //
 
 #import "LSMainTabBarViewController.h"
-#import "LSNavViewController.m"
+
+#import "LSNavViewController.h"
 
 #import "CalendarViewController.h"
 #import "SettingViewController.h"
 #import "PlannedTasksViewController.h"
 #import "TomatoesTimerViewController.h"
+
+
 
 @interface LSMainTabBarViewController ()
 
@@ -23,15 +26,21 @@
 - (instancetype)init{
     if (self = [super init]) {
         //init方法添加所有的navigationController
-        CalendarViewController *calendarVC = [[CalendarViewController alloc]init];
-        LSNavViewController *calendarNav = [[LSNavViewController alloc]initWithRootViewController:calendarVC];
-        
+        [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"任务" itemImageName:@"tabbar_profile"];
+        [self addChildControllerWithClass:[SettingViewController class] itemTitle:@"日历" itemImageName:@"tabbar_profile"];
+        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_profile"];
+        [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile"];
     }
     return self;
 }
 
--(void)addRootWithViewController:(Class)class{
-    
+-(void)addChildControllerWithClass:(Class)class itemTitle:(NSString *)itemTitle itemImageName:(NSString *)itemImageName{
+    UIViewController *vc = [[class alloc]init];
+    //Below code  - Navigation Title and TabBarItem will be set the same title string
+    vc.title = itemTitle;
+    [vc.tabBarItem setImage:[UIImage imageNamed:itemImageName]];
+    LSNavViewController *nav = [[LSNavViewController alloc]initWithRootViewController:vc];
+    [self addChildViewController:nav];
 }
 
 - (void)viewDidLoad {
