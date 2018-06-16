@@ -22,6 +22,7 @@
 		7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */; };
 		7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */; };
 		7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */; };
+		E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
 		7C69674D20C75BFA00EAC951 /* LifeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,8 @@
 		7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSMainTabBarViewController.m; sourceTree = "<group>"; };
 		7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavViewController.h; sourceTree = "<group>"; };
 		7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavViewController.m; sourceTree = "<group>"; };
+		A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeSchedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeSchedule/Pods-LifeSchedule.release.xcconfig"; sourceTree = "<group>"; };
+		F78168C9BE3997275B570EDD /* Pods-LifeSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeSchedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LifeSchedule/Pods-LifeSchedule.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +104,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09AF0C4C60F1BB814E5A6C35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78C7703CCE08D0302BA9B6A5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F78168C9BE3997275B570EDD /* Pods-LifeSchedule.debug.xcconfig */,
+				A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7C0E2ED520CDECEA00EFD1D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +144,8 @@
 				7C69676820C75BFA00EAC951 /* LifeScheduleTests */,
 				7C69677320C75BFB00EAC951 /* LifeScheduleUITests */,
 				7C69674E20C75BFA00EAC951 /* Products */,
+				78C7703CCE08D0302BA9B6A5 /* Pods */,
+				09AF0C4C60F1BB814E5A6C35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -350,6 +374,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C69677920C75BFB00EAC951 /* Build configuration list for PBXNativeTarget "LifeSchedule" */;
 			buildPhases = (
+				1EFB5C144E931EB28A788822 /* [CP] Check Pods Manifest.lock */,
 				7C69674920C75BFA00EAC951 /* Sources */,
 				7C69674A20C75BFA00EAC951 /* Frameworks */,
 				7C69674B20C75BFA00EAC951 /* Resources */,
@@ -467,6 +492,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1EFB5C144E931EB28A788822 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LifeSchedule-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7C69674920C75BFA00EAC951 /* Sources */ = {
@@ -649,6 +695,7 @@
 		};
 		7C69677A20C75BFB00EAC951 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F78168C9BE3997275B570EDD /* Pods-LifeSchedule.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -666,6 +713,7 @@
 		};
 		7C69677B20C75BFB00EAC951 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

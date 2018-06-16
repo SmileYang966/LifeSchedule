@@ -9,12 +9,10 @@
 #import "LSMainTabBarViewController.h"
 
 #import "LSNavViewController.h"
-
 #import "CalendarViewController.h"
 #import "SettingViewController.h"
 #import "PlannedTasksViewController.h"
 #import "TomatoesTimerViewController.h"
-
 
 
 @interface LSMainTabBarViewController ()
@@ -26,20 +24,25 @@
 - (instancetype)init{
     if (self = [super init]) {
         //init方法添加所有的navigationController
-        [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"任务" itemImageName:@"tabbar_profile"];
-        [self addChildControllerWithClass:[SettingViewController class] itemTitle:@"日历" itemImageName:@"tabbar_profile"];
-        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_profile"];
-        [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile"];
+        [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"任务" itemImageName:@"tabbar_home" selectedItemImageName:@"tabbar_home_selected"];
+        [self addChildControllerWithClass:[SettingViewController class] itemTitle:@"日历" itemImageName:@"tabbar_message_center" selectedItemImageName:@"tabbar_message_center_selected"];
+        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_discover" selectedItemImageName:@"tabbar_discover_selected"];
+        [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile" selectedItemImageName:@"tabbar_profile_selected"];
     }
     return self;
 }
 
--(void)addChildControllerWithClass:(Class)class itemTitle:(NSString *)itemTitle itemImageName:(NSString *)itemImageName{
+-(void)addChildControllerWithClass:(Class)class itemTitle:(NSString *)itemTitle itemImageName:(NSString *)itemImageName selectedItemImageName:(NSString *)selectedImageName{
     UIViewController *vc = [[class alloc]init];
     //Below code  - Navigation Title and TabBarItem will be set the same title string
     vc.title = itemTitle;
     //image有一个UIImageRenderingModeAlwaysOriginal这个属性，可以防止image被ios系统自动渲染
     [vc.tabBarItem setImage:[[UIImage imageNamed:itemImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [vc.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImageName]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
+    [vc.tabBarItem setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
+    
     LSNavViewController *nav = [[LSNavViewController alloc]initWithRootViewController:vc];
     [self addChildViewController:nav];
 }

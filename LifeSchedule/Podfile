@@ -1,0 +1,5 @@
+target 'LifeSchedule' do
+pod 'AFNetworking'
+pod 'SDWebImage'
+pod 'MBProgressHUD'
+end
