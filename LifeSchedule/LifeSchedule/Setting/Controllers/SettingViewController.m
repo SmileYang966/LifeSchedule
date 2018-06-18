@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "LSSettingCellModel.h"
 #import "LSSettingTableViewCell.h"
+#import "LSSettingSectionModel.h"
 
 
 //typedef enum{
@@ -24,14 +25,11 @@
 
 @implementation SettingViewController
 
-/*
- * +(instancetype)LSSettingCellModelWithTitle:(NSString *)title iconWithName:(NSString *)iconName rightView:(CellRightView) rightView;
- */
-
 - (NSArray *)dataList{
     if (_dataList == NULL) {
        
         //Group 0
+        LSSettingSectionModel *section0 = [[LSSettingSectionModel alloc]init];
         LSSettingCellModel *themesModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"主题" iconWithName:@"IDInfo" rightView:Arrow];
         LSSettingCellModel *tagListModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"智能清单和标签" iconWithName:@"MoreHelp" rightView:Arrow];
         LSSettingCellModel *preferenceModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"偏好设置" iconWithName:@"MoreUpdate" rightView:Arrow];
@@ -39,24 +37,28 @@
         LSSettingCellModel *advancedOptionsModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"高级选项" iconWithName:@"MoreUpdate" rightView:Arrow];
         LSSettingCellModel *tomatoesTimerModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"番茄计时" iconWithName:@"IDInfo" rightView:Switcher];
         NSArray *group0 =  @[themesModel,tagListModel,preferenceModel,securityAndDataModel,advancedOptionsModel,tomatoesTimerModel];
+        section0.sectionItems = group0;
         
         //Group 1
+        LSSettingSectionModel *section1 = [[LSSettingSectionModel alloc]init];
         LSSettingCellModel *weChatPublic = [LSSettingCellModel LSSettingCellModelWithTitle:@"玩转微信公众号" iconWithName:@"MoreMessage" rightView:Arrow];
         NSArray *group1 = @[weChatPublic];
+        section1.sectionItems = group1;
         
         //Group 2
+        LSSettingSectionModel *section2 = [[LSSettingSectionModel alloc]init];
         LSSettingCellModel *helpCenterModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"帮助中心" iconWithName:@"MoreHelp" rightView:Arrow];
         LSSettingCellModel *feedbackAndAdviceModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"反馈与建议" iconWithName:@"sound_Effect" rightView:Arrow];
         LSSettingCellModel *aboutModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"MoreAbout" rightView:Arrow];
         LSSettingCellModel *shareModel = [LSSettingCellModel LSSettingCellModelWithTitle:@"推荐给好友" iconWithName:@"MoreShare" rightView:Arrow];
         NSArray *group2 = @[helpCenterModel,feedbackAndAdviceModel,aboutModel,shareModel];
+        section2.sectionItems = group2;
         
         //添加group0、group1以及group2到这个dataList数组中去
-        _dataList = @[group0,group1,group2];
+        _dataList = @[section0,section1,section2];
     }
     return _dataList;
 }
-
 
 - (instancetype)init{
     if (self = [super init]) {
@@ -76,19 +78,18 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *group = self.dataList[section];
-    return group.count;
+    LSSettingSectionModel *sectionModel = self.dataList[section];
+    return sectionModel.sectionItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LSSettingTableViewCell *cell = [LSSettingTableViewCell getSettingCell];
     
-    NSArray *groupItem = self.dataList[indexPath.section];
-    LSSettingCellModel *model = groupItem[indexPath.row];
+    LSSettingSectionModel *sectionModel = self.dataList[indexPath.section];
+    LSSettingCellModel *model = sectionModel.sectionItems[indexPath.row];
     
     cell.cellModel = model;
-    
     return  cell;
 }
 

@@ -10,6 +10,7 @@
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
 		7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14722C20D632A100903852 /* LSSettingCellModel.m */; };
 		7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */; };
+		7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */; };
 		7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675120C75BFA00EAC951 /* AppDelegate.m */; };
 		7C69675520C75BFA00EAC951 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675420C75BFA00EAC951 /* ViewController.m */; };
 		7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675620C75BFA00EAC951 /* Main.storyboard */; };
@@ -53,6 +54,8 @@
 		7C14722C20D632A100903852 /* LSSettingCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingCellModel.m; sourceTree = "<group>"; };
 		7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifeSchedulePrefixHeader.pch; sourceTree = "<group>"; };
 		7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LSSettingTableViewCell.xib; sourceTree = "<group>"; };
+		7C16952120D77608004ED9D9 /* LSSettingSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingSectionModel.h; sourceTree = "<group>"; };
+		7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingSectionModel.m; sourceTree = "<group>"; };
 		7C69674D20C75BFA00EAC951 /* LifeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C69675020C75BFA00EAC951 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C69675120C75BFA00EAC951 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 			children = (
 				7C14722B20D632A100903852 /* LSSettingCellModel.h */,
 				7C14722C20D632A100903852 /* LSSettingCellModel.m */,
+				7C16952120D77608004ED9D9 /* LSSettingSectionModel.h */,
+				7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -539,6 +544,7 @@
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
+				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
 				7C69676020C75BFA00EAC951 /* main.m in Sources */,
