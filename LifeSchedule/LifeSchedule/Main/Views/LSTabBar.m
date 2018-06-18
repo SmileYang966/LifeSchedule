@@ -30,10 +30,6 @@
 //设置4个button的frames
 - (void)layoutSubviews{
     [super layoutSubviews];
-    
-    for (UIButton *button in self.subviews) {
-        
-    }
 }
 
 @end

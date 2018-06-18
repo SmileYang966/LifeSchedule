@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
+		7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14722C20D632A100903852 /* LSSettingCellModel.m */; };
+		7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */; };
 		7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675120C75BFA00EAC951 /* AppDelegate.m */; };
 		7C69675520C75BFA00EAC951 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675420C75BFA00EAC951 /* ViewController.m */; };
 		7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675620C75BFA00EAC951 /* Main.storyboard */; };
@@ -22,6 +24,7 @@
 		7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */; };
 		7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */; };
 		7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */; };
+		7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE3AC620D67A6C009D88DA /* LSSettingTableViewCell.m */; };
 		E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +49,10 @@
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
+		7C14722B20D632A100903852 /* LSSettingCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingCellModel.h; sourceTree = "<group>"; };
+		7C14722C20D632A100903852 /* LSSettingCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingCellModel.m; sourceTree = "<group>"; };
+		7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifeSchedulePrefixHeader.pch; sourceTree = "<group>"; };
+		7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LSSettingTableViewCell.xib; sourceTree = "<group>"; };
 		7C69674D20C75BFA00EAC951 /* LifeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C69675020C75BFA00EAC951 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C69675120C75BFA00EAC951 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -74,6 +81,8 @@
 		7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSMainTabBarViewController.m; sourceTree = "<group>"; };
 		7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavViewController.h; sourceTree = "<group>"; };
 		7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavViewController.m; sourceTree = "<group>"; };
+		7CFE3AC520D67A6C009D88DA /* LSSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingTableViewCell.h; sourceTree = "<group>"; };
+		7CFE3AC620D67A6C009D88DA /* LSSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingTableViewCell.m; sourceTree = "<group>"; };
 		A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeSchedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeSchedule/Pods-LifeSchedule.release.xcconfig"; sourceTree = "<group>"; };
 		F78168C9BE3997275B570EDD /* Pods-LifeSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeSchedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LifeSchedule/Pods-LifeSchedule.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -289,6 +298,8 @@
 		7CAC2D9A20C9F1D600D648E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7C14722B20D632A100903852 /* LSSettingCellModel.h */,
+				7C14722C20D632A100903852 /* LSSettingCellModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +316,9 @@
 		7CAC2D9C20C9F1D600D648E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7CFE3AC520D67A6C009D88DA /* LSSettingTableViewCell.h */,
+				7CFE3AC620D67A6C009D88DA /* LSSettingTableViewCell.m */,
+				7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +359,7 @@
 		7CAC2DAD20C9F46C00D648E3 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -474,6 +489,7 @@
 				7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
+				7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,9 +538,11 @@
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
+				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
 				7C69676020C75BFA00EAC951 /* main.m in Sources */,
+				7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */,
 				7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */,
 				7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */,
 				7CAC2DA620C9F22C00D648E3 /* SettingViewController.m in Sources */,
@@ -699,6 +717,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -717,6 +737,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

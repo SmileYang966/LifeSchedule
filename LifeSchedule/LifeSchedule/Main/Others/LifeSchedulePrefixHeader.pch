@@ -1,0 +1,23 @@
+//
+//  LifeSchedulePrefixHeader.pch
+//  LifeSchedule
+//
+//  Created by 杨善成 on 17/6/2018.
+//  Copyright © 2018 EvanYang. All rights reserved.
+//
+
+#ifndef LifeSchedulePrefixHeader_pch
+#define LifeSchedulePrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+typedef enum{
+    Arrow = 0,
+    Switcher
+}CellRightView;
+
+
+
+#endif /* LifeSchedulePrefixHeader_pch */
