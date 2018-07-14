@@ -31,19 +31,6 @@
     
     self.imgView.image = [UIImage imageNamed:cellModel.iconName];
     self.cellTitle.text = cellModel.title;
-    
-    switch (cellModel.cellRightView) {
-        case Arrow:
-            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-            
-        case Switcher:
-            self.accessoryView = [[UISwitch alloc]init];
-            break;
-            
-        default:
-            break;
-    }
 }
 
 +(instancetype)getSettingCell{

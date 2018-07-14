@@ -10,11 +10,10 @@
 
 @implementation LSSettingCellModel
 
-+(instancetype)LSSettingCellModelWithTitle:(NSString *)title iconWithName:(NSString *)iconName rightView:(CellRightView) cellRightView{
++(instancetype)LSSettingCellModelWithTitle:(NSString *)title iconWithName:(NSString *)iconName{
     LSSettingCellModel *cellModel = [[self alloc]init];
     cellModel.title = title;
     cellModel.iconName = iconName;
-    cellModel.cellRightView = cellRightView;
     return cellModel;
 }
 

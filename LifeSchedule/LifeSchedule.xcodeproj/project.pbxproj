@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
+		7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */; };
+		7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */; };
 		7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14722C20D632A100903852 /* LSSettingCellModel.m */; };
 		7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */; };
 		7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */; };
+		7C16952620D7910C004ED9D9 /* LSArrowSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16952520D7910C004ED9D9 /* LSArrowSettingCellModel.m */; };
+		7C16952920D7917F004ED9D9 /* LSSwitcherSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16952820D7917F004ED9D9 /* LSSwitcherSettingCellModel.m */; };
+		7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16953520D80327004ED9D9 /* LSSettingPreferenceViewController.m */; };
 		7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675120C75BFA00EAC951 /* AppDelegate.m */; };
 		7C69675520C75BFA00EAC951 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675420C75BFA00EAC951 /* ViewController.m */; };
 		7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675620C75BFA00EAC951 /* Main.storyboard */; };
@@ -20,11 +25,12 @@
 		7C69676A20C75BFA00EAC951 /* LifeScheduleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69676920C75BFA00EAC951 /* LifeScheduleTests.m */; };
 		7C69677520C75BFB00EAC951 /* LifeScheduleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69677420C75BFB00EAC951 /* LifeScheduleUITests.m */; };
 		7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA220C9F21500D648E3 /* CalendarViewController.m */; };
-		7CAC2DA620C9F22C00D648E3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */; };
+		7CAC2DA620C9F22C00D648E3 /* LSBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA520C9F22C00D648E3 /* LSBaseTableViewController.m */; };
 		7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */; };
 		7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */; };
 		7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */; };
 		7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */; };
+		7CF0B6BC20F9825800705C44 /* SCCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF0B6BB20F9825800705C44 /* SCCircleView.m */; };
 		7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE3AC620D67A6C009D88DA /* LSSettingTableViewCell.m */; };
 		E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */; };
 /* End PBXBuildFile section */
@@ -50,12 +56,22 @@
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
+		7C0F93FE20E1B2DD009B7D06 /* LSSettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingTableViewController.h; sourceTree = "<group>"; };
+		7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingTableViewController.m; sourceTree = "<group>"; };
+		7C0F940220E1B5DD009B7D06 /* SecurityAndDataTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityAndDataTableViewController.h; sourceTree = "<group>"; };
+		7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecurityAndDataTableViewController.m; sourceTree = "<group>"; };
 		7C14722B20D632A100903852 /* LSSettingCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingCellModel.h; sourceTree = "<group>"; };
 		7C14722C20D632A100903852 /* LSSettingCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingCellModel.m; sourceTree = "<group>"; };
 		7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifeSchedulePrefixHeader.pch; sourceTree = "<group>"; };
 		7C16951F20D76A7D004ED9D9 /* LSSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LSSettingTableViewCell.xib; sourceTree = "<group>"; };
 		7C16952120D77608004ED9D9 /* LSSettingSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingSectionModel.h; sourceTree = "<group>"; };
 		7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingSectionModel.m; sourceTree = "<group>"; };
+		7C16952420D7910C004ED9D9 /* LSArrowSettingCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSArrowSettingCellModel.h; sourceTree = "<group>"; };
+		7C16952520D7910C004ED9D9 /* LSArrowSettingCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSArrowSettingCellModel.m; sourceTree = "<group>"; };
+		7C16952720D7917F004ED9D9 /* LSSwitcherSettingCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSwitcherSettingCellModel.h; sourceTree = "<group>"; };
+		7C16952820D7917F004ED9D9 /* LSSwitcherSettingCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSwitcherSettingCellModel.m; sourceTree = "<group>"; };
+		7C16953420D80327004ED9D9 /* LSSettingPreferenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingPreferenceViewController.h; sourceTree = "<group>"; };
+		7C16953520D80327004ED9D9 /* LSSettingPreferenceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingPreferenceViewController.m; sourceTree = "<group>"; };
 		7C69674D20C75BFA00EAC951 /* LifeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C69675020C75BFA00EAC951 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C69675120C75BFA00EAC951 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -74,8 +90,8 @@
 		7C69677620C75BFB00EAC951 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC2DA120C9F21500D648E3 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		7CAC2DA220C9F21500D648E3 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		7CAC2DA420C9F22C00D648E3 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7CAC2DA420C9F22C00D648E3 /* LSBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBaseTableViewController.h; sourceTree = "<group>"; };
+		7CAC2DA520C9F22C00D648E3 /* LSBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBaseTableViewController.m; sourceTree = "<group>"; };
 		7CAC2DA720C9F25500D648E3 /* PlannedTasksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlannedTasksViewController.h; sourceTree = "<group>"; };
 		7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlannedTasksViewController.m; sourceTree = "<group>"; };
 		7CAC2DAA20C9F27E00D648E3 /* TomatoesTimerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TomatoesTimerViewController.h; sourceTree = "<group>"; };
@@ -84,6 +100,8 @@
 		7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSMainTabBarViewController.m; sourceTree = "<group>"; };
 		7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavViewController.h; sourceTree = "<group>"; };
 		7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavViewController.m; sourceTree = "<group>"; };
+		7CF0B6BA20F9825800705C44 /* SCCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCircleView.h; sourceTree = "<group>"; };
+		7CF0B6BB20F9825800705C44 /* SCCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCircleView.m; sourceTree = "<group>"; };
 		7CFE3AC520D67A6C009D88DA /* LSSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingTableViewCell.h; sourceTree = "<group>"; };
 		7CFE3AC620D67A6C009D88DA /* LSSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSettingTableViewCell.m; sourceTree = "<group>"; };
 		A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeSchedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeSchedule/Pods-LifeSchedule.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +165,94 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7C0F940120E1B5B3009B7D06 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7C0F940220E1B5DD009B7D06 /* SecurityAndDataTableViewController.h */,
+				7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7C16952A20D799A2004ED9D9 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		7C16952B20D799B7004ED9D9 /* Setting-Main */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC2D9A20C9F1D600D648E3 /* Models */,
+				7CAC2D9B20C9F1D600D648E3 /* Controllers */,
+				7CAC2D9C20C9F1D600D648E3 /* Views */,
+			);
+			path = "Setting-Main";
+			sourceTree = "<group>";
+		};
+		7C16952C20D799CE004ED9D9 /* ListAndTags */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ListAndTags;
+			sourceTree = "<group>";
+		};
+		7C16952D20D799E5004ED9D9 /* Preference */ = {
+			isa = PBXGroup;
+			children = (
+				7C16953320D802E9004ED9D9 /* Controllers */,
+				7C16953220D802DC004ED9D9 /* Models */,
+				7C16953120D802CF004ED9D9 /* Views */,
+			);
+			path = Preference;
+			sourceTree = "<group>";
+		};
+		7C16952E20D799F5004ED9D9 /* SecurityAndData */ = {
+			isa = PBXGroup;
+			children = (
+				7C0F940120E1B5B3009B7D06 /* Controllers */,
+			);
+			path = SecurityAndData;
+			sourceTree = "<group>";
+		};
+		7C16952F20D79A00004ED9D9 /* AdvanceOptions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AdvanceOptions;
+			sourceTree = "<group>";
+		};
+		7C16953020D79A11004ED9D9 /* TomatoTimer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TomatoTimer;
+			sourceTree = "<group>";
+		};
+		7C16953120D802CF004ED9D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7C16953220D802DC004ED9D9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7C16953320D802E9004ED9D9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7C16953420D80327004ED9D9 /* LSSettingPreferenceViewController.h */,
+				7C16953520D80327004ED9D9 /* LSSettingPreferenceViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		7C69674420C75BFA00EAC951 = {
@@ -291,9 +397,13 @@
 		7CAC2D9920C9F1D600D648E3 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				7CAC2D9A20C9F1D600D648E3 /* Models */,
-				7CAC2D9B20C9F1D600D648E3 /* Controllers */,
-				7CAC2D9C20C9F1D600D648E3 /* Views */,
+				7C16952B20D799B7004ED9D9 /* Setting-Main */,
+				7C16953020D79A11004ED9D9 /* TomatoTimer */,
+				7C16952F20D79A00004ED9D9 /* AdvanceOptions */,
+				7C16952E20D799F5004ED9D9 /* SecurityAndData */,
+				7C16952D20D799E5004ED9D9 /* Preference */,
+				7C16952C20D799CE004ED9D9 /* ListAndTags */,
+				7C16952A20D799A2004ED9D9 /* Theme */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -305,6 +415,10 @@
 				7C14722C20D632A100903852 /* LSSettingCellModel.m */,
 				7C16952120D77608004ED9D9 /* LSSettingSectionModel.h */,
 				7C16952220D77608004ED9D9 /* LSSettingSectionModel.m */,
+				7C16952420D7910C004ED9D9 /* LSArrowSettingCellModel.h */,
+				7C16952520D7910C004ED9D9 /* LSArrowSettingCellModel.m */,
+				7C16952720D7917F004ED9D9 /* LSSwitcherSettingCellModel.h */,
+				7C16952820D7917F004ED9D9 /* LSSwitcherSettingCellModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,8 +426,10 @@
 		7CAC2D9B20C9F1D600D648E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7CAC2DA420C9F22C00D648E3 /* SettingViewController.h */,
-				7CAC2DA520C9F22C00D648E3 /* SettingViewController.m */,
+				7CAC2DA420C9F22C00D648E3 /* LSBaseTableViewController.h */,
+				7CAC2DA520C9F22C00D648E3 /* LSBaseTableViewController.m */,
+				7C0F93FE20E1B2DD009B7D06 /* LSSettingTableViewController.h */,
+				7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -357,6 +473,8 @@
 		7CAC2DA020C9F1D600D648E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7CF0B6BA20F9825800705C44 /* SCCircleView.h */,
+				7CF0B6BB20F9825800705C44 /* SCCircleView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -541,17 +659,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
+				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
+				7CF0B6BC20F9825800705C44 /* SCCircleView.m in Sources */,
+				7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */,
+				7C16952920D7917F004ED9D9 /* LSSwitcherSettingCellModel.m in Sources */,
 				7C69676020C75BFA00EAC951 /* main.m in Sources */,
+				7C16952620D7910C004ED9D9 /* LSArrowSettingCellModel.m in Sources */,
 				7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */,
 				7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */,
 				7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */,
-				7CAC2DA620C9F22C00D648E3 /* SettingViewController.m in Sources */,
+				7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */,
+				7CAC2DA620C9F22C00D648E3 /* LSBaseTableViewController.m in Sources */,
 				7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

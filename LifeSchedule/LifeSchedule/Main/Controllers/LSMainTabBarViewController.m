@@ -10,7 +10,7 @@
 
 #import "LSNavViewController.h"
 #import "CalendarViewController.h"
-#import "SettingViewController.h"
+#import "LSSettingTableViewController.h"
 #import "PlannedTasksViewController.h"
 #import "TomatoesTimerViewController.h"
 
@@ -27,7 +27,7 @@
         [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"任务" itemImageName:@"tabbar_home" selectedItemImageName:@"tabbar_home_selected"];
         [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"日历" itemImageName:@"tabbar_message_center" selectedItemImageName:@"tabbar_message_center_selected"];
         [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_discover" selectedItemImageName:@"tabbar_discover_selected"];
-        [self addChildControllerWithClass:[SettingViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile" selectedItemImageName:@"tabbar_profile_selected"];
+        [self addChildControllerWithClass:[LSSettingTableViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile" selectedItemImageName:@"tabbar_profile_selected"];
     }
     return self;
 }

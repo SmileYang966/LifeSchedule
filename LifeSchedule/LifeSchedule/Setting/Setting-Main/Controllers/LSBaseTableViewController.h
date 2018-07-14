@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UITableViewController
+@interface LSBaseTableViewController : UITableViewController
+
+@property(nonatomic,strong)NSArray *dataList;
 
 @end
