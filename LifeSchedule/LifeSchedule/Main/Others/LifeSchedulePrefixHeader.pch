@@ -19,5 +19,14 @@ typedef enum{
 }CellRightView;
 
 
+typedef enum{
+    DefaultTomatoesStatus = 0,
+    WorkingTomatoesStatus,
+    WaitToStartWorkingTomatoesStatus,
+    BreakTomatoesStatus,
+    WaitToStartBreakTomatoesStatus
+}TomatoesStatus;
+
+
 
 #endif /* LifeSchedulePrefixHeader_pch */

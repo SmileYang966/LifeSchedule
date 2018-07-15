@@ -6,18 +6,30 @@
 //  Copyright © 2018 Evan. All rights reserved.
 //
 
+
+
+
 #import "SCCircleView.h"
+
+
 
 @interface SCCircleView()
 
 @property(nonatomic,strong) UILabel *showLabel;
 
+@property(nonatomic,assign)int count;
+@property(nonatomic,assign)NSInteger minutes;
+@property(nonatomic,assign)NSInteger seconds;
+@property(nonatomic,assign)NSInteger totalDuration;
 
+@property(nonatomic,assign)TomatoesStatus currentTomatoesStatus;
 
 @end
 
 
 @implementation SCCircleView
+
+
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
@@ -28,10 +40,9 @@
 
 - (UILabel *)showLabel{
     if (_showLabel == nil) {
-        _showLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+        _showLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
         _showLabel.textAlignment = NSTextAlignmentCenter;
-        _showLabel.textColor = [UIColor blueColor];
-        _showLabel.font = [UIFont systemFontOfSize:70.0f];
+        _showLabel.font = [UIFont systemFontOfSize:60.0f];
         _showLabel.center = CGPointMake(self.bounds.size.width*0.5, self.bounds.size.width*0.5);
         [self addSubview:_showLabel];
     }
@@ -53,6 +64,7 @@
     //画曲线
     CGContextAddArc(context1, self.frame.size.width/2.0, self.frame.size.height/2.0, (self.frame.size.width/2.0)-30, -M_PI_2, 3 * M_PI_2, 0);
     
+    //画圆
     CGContextStrokePath(context1);
     
     
@@ -67,36 +79,62 @@
     CGContextSetRGBStrokeColor(context2, 1, 1, 1, 1);
 
     //画曲线
-    CGFloat tempValue = self.count/500.0;
-    CGContextAddArc(context2, self.frame.size.width/2.0, self.frame.size.height/2.0, (self.frame.size.width/2.0)-30, -M_PI_2, -M_PI_2 + tempValue * (4 * M_PI_2), 0);
-    
+    if (self.minutes*60+self.seconds!=0) {
+        double tempValue = (double)self.count/(self.totalDuration * 1.0);
+        CGContextAddArc(context2, self.frame.size.width/2.0, self.frame.size.height/2.0, (self.frame.size.width/2.0)-30, -M_PI_2, -M_PI_2 + tempValue * (4 * M_PI_2), 0);
+    }
+
     //画圆
     CGContextStrokePath(context2);
 }
 
-- (void)startTimer{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(action) userInfo:nil repeats:YES];
+//不管是工作时间倒计时还是休息时间倒计时，点相应的button永远只调用一次
+- (void)startTimerWithMinutes:(NSInteger)minutes seconds:(NSInteger)seconds status:(TomatoesStatus)tomatoesStatus displayedTimeColor:(UIColor *)color{
+    self.minutes = minutes;
+    self.seconds = seconds;
+    self.currentTomatoesStatus = tomatoesStatus;
+    self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",minutes,seconds];
+    self.showLabel.textColor = color;
+    self.totalDuration = minutes * 60 + seconds;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
 }
 
 - (void)stopTimer{
     [self.timer invalidate];
+    //取消之前绘制的图像，恢复到初始状态
+    self.count=0;
+    [self setNeedsDisplay];
     self.timer = NULL;
 }
 
-- (void)action{
-    //时间累加
+-(void)timerAction{
     self.count++;
     
-    if (self.count == 500) {
+    //If the second = 0,minute -1 and second=59
+    if (self.seconds==0) {
+        self.minutes--;
+        self.seconds = 59;
+    }else{
+        self.seconds--;
+    }
+    
+    if (self.minutes==0 && self.seconds==0) {
         [self.timer invalidate];
-        self.timer = nil;
-    }
+        //番茄时间到了，应该休息一下了
     
-    if (self.count % 100 == 0) {
-        self.showLabel.text = [NSString stringWithFormat:@"%d",5-self.count/100];
+        if ([self.delegate respondsToSelector:@selector(SCCircleViewTimeFinishedWithTomatoesStatus:)]) {
+            [self.delegate SCCircleViewTimeFinishedWithTomatoesStatus:self.currentTomatoesStatus];
+        }
+    }else{
+            self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",self.minutes,self.seconds];
     }
-    
     [self setNeedsDisplay];
 }
+
+- (void)setCircleTitleWithStr:(NSString *)title textColor:(UIColor *)titleColor{
+    self.showLabel.text = title;
+    self.showLabel.textColor = titleColor;
+}
+
 
 @end
