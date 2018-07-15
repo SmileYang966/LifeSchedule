@@ -90,9 +90,7 @@
 -(void)processTheDifferentTomatoesStatus{
     switch (self.currentTomatoesStatus) {
         case DefaultTomatoesStatus:
-            [self.circleView setCircleTitleWithStr:@"下午好" textColor:[UIColor lightGrayColor]];
-            [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor whiteColor] buttonBackgroundColor:[UIColor lightGrayColor] isHideBars:NO tintColor:[UIColor whiteColor]];
-            
+            [self setDefaultStatusForCircleView];
             break;
         
         case WorkingTomatoesStatus:
@@ -117,18 +115,46 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self initOperations];
+}
+
+#pragma mark -初始化操作
+-(void)initOperations{
+    //Create foucuBtn on UI
     [self focusBtn];
-    //初始阶段为DefaultTomatoesStatus
     
+    //初始阶段为DefaultTomatoesStatus
+     self.currentTomatoesStatus = DefaultTomatoesStatus;
     [self setDefaultStatusForCircleView];
 }
 
-
 -(void)setDefaultStatusForCircleView{
-    self.currentTomatoesStatus = DefaultTomatoesStatus;
+    //设置当前的时间点
+    NSString *circleTitle = @"";
+    if ([self IsForenoon]) {
+        circleTitle = @"上午好";
+    }else{
+        circleTitle = @"下午好";
+    }
     
-    [self.circleView setCircleTitleWithStr:@"上午好" textColor:[UIColor lightGrayColor]];
+    [self.circleView setCircleTitleWithStr:circleTitle textColor:[UIColor lightGrayColor]];
     [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor whiteColor] buttonBackgroundColor:[UIColor lightGrayColor] isHideBars:NO tintColor:[UIColor whiteColor]];
+}
+
+//判断当前时间是上午还是下午
+-(bool)IsForenoon{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSTimeZone *localZone = [NSTimeZone localTimeZone];
+    [formatter setDateFormat:@"HH"];//大写的HH代表24小时制,而小写的hh代表12小时制
+    [formatter setTimeZone:localZone];
+    NSDate *currentDate = [NSDate date];
+    NSString *str = [formatter stringFromDate:currentDate];
+    NSInteger hour = [str integerValue];
+    if (hour >= 0 && hour < 12) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 #pragma mark-倒计时结束后触发的Delegate
@@ -136,7 +162,7 @@
     if (finishedStatus == BreakTomatoesStatus) {//1.休息时间结束后，进入到工作时间
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
-        [self adjustDifferentScreenWithButtonTextDesc:@"开始工作" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
+        [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
     }
     
     if (finishedStatus == WorkingTomatoesStatus) {//2.工作时间结束后，进入到休息时间
