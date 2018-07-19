@@ -15,6 +15,14 @@
 @property(nonatomic,strong) UIButton *focusBtn;
 @property(nonatomic,assign) BOOL isFoucsStatus;
 
+/* 主要是为了颜色渐变的背景图片做准备，本来是直接计划在layer画的渐变图像
+ * 
+ */
+@property(nonatomic,strong) UIImageView *bgImgView;
+@property(nonatomic,strong) UIImage *workingImage;
+@property(nonatomic,strong) UIImage *breakImage;
+
+
 @property(nonatomic,assign) TomatoesStatus currentTomatoesStatus;
 @end
 
@@ -27,9 +35,67 @@
         _circleView = [[SCCircleView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width , self.view.bounds.size.width)];
         _circleView.center = CGPointMake(self.view.center.x, self.view.center.y-50);
         _circleView.delegate = self;
-        [self.view addSubview:_circleView];
+        [self.bgImgView addSubview:_circleView];
     }
     return _circleView;
+}
+
+- (UIImageView *)bgImgView{
+    if (_bgImgView == nil) {
+        _bgImgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+        [self.view addSubview:_bgImgView];
+    }
+    return _bgImgView;
+}
+
+- (UIImage *)workingImage{
+    if (_workingImage == nil) {
+        CAGradientLayer *layer = [CAGradientLayer layer];
+        layer.startPoint = CGPointMake(0, 0);
+        layer.endPoint = CGPointMake(1, 1);
+        layer.frame = self.view.bounds;
+        UIColor *workingModeWithStartColor = [UIColor colorWithRed:253/255.0 green:132/255.0 blue:80/255.0 alpha:1.0];
+        UIColor *workingModeWithEndColor = [UIColor colorWithRed:253/255.0 green:102/255.0 blue:106/255.0 alpha:1.0];
+        layer.colors = @[(__bridge id)workingModeWithStartColor.CGColor,(__bridge id)workingModeWithEndColor.CGColor];
+        
+        //开启一个imageContext,相当于开启一个画板
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        @try{
+            /*可以将layer渲染到当前的画板上，由上可知，当前画板是刚刚创建的ImageContext*/
+            [layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+            return img;
+        }
+        @finally{
+            UIGraphicsEndImageContext();
+        }
+    }
+    return _workingImage;
+}
+
+- (UIImage *)breakImage{
+    if (_breakImage == nil) {
+        CAGradientLayer *layer = [CAGradientLayer layer];
+        layer.startPoint = CGPointMake(0, 0);
+        layer.endPoint = CGPointMake(1, 1);
+        layer.frame = self.view.bounds;
+        UIColor *breakModeWithStartColor = [UIColor colorWithRed:97/255.0 green:214/255.0 blue:118/255.0 alpha:1.0];
+        UIColor *breakModeWithEndColor = [UIColor colorWithRed:52/255.0 green:205/255.0 blue:174/255.0 alpha:1.0];
+        layer.colors = @[(__bridge id)breakModeWithStartColor.CGColor,(__bridge id)breakModeWithEndColor.CGColor];
+        
+        
+        //开启一个imageContext,相当于开启一个画板
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        @try{
+            [layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+            return img;
+        }
+        @finally{
+            UIGraphicsEndImageContext();
+        }
+    }
+    return _breakImage;
 }
 
 - (UIButton *)focusBtn{
@@ -159,6 +225,7 @@
 
 #pragma mark-倒计时结束后触发的Delegate
 - (void)SCCircleViewTimeFinishedWithTomatoesStatus:(TomatoesStatus)finishedStatus{
+    
     if (finishedStatus == BreakTomatoesStatus) {//1.休息时间结束后，进入到工作时间
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
@@ -182,14 +249,34 @@
     [self.focusBtn setTitle:buttonTextStr forState:UIControlStateNormal];
     [self.focusBtn setTitleColor:btnTextColor forState:UIControlStateNormal];
     [self.focusBtn setBackgroundColor:buttonBgColor];
-    self.circleView.backgroundColor = tintColor;
-    self.view.backgroundColor = tintColor;
+    self.circleView.backgroundColor = [UIColor clearColor];
+    
+    if (self.currentTomatoesStatus==WorkingTomatoesStatus ||
+        self.currentTomatoesStatus==BreakTomatoesStatus ||
+        self.currentTomatoesStatus==WaitToStartWorkingTomatoesStatus ||
+        self.currentTomatoesStatus==WaitToStartBreakTomatoesStatus) {
+        [self adjustGradientColorByTomatoesMode];
+    }else{
+        self.bgImgView.image = nil;
+        self.bgImgView.backgroundColor = UIColor.whiteColor;
+    }
+    
     if (hideBars) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         [self setTabBarVisible:NO animated:YES completion:nil];
     }else{
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self setTabBarVisible:YES animated:YES completion:nil];
+    }
+}
+
+-(void)adjustGradientColorByTomatoesMode{
+    if (self.currentTomatoesStatus==WorkingTomatoesStatus ||
+        self.currentTomatoesStatus==WaitToStartWorkingTomatoesStatus) {
+        self.bgImgView.image = self.workingImage;
+    }else if(self.currentTomatoesStatus==BreakTomatoesStatus ||
+             self.currentTomatoesStatus==WaitToStartBreakTomatoesStatus){
+        self.bgImgView.image = self.breakImage;
     }
 }
 
