@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlannedTasksViewController : UIViewController
+@interface PlannedTasksViewController : UITableViewController
 
 @end
