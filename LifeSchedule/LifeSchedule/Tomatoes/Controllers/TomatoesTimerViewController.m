@@ -184,13 +184,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
-    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/contineToWorking.caf"];
-    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
-        SCLog(@"Play audio");
-    }];
 }
+
+
 
 /*
 -(void)playNotifySound{
@@ -253,12 +249,15 @@
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
+        [self playContinueWorkingAudio];
     }
     
     if (finishedStatus == WorkingTomatoesStatus) {//2.工作时间结束后，进入到休息时间
         self.currentTomatoesStatus = WaitToStartBreakTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"02 : 00" textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始休息" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
+        [self playRestAudio];
+        
     }
 }
 
@@ -302,6 +301,24 @@
         self.bgImgView.image = self.breakImage;
     }
 }
+
+#pragma mark-Play Audio
+-(void)playRestAudio{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
+    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/finishedWorkAndStartToBreak.caf"];
+    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
+        SCLog(@"Play Break audio");
+    }];
+}
+
+-(void)playContinueWorkingAudio{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
+    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/finishedBreakAndStartToWork.caf"];
+    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
+        SCLog(@"Play continue to work audio");
+    }];
+}
+
 
 #pragma mark-TabBar-NavgationBar隐藏与否
 -(void)setTabBarVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(BOOL value))completion{
