@@ -27,6 +27,12 @@ typedef enum{
     WaitToStartBreakTomatoesStatus
 }TomatoesStatus;
 
+#ifdef DEBUG
+#define SCLog(...) NSLog(__VA_ARGS__)
+#else
+#define SCLog(...)
+#endif
+
 
 
 #endif /* LifeSchedulePrefixHeader_pch */

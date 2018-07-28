@@ -8,20 +8,22 @@
 
 #import "TomatoesTimerViewController.h"
 #import "SCCircleView.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "LSAudioPlayTool.h"
 
 
 @interface TomatoesTimerViewController ()<SCCircleViewDelegate>
+
 @property(nonatomic,strong) SCCircleView *circleView;
 @property(nonatomic,strong) UIButton *focusBtn;
 @property(nonatomic,assign) BOOL isFoucsStatus;
 
-/* 主要是为了颜色渐变的背景图片做准备，本来是直接计划在layer画的渐变图像
- * 
+/*
+ * 主要是为了颜色渐变的背景图片做准备，本来是直接计划在layer画的渐变图像
  */
 @property(nonatomic,strong) UIImageView *bgImgView;
 @property(nonatomic,strong) UIImage *workingImage;
 @property(nonatomic,strong) UIImage *breakImage;
-
 
 @property(nonatomic,assign) TomatoesStatus currentTomatoesStatus;
 @end
@@ -83,7 +85,6 @@
         UIColor *breakModeWithEndColor = [UIColor colorWithRed:52/255.0 green:205/255.0 blue:174/255.0 alpha:1.0];
         layer.colors = @[(__bridge id)breakModeWithStartColor.CGColor,(__bridge id)breakModeWithEndColor.CGColor];
         
-        
         //开启一个imageContext,相当于开启一个画板
         UIGraphicsBeginImageContext(self.view.frame.size);
         @try{
@@ -114,7 +115,6 @@
 }
 
 -(void)focusBtnClicked:(UIButton *)button{
-
     [self.circleView stopTimer];
     
     switch (self.currentTomatoesStatus) {
@@ -149,7 +149,6 @@
         default:
             break;
     }
-    
     [self processTheDifferentTomatoesStatus];
 }
 
@@ -176,13 +175,38 @@
     }
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     [self initOperations];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
+    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/contineToWorking.caf"];
+    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
+        SCLog(@"Play audio");
+    }];
+}
+
+/*
+-(void)playNotifySound{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"contineToWorking.caf" ofType:@"nil"];
+    SystemSoundID soundId = 0;
+    if (path) {
+        OSStatus error = AudioServicesCreateSystemSoundID((__bridge CFURLRef _Nonnull)([NSURL fileURLWithPath:path]), &soundId);
+        if (error != kAudioServicesNoError) {
+            NSLog(@"%d",(int)error);
+        }
+    }
+    AudioServicesPlayAlertSoundWithCompletion(soundId, ^{
+        int a = 5;
+    });
+}
+ */
 
 #pragma mark -初始化操作
 -(void)initOperations{
@@ -225,7 +249,6 @@
 
 #pragma mark-倒计时结束后触发的Delegate
 - (void)SCCircleViewTimeFinishedWithTomatoesStatus:(TomatoesStatus)finishedStatus{
-    
     if (finishedStatus == BreakTomatoesStatus) {//1.休息时间结束后，进入到工作时间
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
