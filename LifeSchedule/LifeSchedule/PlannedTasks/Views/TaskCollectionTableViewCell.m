@@ -7,6 +7,9 @@
 //
 
 #import "TaskCollectionTableViewCell.h"
+#import "TaskCollectionModel.h"
+
+#define TASKROWHEIGHT 60
 
 @interface TaskCollectionTableViewCell()
 @property(nonatomic,strong) UIView *taskContentView;
@@ -46,15 +49,8 @@
 - (UILabel *)contentLabel{
     if (_contentLabel == NULL) {
         _contentLabel = [[UILabel alloc]init];
-        _contentLabel.text = @"晚上和同事们一起去健身房";
         _contentLabel.font = [UIFont systemFontOfSize:15.0f];
         _contentLabel.textColor = [UIColor blackColor];
-        
-        //Calucalated the string size by the provided the text
-        CGSize size = [_contentLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0f]}];
-        CGFloat contentLabelX = CGRectGetMaxX(self.taskcheckBoxSelected.frame) + 10;
-        CGFloat contentLabelY = self.taskcheckBoxSelected.frame.origin.y;
-        _contentLabel.frame = CGRectMake(contentLabelX, contentLabelY,size.width,size.height);
         [self.taskContentView addSubview:_contentLabel];
     }
     return _contentLabel;
@@ -63,12 +59,7 @@
 - (UILabel *)additionalDetailInfo{
     if (_additionalDetailInfo == NULL) {
         _additionalDetailInfo = [[UILabel alloc]init];
-        _additionalDetailInfo.text = @"今天，下午8:00";
         _additionalDetailInfo.font = [UIFont systemFontOfSize:12.0f];
-        CGSize size = [_additionalDetailInfo.text sizeWithAttributes:@{NSFontAttributeName : _additionalDetailInfo.font}];
-        CGFloat additionalDetailInfoX = self.contentLabel.frame.origin.x;
-        CGFloat additionalDetailInfoY = CGRectGetMaxY(self.contentLabel.frame) + 5;
-        _additionalDetailInfo.frame = CGRectMake(additionalDetailInfoX, additionalDetailInfoY, size.width, size.height);
         _additionalDetailInfo.textColor = [UIColor redColor];
         [self.taskContentView addSubview:_additionalDetailInfo];
     }
@@ -89,6 +80,33 @@
         NSLog(@"self.frame=%@,self.bounds =%@",NSStringFromCGRect(self.frame),NSStringFromCGRect(self.bounds));
     }
     return self;
+}
+
+
+#pragma mark Set Method
+- (void)setTaskCollectionModel:(TaskCollectionModel *)taskCollectionModel{
+    _taskCollectionModel = taskCollectionModel;
+    
+    //Fetch the value from Model and assign to the views
+    
+    //Calcualted the content label frame
+    self.contentLabel.text = taskCollectionModel.taskTitle;
+    CGSize contentLabelSize = [self.contentLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0f]}];
+    CGFloat contentLabelX = CGRectGetMaxX(self.taskcheckBoxSelected.frame) + 10;
+    CGFloat contentLabelY = self.taskcheckBoxSelected.frame.origin.y;
+    self.contentLabel.frame = CGRectMake(contentLabelX, contentLabelY,contentLabelSize.width,contentLabelSize.height);
+    
+    taskCollectionModel.taskCellRowHeigth = TASKROWHEIGHT;
+    
+    //Calculated the detailInfo label frame
+    if (taskCollectionModel.taskDetailedInfo.length!=0) {
+        self.additionalDetailInfo.text = taskCollectionModel.taskDetailedInfo;
+        CGSize detailTextSize = [self.additionalDetailInfo.text sizeWithAttributes:@{NSFontAttributeName : _additionalDetailInfo.font}];
+        CGFloat additionalDetailInfoX = self.contentLabel.frame.origin.x;
+        CGFloat additionalDetailInfoY = CGRectGetMaxY(self.contentLabel.frame) + 5;
+        self.additionalDetailInfo.frame = CGRectMake(additionalDetailInfoX, additionalDetailInfoY, detailTextSize.width, detailTextSize.height);
+        taskCollectionModel.taskCellRowHeigth = TASKROWHEIGHT + self.additionalDetailInfo.bounds.size.height;
+    }
 }
 
 - (void)awakeFromNib {

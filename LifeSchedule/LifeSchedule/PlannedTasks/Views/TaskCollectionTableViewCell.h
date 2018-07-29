@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class TaskCollectionModel;
 @interface TaskCollectionTableViewCell : UITableViewCell
+
+@property(nonatomic,strong) TaskCollectionModel *taskCollectionModel;
 
 @end

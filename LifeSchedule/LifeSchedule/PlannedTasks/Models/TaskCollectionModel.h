@@ -16,7 +16,7 @@
 +(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskDetailInfo:(NSString *)detailInfo;
 
 /*RowHeight*/
-@property(nonatomic,assign) float taskCellRowHeigth;
+@property(nonatomic,assign)float  taskCellRowHeigth;
 
 
 @end

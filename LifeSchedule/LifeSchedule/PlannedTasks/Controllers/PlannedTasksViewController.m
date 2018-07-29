@@ -19,6 +19,9 @@
 
 - (NSMutableArray *)totalList{
     if (_totalList == NULL) {
+        
+        _totalList = [NSMutableArray array];
+        
         //Group 0 - Planned tasks
         TaskCollectionGroupModel *plannedTasksGroup = [[TaskCollectionGroupModel alloc]init];
         TaskCollectionModel *plannedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"准备去做收集箱主界面" taskDetailInfo:@"7月29号，下午3:00"];
@@ -50,13 +53,12 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return self.totalList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0)
-        return 3;
-    return 2;
+    TaskCollectionGroupModel *group = self.totalList[section];
+    return group.TaskCollectionItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -65,11 +67,18 @@
     if (cell==NULL) {
         cell = [[TaskCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     }
+    
+    TaskCollectionGroupModel *group = self.totalList[indexPath.section];
+    TaskCollectionModel *itemModel = group.TaskCollectionItems[indexPath.row];
+    cell.taskCollectionModel = itemModel;
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60.0f;
+    TaskCollectionGroupModel *group = self.totalList[indexPath.section];
+    TaskCollectionModel *itemModel = group.TaskCollectionItems[indexPath.row];
+    return itemModel.taskCellRowHeigth;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
