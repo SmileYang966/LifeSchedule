@@ -7,6 +7,7 @@
 //
 
 #import "PlannedTasksViewController.h"
+#import "TaskCollectionTableViewCell.h"
 
 @interface PlannedTasksViewController ()
 
@@ -36,12 +37,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"CELLID";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    TaskCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell==NULL) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+        cell = [[TaskCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     }
-    cell.textLabel.text = @"1234";
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60.0f;
+}
+
 
 @end

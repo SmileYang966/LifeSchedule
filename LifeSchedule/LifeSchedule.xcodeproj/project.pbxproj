@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */; };
 		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
 		7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2523001D210D53EF00BBF862 /* TaskCollectionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionTableViewCell.h; sourceTree = "<group>"; };
+		2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionTableViewCell.m; sourceTree = "<group>"; };
 		25DE0780210C2817002D944E /* LSAudioPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAudioPlayTool.h; sourceTree = "<group>"; };
 		25DE0781210C2817002D944E /* LSAudioPlayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAudioPlayTool.m; sourceTree = "<group>"; };
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +146,22 @@
 				2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2523001C210D538400BBF862 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2523001D210D53EF00BBF862 /* TaskCollectionTableViewCell.h */,
+				2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		25230020210D548100BBF862 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		25DE077E210C2817002D944E /* Tools */ = {
@@ -385,18 +404,11 @@
 		7CAC2D9520C9F1D600D648E3 /* PlannedTasks */ = {
 			isa = PBXGroup;
 			children = (
-				7CAC2D9620C9F1D600D648E3 /* Models */,
+				25230020210D548100BBF862 /* Models */,
+				2523001C210D538400BBF862 /* Views */,
 				7CAC2D9720C9F1D600D648E3 /* Controllers */,
-				7CAC2D9820C9F1D600D648E3 /* Views */,
 			);
 			path = PlannedTasks;
-			sourceTree = "<group>";
-		};
-		7CAC2D9620C9F1D600D648E3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		7CAC2D9720C9F1D600D648E3 /* Controllers */ = {
@@ -406,13 +418,6 @@
 				7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		7CAC2D9820C9F1D600D648E3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		7CAC2D9920C9F1D600D648E3 /* Setting */ = {
@@ -681,6 +686,7 @@
 			files = (
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
 				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
+				2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */,
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
