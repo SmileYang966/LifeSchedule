@@ -12,6 +12,7 @@
 
 @property(nonatomic,copy) NSString *taskTitle;
 @property(nonatomic,copy) NSString *taskDetailedInfo;
+@property(nonatomic,assign) BOOL isCompleted;
 
 +(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskDetailInfo:(NSString *)detailInfo;
 

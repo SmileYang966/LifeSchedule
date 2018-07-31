@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */; };
 		25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25230022210DACA200BBF862 /* TaskCollectionModel.m */; };
-		25230026210DB26700BBF862 /* TaskCollectionGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25230025210DB26700BBF862 /* TaskCollectionGroupModel.m */; };
+		2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2562CD03210FD98000419B79 /* TaskCollectionFrame.m */; };
+		2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2562CD05210FDC6B00419B79 /* UIKit.framework */; };
+		25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */; };
 		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
 		7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */; };
@@ -61,8 +63,11 @@
 		2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionTableViewCell.m; sourceTree = "<group>"; };
 		25230021210DACA200BBF862 /* TaskCollectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionModel.h; sourceTree = "<group>"; };
 		25230022210DACA200BBF862 /* TaskCollectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionModel.m; sourceTree = "<group>"; };
-		25230024210DB26600BBF862 /* TaskCollectionGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionGroupModel.h; sourceTree = "<group>"; };
-		25230025210DB26700BBF862 /* TaskCollectionGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionGroupModel.m; sourceTree = "<group>"; };
+		2562CD02210FD98000419B79 /* TaskCollectionFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionFrame.h; sourceTree = "<group>"; };
+		2562CD03210FD98000419B79 /* TaskCollectionFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionFrame.m; sourceTree = "<group>"; };
+		2562CD05210FDC6B00419B79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionGroupModel.m; sourceTree = "<group>"; };
+		25B80B15211091560039F4AB /* TaskCollectionGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCollectionGroupModel.h; sourceTree = "<group>"; };
 		25DE0780210C2817002D944E /* LSAudioPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAudioPlayTool.h; sourceTree = "<group>"; };
 		25DE0781210C2817002D944E /* LSAudioPlayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAudioPlayTool.m; sourceTree = "<group>"; };
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */,
 				E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +155,7 @@
 		09AF0C4C60F1BB814E5A6C35 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2562CD05210FDC6B00419B79 /* UIKit.framework */,
 				2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */,
 			);
 			name = Frameworks;
@@ -166,10 +173,12 @@
 		25230020210D548100BBF862 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				25B80B15211091560039F4AB /* TaskCollectionGroupModel.h */,
+				25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */,
 				25230021210DACA200BBF862 /* TaskCollectionModel.h */,
 				25230022210DACA200BBF862 /* TaskCollectionModel.m */,
-				25230024210DB26600BBF862 /* TaskCollectionGroupModel.h */,
-				25230025210DB26700BBF862 /* TaskCollectionGroupModel.m */,
+				2562CD02210FD98000419B79 /* TaskCollectionFrame.h */,
+				2562CD03210FD98000419B79 /* TaskCollectionFrame.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -696,6 +705,7 @@
 			files = (
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
 				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
+				2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */,
 				2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */,
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
@@ -703,7 +713,6 @@
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
-				25230026210DB26700BBF862 /* TaskCollectionGroupModel.m in Sources */,
 				7CF0B6BC20F9825800705C44 /* SCCircleView.m in Sources */,
 				7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */,
 				7C16952920D7917F004ED9D9 /* LSSwitcherSettingCellModel.m in Sources */,
@@ -712,6 +721,7 @@
 				7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */,
 				7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */,
 				7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */,
+				25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */,
 				7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */,
 				25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */,
 				7CAC2DA620C9F22C00D648E3 /* LSBaseTableViewController.m in Sources */,
