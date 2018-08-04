@@ -100,11 +100,15 @@
     if (section == 1) {
         return @"已完成";
     }
-    return @"";
+    return @"进行中";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20.0f;
+    return 30.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01f;
 }
 
 @end

@@ -10,8 +10,6 @@
 #import "TaskCollectionModel.h"
 #import "TaskCollectionFrame.h"
 
-#define TASKROWHEIGHT 60
-
 @interface TaskCollectionTableViewCell()
 
 @property(nonatomic,strong) UIButton *taskcheckBoxSelected;
@@ -39,7 +37,7 @@
 - (UILabel *)contentLabel{
     if (_contentLabel == NULL) {
         _contentLabel = [[UILabel alloc]init];
-        _contentLabel.font = [UIFont systemFontOfSize:13.0f];
+        _contentLabel.font = [UIFont systemFontOfSize:COLLECTIONCELLTITLELABELFONTOFSIZE];
         _contentLabel.textColor = [UIColor blackColor];
         [self addSubview:_contentLabel];
     }
@@ -49,7 +47,7 @@
 - (UILabel *)additionalDetailInfo{
     if (_additionalDetailInfo == NULL) {
         _additionalDetailInfo = [[UILabel alloc]init];
-        _additionalDetailInfo.font = [UIFont systemFontOfSize:10.0f];
+        _additionalDetailInfo.font = [UIFont systemFontOfSize:COLLECTIONCELLDETAILINFOLABELOFSIZE];
         _additionalDetailInfo.textColor = [UIColor redColor];
         [self addSubview:_additionalDetailInfo];
     }

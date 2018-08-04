@@ -27,12 +27,18 @@ typedef enum{
     WaitToStartBreakTomatoesStatus
 }TomatoesStatus;
 
+
+#define COLLECTIONCELLMARGINX 15
+#define COLLECTIONCELLMARGINY 18
+#define COLLECTIONCELLMINORMARGINY 6
+#define COLLECTIONCELLTITLELABELFONTOFSIZE 16.0f
+#define COLLECTIONCELLDETAILINFOLABELOFSIZE 12.0f
+
+
 #ifdef DEBUG
 #define SCLog(...) NSLog(__VA_ARGS__)
 #else
 #define SCLog(...)
 #endif
-
-
 
 #endif /* LifeSchedulePrefixHeader_pch */

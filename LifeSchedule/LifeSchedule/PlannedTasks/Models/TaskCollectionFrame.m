@@ -9,9 +9,6 @@
 #import "TaskCollectionFrame.h"
 #import "TaskCollectionModel.h"
 
-#define collectionMarginX 10
-#define collectionMarginY 12
-#define collectionMinorMarginY 6
 
 @implementation TaskCollectionFrame
 
@@ -19,31 +16,31 @@
     _taskCollectionModel = taskCollectionModel;
     
     //CheckBox
-    CGFloat checkBoxX = 10;
-    CGFloat checkBoxY = collectionMarginY;
-    CGFloat checkBoxWidth = 12;
-    CGFloat checkBoxHeight = 12;
+    CGFloat checkBoxX = COLLECTIONCELLMARGINX;
+    CGFloat checkBoxY = COLLECTIONCELLMARGINY;
+    CGFloat checkBoxWidth = 20;
+    CGFloat checkBoxHeight = 20;
     self.checkBoxF = CGRectMake(checkBoxX, checkBoxY, checkBoxWidth, checkBoxHeight);
     
     //Title
-    CGFloat collectionTitleX = CGRectGetMaxX(self.checkBoxF) + collectionMarginX;
+    CGFloat collectionTitleX = CGRectGetMaxX(self.checkBoxF) + COLLECTIONCELLMARGINX;
     CGFloat collectionTitleY = self.checkBoxF.origin.y;
-    CGSize titleLabelSize = [taskCollectionModel.taskTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13.0f]}];
+    CGSize titleLabelSize = [taskCollectionModel.taskTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:COLLECTIONCELLTITLELABELFONTOFSIZE]}];
     self.collectionTitleF = CGRectMake(collectionTitleX, collectionTitleY, titleLabelSize.width, titleLabelSize.height);
     
     //Detail info
     if (taskCollectionModel.taskDetailedInfo.length != 0) {
         CGFloat collectionDetailInfoX = self.collectionTitleF.origin.x;
-        CGFloat collectionDetailInfoY = CGRectGetMaxY(self.collectionTitleF) + collectionMinorMarginY;
-        CGSize detailInfoLabelSize = [taskCollectionModel.taskDetailedInfo sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10.0f]}];
+        CGFloat collectionDetailInfoY = CGRectGetMaxY(self.collectionTitleF) + COLLECTIONCELLMINORMARGINY;
+        CGSize detailInfoLabelSize = [taskCollectionModel.taskDetailedInfo sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:COLLECTIONCELLDETAILINFOLABELOFSIZE]}];
         self.collectionDetailedInfoF = CGRectMake(collectionDetailInfoX, collectionDetailInfoY, detailInfoLabelSize.width, detailInfoLabelSize.height);
     }
     
     //Row Height
     if (taskCollectionModel.taskDetailedInfo.length != 0) {
-        self.collectionRowHegiht = CGRectGetMaxY(self.collectionDetailedInfoF) + collectionMarginY;
+        self.collectionRowHegiht = CGRectGetMaxY(self.collectionDetailedInfoF) + COLLECTIONCELLMARGINY;
     }else{
-        self.collectionRowHegiht = CGRectGetMaxY(self.collectionTitleF) + collectionMarginY;
+        self.collectionRowHegiht = CGRectGetMaxY(self.collectionTitleF) + COLLECTIONCELLMARGINY;
     }
 }
 
