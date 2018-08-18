@@ -249,15 +249,14 @@
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
-        [self playContinueWorkingAudio];
+        [self playRestAudio];
     }
     
     if (finishedStatus == WorkingTomatoesStatus) {//2.工作时间结束后，进入到休息时间
         self.currentTomatoesStatus = WaitToStartBreakTomatoesStatus;
         [self.circleView setCircleTitleWithStr:@"02 : 00" textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始休息" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
-        [self playRestAudio];
-        
+        [self playContinueWorkingAudio];
     }
 }
 
