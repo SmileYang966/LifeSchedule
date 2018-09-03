@@ -13,7 +13,10 @@
 #import "TaskCollectionFrame.h"
 
 @interface PlannedTasksViewController ()
+
 @property(nonatomic,strong) NSMutableArray *totalList;
+@property(nonatomic,strong) UIButton *addNewActivityButton;
+
 @end
 
 @implementation PlannedTasksViewController
@@ -62,9 +65,37 @@
     return self;
 }
 
+- (UIButton *)addNewActivityButton{
+    if (_addNewActivityButton == NULL) {
+        _addNewActivityButton = [[UIButton alloc]init];
+        CGFloat addNewActivityButtonWidth = 48.0f;
+        CGFloat addNewActivityButtonHeight = 48.0f;
+        CGFloat addNewActivityButtonX = UIScreen.mainScreen.bounds.size.width - addNewActivityButtonWidth-20;
+        CGFloat addNewActivityButtonY = UIScreen.mainScreen.bounds.size.height - addNewActivityButtonHeight - self.tabBarController.tabBar.frame.size.height-20;
+        _addNewActivityButton.frame = CGRectMake(addNewActivityButtonX, addNewActivityButtonY, addNewActivityButtonWidth, addNewActivityButtonHeight);
+        [_addNewActivityButton setBackgroundImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
+        _addNewActivityButton.layer.masksToBounds = YES;
+    }
+    return _addNewActivityButton;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    [keyWindow addSubview:self.addNewActivityButton];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.addNewActivityButton removeFromSuperview];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [self addNewActivityButton];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -109,6 +140,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIViewController *vc1 = [[UIViewController alloc]init];
+    vc1.view.backgroundColor = UIColor.whiteColor;
+    [self.navigationController pushViewController:vc1 animated:true];
 }
 
 @end
