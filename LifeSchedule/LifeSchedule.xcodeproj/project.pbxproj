@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */; };
 		25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25230022210DACA200BBF862 /* TaskCollectionModel.m */; };
+		254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */; };
+		254DCEAF21B5784F008990D9 /* AboutUsScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */; };
 		2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2562CD03210FD98000419B79 /* TaskCollectionFrame.m */; };
 		2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2562CD05210FDC6B00419B79 /* UIKit.framework */; };
 		25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */; };
@@ -63,6 +65,9 @@
 		2523001E210D53EF00BBF862 /* TaskCollectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionTableViewCell.m; sourceTree = "<group>"; };
 		25230021210DACA200BBF862 /* TaskCollectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionModel.h; sourceTree = "<group>"; };
 		25230022210DACA200BBF862 /* TaskCollectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionModel.m; sourceTree = "<group>"; };
+		254DCEAB21B5784F008990D9 /* AboutUsScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsScreenViewController.h; sourceTree = "<group>"; };
+		254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsScreenViewController.m; sourceTree = "<group>"; };
+		254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsScreenViewController.xib; sourceTree = "<group>"; };
 		2562CD02210FD98000419B79 /* TaskCollectionFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionFrame.h; sourceTree = "<group>"; };
 		2562CD03210FD98000419B79 /* TaskCollectionFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionFrame.m; sourceTree = "<group>"; };
 		2562CD05210FDC6B00419B79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -181,6 +186,16 @@
 				2562CD03210FD98000419B79 /* TaskCollectionFrame.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		254DCEAA21B5771C008990D9 /* AboutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				254DCEAB21B5784F008990D9 /* AboutUsScreenViewController.h */,
+				254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */,
+				254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */,
+			);
+			path = AboutScreen;
 			sourceTree = "<group>";
 		};
 		25DE077E210C2817002D944E /* Tools */ = {
@@ -442,6 +457,7 @@
 		7CAC2D9920C9F1D600D648E3 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				254DCEAA21B5771C008990D9 /* AboutScreen */,
 				7C16952B20D799B7004ED9D9 /* Setting-Main */,
 				7C16953020D79A11004ED9D9 /* TomatoTimer */,
 				7C16952F20D79A00004ED9D9 /* AdvanceOptions */,
@@ -655,6 +671,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */,
+				254DCEAF21B5784F008990D9 /* AboutUsScreenViewController.xib in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
 				7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */,
@@ -710,6 +727,7 @@
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
+				254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */,
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
 				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
