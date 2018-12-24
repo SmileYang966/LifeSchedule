@@ -7,21 +7,507 @@
 //
 
 #import "CalendarViewController.h"
+#import "CalendarCollectionViewCell.h"
+#import "CalendarHeaderView.h"
+#import "PublicHolidayDay.h"
 
-@interface CalendarViewController ()
+#define CURRENTMONTH    @"currentMonth"
+#define NEXTMONTH       @"nextMonth"
+#define LASTMONTH       @"lastMonth"
+
+@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
+
+/*1.Defined a scrollView on the top half*/
+@property(nonatomic,strong) UIScrollView *calendarScrollView;
+
+/*2.Defined a view on the bottom half*/
+@property(nonatomic,strong) UIView *scheduleView;
+
+/*3.Header View for the calendar*/
+@property(nonatomic,strong)UIView *headerView;
+
+@property(nonatomic,strong)CalendarCollectionViewCell *tempSavedCollectionViewCell;
+
+/*4.Define three collectionviews*/
+@property(nonatomic,strong) UICollectionView *currentCollectionView;
+@property(nonatomic,strong) UICollectionView *previousCollectionView;
+@property(nonatomic,strong) UICollectionView *nextCollectionView;
+
+
+/*Data part*/
+@property(nonatomic,strong) NSMutableDictionary *totalDict;
+@property(nonatomic,strong) NSMutableArray *publicHolidayList;
+@property(nonatomic,strong) NSMutableDictionary *publicHolidayDictM;
+
+@property(nonatomic,strong) NSDate *currentCalendarDate;
+@property(nonatomic,assign) NSInteger currentDayIndex;
 
 @end
 
 @implementation CalendarViewController
 
+- (NSMutableDictionary *)totalDict{
+    if (_totalDict == NULL) {
+        _totalDict = [NSMutableDictionary dictionary];
+        
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate date]];
+        NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+        
+        NSArray *currentDataArrayM = [self getMonthDaysByDate:firstDateOfMonthDate];
+        [_totalDict setObject:currentDataArrayM forKey:CURRENTMONTH];
+        
+        NSDate *previousMonthDate = [self getPreviousOrNextDateFromDate:firstDateOfMonthDate WithMonth:-1];
+        NSArray *previousDataArrayM = [self getMonthDaysByDate:previousMonthDate];
+        [_totalDict setObject:previousDataArrayM forKey:LASTMONTH];
+        
+        NSDate *nextMonthDate = [self getPreviousOrNextDateFromDate:firstDateOfMonthDate WithMonth:1];
+        NSArray *nextDataArrayM = [self getMonthDaysByDate:nextMonthDate];
+        [_totalDict setObject:nextDataArrayM forKey:NEXTMONTH];
+        
+        self.currentCalendarDate = firstDateOfMonthDate;
+        
+        //Send the request to get the json data and filled the holiday info to the holidayDict;
+        [self getTheHolidayInfoWithYear:components.year];
+        /*若切换后发现当前的月份是12月份或者是1月份，那就得准备请求下一年或者上一年的节日信息*/
+        [self requestHolidaysInTheNextOrPreviousYear:components];
+    }
+    return _totalDict;
+}
+
+- (NSMutableArray *)publicHolidayList{
+    if (_publicHolidayList == NULL) {
+        _publicHolidayList = [NSMutableArray array];
+    }
+    return _publicHolidayList;
+}
+
+- (NSMutableDictionary *)publicHolidayDictM{
+    if (_publicHolidayDictM == NULL) {
+        _publicHolidayDictM = [NSMutableDictionary dictionary];
+    }
+    return _publicHolidayDictM;
+}
+
+- (UIView *)headerView{
+    if (_headerView == NULL) {
+        _headerView = [[CalendarHeaderView alloc]initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 30.0f)];
+        [self.view addSubview:_headerView];
+    }
+    return _headerView;
+}
+
+- (UIScrollView *)calendarScrollView{
+    if (_calendarScrollView == NULL) {
+        _calendarScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headerView.frame), self.view.bounds.size.width, self.currentCollectionView.bounds.size.height)];
+        _calendarScrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 3, 0);
+        _calendarScrollView.pagingEnabled = true;
+        _calendarScrollView.bounces = false;
+        _calendarScrollView.delegate = self;
+        _calendarScrollView.showsHorizontalScrollIndicator = false;
+        [self.view addSubview:_calendarScrollView];
+    }
+    return _calendarScrollView;
+}
+
+- (UIView *)scheduleView{
+    if (_scheduleView == NULL) {
+        _scheduleView = [[UIView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.calendarScrollView.frame),self.view.bounds.size.width,self.view.bounds.size.height-CGRectGetMaxY(self.calendarScrollView.frame))];
+        _scheduleView.backgroundColor = UIColor.redColor;
+        [self.view addSubview:_scheduleView];
+    }
+    return _scheduleView;
+}
+
+/*Three collection views to save the data*/
+- (UICollectionView *)currentCollectionView{
+    if (_currentCollectionView == NULL) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.minimumLineSpacing = 5;
+        layout.minimumInteritemSpacing = 0;
+        layout.sectionHeadersPinToVisibleBounds = true;
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*1, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        collectionView.backgroundColor = UIColor.whiteColor;
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        [collectionView registerClass:[CalendarCollectionViewCell class] forCellWithReuseIdentifier:CURRENTMONTH];
+        collectionView.tag = 1;
+        _currentCollectionView = collectionView;
+    }
+    return _currentCollectionView;
+}
+
+- (UICollectionView *)previousCollectionView{
+    if (_previousCollectionView == NULL) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.minimumLineSpacing = 5;
+        layout.minimumInteritemSpacing = 0;
+        layout.sectionHeadersPinToVisibleBounds = true;
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        collectionView.backgroundColor = UIColor.whiteColor;
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        [collectionView registerClass:[CalendarCollectionViewCell class] forCellWithReuseIdentifier:LASTMONTH];
+        collectionView.tag = 0;
+        _previousCollectionView = collectionView;
+    }
+    return _previousCollectionView;
+}
+
+- (UICollectionView *)nextCollectionView{
+    if (_nextCollectionView == NULL) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.minimumLineSpacing = 5;
+        layout.minimumInteritemSpacing = 0;
+        layout.sectionHeadersPinToVisibleBounds = true;
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*2, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        collectionView.backgroundColor = UIColor.whiteColor;
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        [collectionView registerClass:[CalendarCollectionViewCell class] forCellWithReuseIdentifier:NEXTMONTH];
+        collectionView.tag = 2;
+        _nextCollectionView = collectionView;
+    }
+    return _nextCollectionView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = UIColor.whiteColor;
     
-    self.view.backgroundColor = [UIColor redColor];
+    [self scheduleView];
     
+    /*将三个UICollectionView加入到scrollView当中*/
+    [self.calendarScrollView addSubview:self.previousCollectionView];
+    [self.calendarScrollView addSubview:self.nextCollectionView];
+    [self.calendarScrollView addSubview:self.currentCollectionView];
+    
+    //Set the initalized contentOffset
+    [self.calendarScrollView setContentOffset:CGPointMake(self.view.bounds.size.width, 0) animated:false];
+    
+    //Get the currentDayIndex in a calendar month(42 Items in a calendar)
+    NSDate *dt = [NSDate date];
+    NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
+    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
+    self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+}
 
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+#warning Incomplete implementation, return the number of sections
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+#warning Incomplete implementation, return the number of items
+    return 42;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *keyArray = @[LASTMONTH,CURRENTMONTH,NEXTMONTH];
+    NSString *KeyStr = keyArray[collectionView.tag];
     
+    CalendarCollectionViewCell *cell  = [collectionView dequeueReusableCellWithReuseIdentifier:KeyStr forIndexPath:indexPath];
+    [cell clearTextsOncell];
+    
+    NSArray *daysArray = [self.totalDict objectForKey:KeyStr];
+    NSNumber *dayNumber = (NSNumber *)daysArray[indexPath.row];
+    cell.dayNo  = [dayNumber integerValue];
+    cell.hiddenSelectedView = true;
+    
+    //To do : 需要得到有效dayNo的具体日期，当它满足holiday day的条件时，需要去对这个cell做一些额外的处理
+    //可以得到当前日历的日期,只有大约0才是有效的
+    if ([dayNumber integerValue]>0) {
+        //获取当前的日期
+        NSDate *currentDate;
+        if ([KeyStr isEqualToString:CURRENTMONTH]) {
+            currentDate = self.currentCalendarDate;
+        }
+        
+        if ([KeyStr isEqualToString:NEXTMONTH]) {
+            currentDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:1];
+        }
+        
+        if ([KeyStr isEqualToString:LASTMONTH]) {
+            currentDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:-1];
+        }
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
+        NSInteger year = [components year];
+        NSInteger month = [components month];
+        NSLog(@" %ld-%ld-%ld ",year,month,[dayNumber integerValue]);
+        NSString *dayKey = [NSString stringWithFormat:@"%ld-%ld-%ld",year,month,[dayNumber integerValue]];
+        NSString *holidayDesc = [self.publicHolidayDictM objectForKey:dayKey];
+        if (holidayDesc != NULL) {
+            cell.holidayDesc = holidayDesc;
+        }
+    }
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate date]];
+    NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    NSTimeInterval interval = [firstDateOfMonthDate timeIntervalSinceDate:self.currentCalendarDate];
+    
+    //Current day will set the black circle background
+    //必须满足以下3个条件
+    /*
+     * 1. 当前的cell必须是当天的
+     * 2. 确保当前日历是显示的当月
+     * 3. 确保当前是CurrentMonth标记范围内的
+     */
+    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
+        cell.hiddenSelectedView = false;
+        /*确保当前保存的cell是默认当天选中的cell*/
+        self.tempSavedCollectionViewCell = cell;
+    }
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger myTag = collectionView.tag;
+    
+    // Clear the background color
+    if (self.tempSavedCollectionViewCell != NULL) {
+        self.tempSavedCollectionViewCell.backgroundColor = UIColor.clearColor;
+        self.tempSavedCollectionViewCell.hiddenSelectedView = true;
+    }
+    
+    CalendarCollectionViewCell *cell =(CalendarCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.hiddenSelectedView = false;
+    
+    switch (collectionView.tag) {
+        case 0:
+            NSLog(@"indexPath=%@",indexPath);
+            break;
+            
+        case 1:
+            NSLog(@"indexPath=%@",indexPath);
+            break;
+            
+        default:
+            NSLog(@"default-indexPath=%@",indexPath);
+            break;
+    }
+    
+    self.tempSavedCollectionViewCell = cell;
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSLog(@"scrollViewDidScroll---%f",scrollView.contentOffset.x);
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSLog(@"----CGPoint=%@----frame111=%f",NSStringFromCGPoint(scrollView.contentOffset),CGRectGetWidth(scrollView.frame));
+    if (scrollView.contentOffset.x > self.calendarScrollView.bounds.size.width) {
+        NSLog(@"向左滑动");
+        [self scrollTheCalendarToLeft:true];
+    }else if(scrollView.contentOffset.x < self.calendarScrollView.bounds.size.width) {
+        NSLog(@"向右滑动");
+        [self scrollTheCalendarToLeft:false];
+    }
+    
+    self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
+}
+
+
+-(NSDateComponents *)getNSDateComponentsByDate:(NSDate *)date{
+    NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    return [gregorian components:unitFlags fromDate:date];
+}
+
+-(NSInteger)getCurrentDayIndexInMonth:(NSDateComponents *)comp{
+    NSArray *currentDays = [self getMonthDaysByDate:[NSDate date]];
+    for (int i=0; i<42; i++) {
+        if ([currentDays[i] integerValue] == comp.day) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+-(NSArray *)getMonthDaysByDate:(NSDate *)date{
+    //得到当月一共有多少天
+    NSInteger daysOfCurrentMonth1 = [self getDaysByCurrentMonth:date];
+    //得到当月第一天
+    NSInteger indexDay1 =  [self getFirstDayOfMonth:date];
+    NSArray *dateArrayM1 = [self GetCalendarForCurrentMonth:daysOfCurrentMonth1 FirstDayOfMonth:indexDay1];
+    
+    return dateArrayM1;
+}
+
+/*根据日期得到日期当月一共有多少天*/
+-(NSUInteger)getDaysByCurrentMonth:(NSDate *)date{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *currentCalendarDate = date;
+    NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:currentCalendarDate];
+    NSUInteger dayOfMonth = range.length;
+    return dayOfMonth;
+}
+
+/*得到给定日期的第一天*/
+-(NSInteger)getFirstDayOfMonth:(NSDate *)date{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:date];
+    components.day = 1;
+    NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    NSInteger dayOfWeek = [self getWeekdayByDate:firstDateOfMonthDate];
+    return dayOfWeek;
+}
+
+/*输入当月一共多少天，并且当月的第一天是星期几，之后可以得到日历所需要的当月的所有数据*/
+-(NSArray *)GetCalendarForCurrentMonth:(NSInteger)monthDays FirstDayOfMonth:(NSInteger)firstDayOfMonth{
+    NSMutableArray *dateArrayM = [NSMutableArray array];
+    NSNumber *iNumber;
+    int jjj=0;
+    for (int i=0; i<=41; i++) {
+        if (i>=firstDayOfMonth-1 && i<(firstDayOfMonth-1+monthDays)) {
+            iNumber = [NSNumber numberWithInt:jjj+1];
+            jjj++;
+        }else{
+            iNumber = [NSNumber numberWithInt:0];
+        }
+        [dateArrayM addObject:iNumber];
+    }
+    return dateArrayM;
+}
+
+-(void)scrollTheCalendarToLeft:(BOOL)IsScrollToLeft{
+    //Current date
+    NSArray *previousCurrentMonth = [self.totalDict objectForKey:CURRENTMONTH];
+    NSArray *previousLastMonth = [self.totalDict objectForKey:LASTMONTH];
+    NSArray *previousnextMonth = [self.totalDict objectForKey:NEXTMONTH];
+    
+    NSArray *currentMonth;
+    NSArray *lastMonth;
+    NSArray *nextMonth;
+    
+    if (IsScrollToLeft){
+        //左边滑动
+        currentMonth = previousnextMonth;
+        lastMonth = previousCurrentMonth;
+        
+        NSDate *nextDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:2];
+        nextMonth = [self getMonthDaysByDate:nextDate];
+        
+        //重新设置current date
+        self.currentCalendarDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:1];
+    }else{
+        //右边滑动
+        currentMonth = previousLastMonth;
+        nextMonth = previousCurrentMonth;
+        
+        NSDate *lastDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:-2];
+        lastMonth = [self getMonthDaysByDate:lastDate];
+        
+        //重新设置current date
+        self.currentCalendarDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:-1];
+    }
+    
+    NSDateComponents *comp = [self getNSDateComponentsByDate:self.currentCalendarDate];
+    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
+    self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+    
+    [self.totalDict setObject:currentMonth forKey:CURRENTMONTH];
+    [self.totalDict setObject:lastMonth forKey:LASTMONTH];
+    [self.totalDict setObject:nextMonth forKey:NEXTMONTH];
+    
+    [self.currentCollectionView reloadData];
+    [self.nextCollectionView reloadData];
+    [self.previousCollectionView reloadData];
+    
+    [self requestHolidaysInTheNextOrPreviousYear:comp];
+}
+
+/* 若切换后发现当前的月份是12月份或者是1月份，那就得准备请求下一年或者上一年的节日信息
+ * 不过在这之前，需要先对
+ */
+-(void)requestHolidaysInTheNextOrPreviousYear:(NSDateComponents *)comp
+{
+    if (comp.month==12) {
+        [self getTheHolidayInfoWithYear:comp.year+1.0f];
+    }
+    
+    if (comp.month == 1) {
+        [self getTheHolidayInfoWithYear:comp.year-1.0f];
+    }
+}
+
+-(void)getTheHolidayInfoWithYear:(NSInteger)year{
+    //1.创建NSURLSession对象
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSString *urlStr = @"https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php";
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
+    requestM.HTTPMethod = @"POST";
+    
+    NSString *bodyStr = [NSString stringWithFormat:@"query=%ld&resource_id=%d",year,6018];
+    requestM.HTTPBody = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:requestM completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *resp = (NSHTTPURLResponse *)response;
+        if (resp.statusCode == 200) {
+            if (data != NULL) {
+                /*服务器的通常是支持中文的，一般都是GBK的code，但是ios中通常使用的UTF-8编码，可以试一下下面的转化方式*/
+                NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                NSString *dataStr = [[NSString alloc]initWithData:data encoding:encoding];
+                
+                NSData *data1 = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingMutableLeaves error:&error];
+                
+                NSArray *allData = dict[@"data"];
+                NSDictionary *firstData = allData.firstObject;
+                NSArray *holidayData = [firstData objectForKey:@"holidaylist"];
+                
+                //得到holiday的数据后，开始字典转模型数据
+                for (NSDictionary *holidayDict in holidayData) {
+                    PublicHolidayDay *publicHoliday = [PublicHolidayDay initWithDict:holidayDict];
+                    [self.publicHolidayList addObject:publicHoliday];
+                }
+                
+                //Fill the holiday records to the current directory
+                for (NSDictionary *holidayDict in holidayData) {
+                    [self.publicHolidayDictM setObject:holidayDict[@"name"] forKey:holidayDict[@"startday"]];
+                }
+                
+                NSLog(@"holidayList=%@",self.publicHolidayList);
+            }
+        }
+    }];
+    
+    //开始执行
+    [task resume];
+}
+
+/*根据当前日期，得到下个月或上个月的日期*/
+-(NSDate *)getPreviousOrNextDateFromDate:(NSDate *)date WithMonth:(NSInteger)month{
+    NSDateComponents *comps = [[NSDateComponents alloc]init];
+    [comps setMonth:month];
+    NSCalendar *calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *mDate  = [calendar dateByAddingComponents:comps toDate:date options:0];
+    return mDate;
+}
+
+/*1-7表示
+ Sunday、1
+ Monday、2
+ Tuesday、3
+ Wednesday、4
+ Thursday、5
+ Friday 6
+ Saturday 7
+ */
+-(NSInteger)getWeekdayByDate:(NSDate *)date{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond|NSCalendarUnitWeekday fromDate:date];
+    return [components weekday];
 }
 
 @end
