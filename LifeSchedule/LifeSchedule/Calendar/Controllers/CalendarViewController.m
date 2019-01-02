@@ -10,12 +10,13 @@
 #import "CalendarCollectionViewCell.h"
 #import "CalendarHeaderView.h"
 #import "PublicHolidayDay.h"
+#import "CalendarTableViewCell.h"
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
 #define LASTMONTH       @"lastMonth"
 
-@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
+@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 /*1.Defined a scrollView on the top half*/
 @property(nonatomic,strong) UIScrollView *calendarScrollView;
@@ -26,9 +27,12 @@
 /*3.Header View for the calendar*/
 @property(nonatomic,strong)UIView *headerView;
 
+/*4.Defined a tableView to save the schedule for the current day*/
+@property(nonatomic,strong)UITableView *dailyScheduledTableView;
+
 @property(nonatomic,strong)CalendarCollectionViewCell *tempSavedCollectionViewCell;
 
-/*4.Define three collectionviews*/
+/*4.Define three UICollectionviews*/
 @property(nonatomic,strong) UICollectionView *currentCollectionView;
 @property(nonatomic,strong) UICollectionView *previousCollectionView;
 @property(nonatomic,strong) UICollectionView *nextCollectionView;
@@ -118,6 +122,16 @@
     return _scheduleView;
 }
 
+- (UITableView *)dailyScheduledTableView{
+    if (_dailyScheduledTableView == NULL) {
+        _dailyScheduledTableView = [[UITableView alloc]initWithFrame:self.scheduleView.bounds];
+        _dailyScheduledTableView.dataSource = self;
+        _dailyScheduledTableView.delegate = self;
+        [self.scheduleView addSubview:_dailyScheduledTableView];
+    }
+    return _dailyScheduledTableView;
+}
+
 /*Three collection views to save the data*/
 - (UICollectionView *)currentCollectionView{
     if (_currentCollectionView == NULL) {
@@ -181,7 +195,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
     
-    [self scheduleView];
+    self.dailyScheduledTableView.rowHeight = 120.0f;
     
     /*将三个UICollectionView加入到scrollView当中*/
     [self.calendarScrollView addSubview:self.previousCollectionView];
@@ -304,6 +318,9 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
+        return;
+    
     NSLog(@"----CGPoint=%@----frame111=%f",NSStringFromCGPoint(scrollView.contentOffset),CGRectGetWidth(scrollView.frame));
     if (scrollView.contentOffset.x > self.calendarScrollView.bounds.size.width) {
         NSLog(@"向左滑动");
@@ -508,6 +525,29 @@
 -(NSInteger)getWeekdayByDate:(NSDate *)date{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond|NSCalendarUnitWeekday fromDate:date];
     return [components weekday];
+}
+
+
+
+
+#pragma mark - UITableView Parts
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellID = @"CELL";
+    CalendarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == NULL) {
+        cell = [[CalendarTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 70.0f;
 }
 
 @end
