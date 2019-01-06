@@ -14,6 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(CoreDataManager *)coreDataSharedManager;
 
+/*Can not build well if they use the below way to create the instance*/
+/*
++ (instancetype) new __attribute__((unavailable("The CoreDataManager could be instantiated only by using the coreDataSharedManager")));
+- (id)copy __attribute__((unavailable("The CoreDataManager could be instantiated only by using the coreDataSharedManager")));
+- (id)mutableCopy __attribute__((unavailable("The CoreDataManager could be instantiated only by using the coreDataSharedManager")));
+*/
+ 
 @end
 
 NS_ASSUME_NONNULL_END
