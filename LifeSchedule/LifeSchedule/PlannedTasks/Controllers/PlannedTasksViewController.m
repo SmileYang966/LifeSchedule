@@ -75,6 +75,8 @@
         _addNewActivityButton.frame = CGRectMake(addNewActivityButtonX, addNewActivityButtonY, addNewActivityButtonWidth, addNewActivityButtonHeight);
         [_addNewActivityButton setBackgroundImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
         _addNewActivityButton.layer.masksToBounds = YES;
+        
+        [_addNewActivityButton addTarget:self action:@selector(addNewActivityButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addNewActivityButton;
 }
@@ -94,8 +96,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-//    [self addNewActivityButton];
+
+}
+
+-(void)addNewActivityButtonClicked:(UIButton *)button{
+    CoreDataManager *mgr1 = [CoreDataManager coreDataSharedManager];
+    CoreDataManager *mgr2 = [[CoreDataManager alloc]init];
+    CoreDataManager *mgr3 = [mgr1 copy];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
