@@ -114,7 +114,7 @@
     self.timeLabel.frame = CGRectMake(timeLabelX, timeLabelY, timeLabelWidth, timeLabelHeight);
     
     /*4. The position of the inbox label */
-    CGFloat inboxLabelWidth = 100.0f;
+    CGFloat inboxLabelWidth = 40.0f;
     CGFloat inboxLabelHeight = 15.0f;
     CGFloat inboxLabelX = self.bounds.size.width - self.marginX - inboxLabelWidth;
     CGFloat inboxLabelY = self.timeLabel.frame.origin.y;
