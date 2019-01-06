@@ -27,6 +27,8 @@ typedef enum{
     WaitToStartBreakTomatoesStatus
 }TomatoesStatus;
 
+#import "CoreDataManager.h"
+
 
 #define COLLECTIONCELLMARGINX 15
 #define COLLECTIONCELLMARGINY 18
