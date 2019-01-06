@@ -36,7 +36,7 @@
     if (_titleDescriptionLabel == NULL) {
         _titleDescriptionLabel = [[UILabel alloc]init];
         _titleDescriptionLabel.text = @"健身1个半小时";
-//        _titleDescriptionLabel.backgroundColor = UIColor.blueColor;
+        _titleDescriptionLabel.font = [UIFont systemFontOfSize:16.0f];
         [self addSubview:_titleDescriptionLabel];
     }
     return _titleDescriptionLabel;
@@ -45,7 +45,6 @@
 - (UILabel *)detailDescriptionLabel{
     if (_detailDescriptionLabel == NULL) {
         _detailDescriptionLabel = [[UILabel alloc]init];
-//        _detailDescriptionLabel.backgroundColor = UIColor.blueColor;
         [self addSubview:_detailDescriptionLabel];
     }
     return _detailDescriptionLabel;
@@ -56,8 +55,7 @@
         _timeLabel = [[UILabel alloc]init];
         _timeLabel.text=@"今天";
         _timeLabel.textColor = UIColor.grayColor;
-        _timeLabel.font = [UIFont systemFontOfSize:13.0f];
-//        _timeLabel.backgroundColor = UIColor.greenColor;
+        _timeLabel.font = [UIFont systemFontOfSize:11.0f];
         [self addSubview:_timeLabel];
     }
     return _timeLabel;
@@ -68,7 +66,7 @@
         _inboxLabel = [[UILabel alloc]init];
         _inboxLabel.text = @"收集箱";
         _inboxLabel.textColor = UIColor.grayColor;
-        _inboxLabel.font = [UIFont systemFontOfSize:13.0f];
+        _inboxLabel.font = [UIFont systemFontOfSize:11.0f];
         [self addSubview:_inboxLabel];
     }
     return _inboxLabel;
