@@ -23,6 +23,14 @@ static CoreDataManager * _sharedManager;
     return [CoreDataManager coreDataSharedManager];
 }
 
++ (instancetype)new{
+    if (_sharedManager == nil) {
+        return  [super new];
+    }
+    return [CoreDataManager coreDataSharedManager];
+}
+
+
 -(id)copyWithZone:(NSZone *)zone{
     return [CoreDataManager coreDataSharedManager];
 }
