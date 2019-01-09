@@ -15,6 +15,9 @@
 		2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2562CD03210FD98000419B79 /* TaskCollectionFrame.m */; };
 		2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2562CD05210FDC6B00419B79 /* UIKit.framework */; };
 		256560DA21CE34B5009988CA /* CalendarCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 256560D921CE34B5009988CA /* CalendarCollectionViewCell.m */; };
+		2576FD1D21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2576FD1B21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld */; };
+		2576FD2D21E39DAA00316F20 /* TimeActivity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2576FD2621E3969100316F20 /* TimeActivity+CoreDataClass.m */; };
+		2576FD2E21E39DAA00316F20 /* TimeActivity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */; };
 		2592821D21E1C17C00DDE639 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2592821C21E1C17C00DDE639 /* CoreDataManager.m */; };
 		25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */; };
 		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
@@ -80,6 +83,11 @@
 		2562CD05210FDC6B00419B79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		256560D821CE34B5009988CA /* CalendarCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarCollectionViewCell.h; sourceTree = "<group>"; };
 		256560D921CE34B5009988CA /* CalendarCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarCollectionViewCell.m; sourceTree = "<group>"; };
+		2576FD1C21E3945A00316F20 /* LifeScheduleDb.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LifeScheduleDb.xcdatamodel; sourceTree = "<group>"; };
+		2576FD2421E3969100316F20 /* TimeActivity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeActivity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		2576FD2521E3969100316F20 /* TimeActivity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeActivity+CoreDataClass.h"; sourceTree = "<group>"; };
+		2576FD2621E3969100316F20 /* TimeActivity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TimeActivity+CoreDataClass.m"; sourceTree = "<group>"; };
+		2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TimeActivity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2592821B21E1C17C00DDE639 /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2592821C21E1C17C00DDE639 /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionGroupModel.m; sourceTree = "<group>"; };
@@ -211,6 +219,18 @@
 				254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */,
 			);
 			path = AboutScreen;
+			sourceTree = "<group>";
+		};
+		2576FD1421E393F900316F20 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				2576FD2421E3969100316F20 /* TimeActivity+CoreDataProperties.h */,
+				2576FD2521E3969100316F20 /* TimeActivity+CoreDataClass.h */,
+				2576FD2621E3969100316F20 /* TimeActivity+CoreDataClass.m */,
+				2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */,
+				2576FD1B21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 		2592821A21E1BF2700DDE639 /* Singleton */ = {
@@ -416,6 +436,7 @@
 		7CAC2D8320C8A70100D648E3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2576FD1421E393F900316F20 /* DB */,
 				2592821A21E1BF2700DDE639 /* Singleton */,
 				25DE077E210C2817002D944E /* Tools */,
 				7C0E2ED620CDECF600EFD1D5 /* Models */,
@@ -753,7 +774,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2576FD2D21E39DAA00316F20 /* TimeActivity+CoreDataClass.m in Sources */,
+				2576FD2E21E39DAA00316F20 /* TimeActivity+CoreDataProperties.m in Sources */,
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
+				2576FD1D21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld in Sources */,
 				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
 				25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */,
 				2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */,
@@ -1097,6 +1121,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2576FD1B21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2576FD1C21E3945A00316F20 /* LifeScheduleDb.xcdatamodel */,
+			);
+			currentVersion = 2576FD1C21E3945A00316F20 /* LifeScheduleDb.xcdatamodel */;
+			path = LifeScheduleDb.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7C69674520C75BFA00EAC951 /* Project object */;
 }
