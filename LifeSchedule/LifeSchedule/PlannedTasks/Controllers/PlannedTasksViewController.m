@@ -11,11 +11,21 @@
 #import "TaskCollectionModel.h"
 #import "TaskCollectionGroupModel.h"
 #import "TaskCollectionFrame.h"
+#import "TimeActivity+CoreDataProperties.h"
 
 @interface PlannedTasksViewController ()
 
 @property(nonatomic,strong) NSMutableArray *totalList;
 @property(nonatomic,strong) UIButton *addNewActivityButton;
+
+@property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
+
+/*A new activity textfield*/
+@property(nonatomic,strong) UITextField *createdNewActTf;
+@property(nonatomic,strong) UIView *coverView;
+
+@property(nonatomic,strong) UIView *inboxInputView;
+@property(nonatomic,strong) UITextField *inboxTf;
 
 @end
 
@@ -81,10 +91,45 @@
     return _addNewActivityButton;
 }
 
+- (NSManagedObjectContext *)managedObjContext{
+    if (_managedObjContext == NULL) {
+        _managedObjContext = [CoreDataManager sharedManager].dBContext;
+    }
+    return _managedObjContext;
+}
+
+- (UITextField *)createdNewActTf{
+    if (_createdNewActTf == NULL) {
+        _createdNewActTf = [[UITextField alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 50)];
+        _createdNewActTf.backgroundColor = UIColor.redColor;
+        _createdNewActTf.borderStyle = UITextBorderStyleRoundedRect;
+        [self.view addSubview:_createdNewActTf];
+    }
+    return _createdNewActTf;
+}
+
+
+- (UIView *)inboxInputView{
+    if (_inboxInputView == NULL) {
+        _inboxInputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44.0f)];
+        _inboxInputView.backgroundColor = UIColor.lightGrayColor;
+        [_inboxInputView addSubview:self.inboxTf];
+    }
+    return _inboxInputView;
+}
+
+- (UITextField *)inboxTf{
+    if (_inboxTf == NULL) {
+        _inboxTf = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30.0f)];
+    }
+    return _inboxTf;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIWindowLevel windowLevel112 = keyWindow.windowLevel;
     [keyWindow addSubview:self.addNewActivityButton];
 }
 
@@ -96,13 +141,72 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
+    [self.view addGestureRecognizer:tapGr];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
 
+/*显示键盘*/
+- (void)keyBoardWillShow:(NSNotification *)notification{
+    //获取用户信息
+    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
+    //获取键盘高度
+    CGRect keyBoardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyBoardHeight = keyBoardBounds.size.height;
+    //获取键盘动画时间
+    CGFloat animationTime = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    
+    /*
+    void (^animation)(void) = ^void(void){
+        self.createdNewActTf.transform = CGAffineTransformMakeTranslation(0, -keyBoardHeight);
+    };
+    
+    if (animationTime > 0) {
+        [UIView animateWithDuration:animationTime animations:animation];
+    }else{
+        animation();
+    }*/
+}
+
+/*隐藏键盘*/
+-(void)keyBoardWillHide:(NSNotification *)notification{
+    
+}
+
+- (void)tapClicked:(UITapGestureRecognizer *)tapGr{
+    [self.view endEditing:YES];
 }
 
 -(void)addNewActivityButtonClicked:(UIButton *)button{
-    CoreDataManager *mgr1 = [CoreDataManager coreDataSharedManager];
-    CoreDataManager *mgr2 = [[CoreDataManager alloc]init];
-    CoreDataManager *mgr3 = [mgr1 copy];
+//  [self.createdNewActTf becomeFirstResponder];
+//  [self.view addSubview:self.coverView];
+    
+    /*
+    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(0, 200, self.view.bounds.size.width, 44.0f)];
+    [self.view addSubview:tf];
+    tf.backgroundColor = UIColor.redColor;
+    tf.inputAccessoryView = self.inboxInputView;
+    [tf becomeFirstResponder];
+     */
+}
+
+-(void)saveActivity{
+    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
+    act.activityDescription = @"明天早上5点半起床自己做面吃";
+    NSTimeInterval day = 24 * 60 * 60;
+    NSDate *tomorrowDate = [[NSDate date] dateByAddingTimeInterval:day];
+    act.plannedBeginDate = tomorrowDate;
+    act.isActivityCompleted = true;
+    
+    NSError *error;
+    if([self.managedObjContext save:&error])
+    {
+        
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -11,6 +11,7 @@
 #import "CalendarHeaderView.h"
 #import "PublicHolidayDay.h"
 #import "CalendarTableViewCell.h"
+#import "TimeActivity+CoreDataClass.h"
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
@@ -46,6 +47,11 @@
 @property(nonatomic,strong) NSDate *currentCalendarDate;
 @property(nonatomic,assign) NSInteger currentDayIndex;
 
+
+/*Core data part*/
+@property(nonatomic,strong) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic,strong) NSArray *calendarActivities;
+
 @end
 
 @implementation CalendarViewController
@@ -76,6 +82,47 @@
         [self requestHolidaysInTheNextOrPreviousYear:components];
     }
     return _totalDict;
+}
+
+- (NSManagedObjectContext *)managedObjectContext{
+    if (_managedObjectContext == NULL) {
+        _managedObjectContext = [CoreDataManager sharedManager].dBContext;
+    }
+    return _managedObjectContext;
+}
+
+- (NSArray *)calendarActivities{
+    if (_calendarActivities == NULL) {
+        NSMutableArray *arrayM = [NSMutableArray array];
+        
+        TimeActivity *act1 = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjectContext];
+        act1.plannedBeginDate = [NSDate date];
+        act1.activityDescription = @"TimeActivity Desc1";
+        act1.isActivityCompleted = YES;
+        [arrayM addObject:act1];
+        
+        //昨天
+        NSTimeInterval day = 24 * 60 * 60;
+        NSDate *yesterdayDate = [[NSDate date] dateByAddingTimeInterval:-day];
+        TimeActivity *act2 = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjectContext];
+        act2.plannedBeginDate = yesterdayDate;
+        act2.activityDescription = @"TimeActivity Desc2";
+        act2.isActivityCompleted = NO;
+        
+        NSError *error = nil;
+        NSLog(@"沙盒的绝对路径是%@",[self applicationDocumentsDirectory].absoluteString);
+        if ([self.managedObjectContext save:&error]) {
+            int a = 15;
+        }
+        [arrayM addObject:act2];
+    }
+    return _calendarActivities;
+}
+
+-(NSURL *)applicationDocumentsDirectory
+{
+    //获取沙盒路径下documents文件夹的路径(类似于search)
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 - (NSMutableArray *)publicHolidayList{
@@ -210,6 +257,9 @@
     NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+    
+    
+    [self calendarActivities];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -527,9 +577,6 @@
     return [components weekday];
 }
 
-
-
-
 #pragma mark - UITableView Parts
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -542,7 +589,6 @@
     if (cell == NULL) {
         cell = [[CalendarTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     }
-
     return cell;
 }
 

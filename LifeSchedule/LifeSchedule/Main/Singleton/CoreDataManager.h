@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreDataManager : NSObject
 
-+(CoreDataManager *)coreDataSharedManager;
++(CoreDataManager *)sharedManager;
 
 /*Can not build well if they use the below way to create the instance*/
 /*
