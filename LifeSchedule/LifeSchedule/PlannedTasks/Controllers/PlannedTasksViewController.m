@@ -21,11 +21,8 @@
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
 
 /*A new activity textfield*/
-@property(nonatomic,strong) UITextField *createdNewActTf;
-@property(nonatomic,strong) UIView *coverView;
-
-@property(nonatomic,strong) UIView *inboxInputView;
-@property(nonatomic,strong) UITextField *inboxTf;
+@property(nonatomic,strong) UIView *createNewActivityView;
+@property(nonatomic,strong) UITextField *inputedNewTf;
 
 @end
 
@@ -98,38 +95,9 @@
     return _managedObjContext;
 }
 
-- (UITextField *)createdNewActTf{
-    if (_createdNewActTf == NULL) {
-        _createdNewActTf = [[UITextField alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 50)];
-        _createdNewActTf.backgroundColor = UIColor.redColor;
-        _createdNewActTf.borderStyle = UITextBorderStyleRoundedRect;
-        [self.view addSubview:_createdNewActTf];
-    }
-    return _createdNewActTf;
-}
-
-
-- (UIView *)inboxInputView{
-    if (_inboxInputView == NULL) {
-        _inboxInputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44.0f)];
-        _inboxInputView.backgroundColor = UIColor.lightGrayColor;
-        [_inboxInputView addSubview:self.inboxTf];
-    }
-    return _inboxInputView;
-}
-
-- (UITextField *)inboxTf{
-    if (_inboxTf == NULL) {
-        _inboxTf = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30.0f)];
-    }
-    return _inboxTf;
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    UIWindowLevel windowLevel112 = keyWindow.windowLevel;
     [keyWindow addSubview:self.addNewActivityButton];
 }
 
@@ -142,11 +110,62 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self initOperations];
+}
+
+#pragma mark Event Clicked
+-(void)addNewActivityButtonClicked:(UIButton *)button{
+    [self.inputedNewTf becomeFirstResponder];
+}
+
+#pragma mark Initalizations
+-(void)initOperations{
+    /*1.Initalize the keyboard top view*/
+    [self createKeyboardTopView];
+    
+    /*2.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
     [self.view addGestureRecognizer:tapGr];
+}
+
+-(void)createKeyboardTopView{
+    UIView *keyBoardTopView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 50.0f)];
+    keyBoardTopView.backgroundColor = [UIColor whiteColor];
+    keyBoardTopView.layer.borderWidth = 0.7;
+    keyBoardTopView.layer.borderColor = [UIColor orangeColor].CGColor;
+    UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(keyBoardTopView.bounds.size.width-60-12, 4, 60, 45)];
+    [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+    [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
+    [keyBoardTopView addSubview:sendBtn];
+    
+    UITextField *inputTf = [[UITextField alloc]init];
+    inputTf.frame = CGRectMake(10, 4, keyBoardTopView.bounds.size.width-72-10, 45);
+    inputTf.placeholder = @"请输入新的Activity";
+    inputTf.layer.cornerRadius = 5;
+    inputTf.layer.masksToBounds = YES;
+    [keyBoardTopView addSubview:inputTf];
+    self.inputedNewTf = inputTf;
+    self.createNewActivityView = keyBoardTopView;
+    [self.view addSubview:keyBoardTopView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)tapClicked:(UITapGestureRecognizer *)tapGr{
+    [self.view endEditing:YES];
+}
+
+-(void)sendNewActivity:(UIButton *)button{
+    //1.Fetch the data from the textField and store to db
+    
+    
+    //2.Reload the db and show the latest info on the screen
+    
+    
+    //3.Resign the first responder
+    [self.view endEditing:YES];
 }
 
 /*显示键盘*/
@@ -159,39 +178,34 @@
     //获取键盘动画时间
     CGFloat animationTime = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-    
-    /*
     void (^animation)(void) = ^void(void){
-        self.createdNewActTf.transform = CGAffineTransformMakeTranslation(0, -keyBoardHeight);
+        self.createNewActivityView.transform = CGAffineTransformMakeTranslation(0, -keyBoardHeight);
     };
     
     if (animationTime > 0) {
         [UIView animateWithDuration:animationTime animations:animation];
     }else{
         animation();
-    }*/
+    }
 }
 
 /*隐藏键盘*/
 -(void)keyBoardWillHide:(NSNotification *)notification{
+    // 获取用户信息
+    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
+    // 获取键盘动画时间
+    CGFloat animationTime  = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-}
-
-- (void)tapClicked:(UITapGestureRecognizer *)tapGr{
-    [self.view endEditing:YES];
-}
-
--(void)addNewActivityButtonClicked:(UIButton *)button{
-//  [self.createdNewActTf becomeFirstResponder];
-//  [self.view addSubview:self.coverView];
+    // 定义好动作
+    void (^animation)(void) = ^void(void) {
+        self.createNewActivityView.transform = CGAffineTransformIdentity;
+    };
     
-    /*
-    UITextField *tf = [[UITextField alloc]initWithFrame:CGRectMake(0, 200, self.view.bounds.size.width, 44.0f)];
-    [self.view addSubview:tf];
-    tf.backgroundColor = UIColor.redColor;
-    tf.inputAccessoryView = self.inboxInputView;
-    [tf becomeFirstResponder];
-     */
+    if (animationTime > 0) {
+        [UIView animateWithDuration:animationTime animations:animation];
+    } else {
+        animation();
+    }
 }
 
 -(void)saveActivity{
