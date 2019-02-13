@@ -15,8 +15,11 @@
 
 @interface PlannedTasksViewController ()
 
-@property(nonatomic,strong) NSMutableArray *totalList;
 @property(nonatomic,strong) UIButton *addNewActivityButton;
+
+/*Prepare the dataSource*/
+@property(nonatomic,strong) NSMutableArray *ongoingTasks;
+@property(nonatomic,strong) NSMutableArray *completedTasks;
 
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
 
@@ -28,29 +31,30 @@
 
 @implementation PlannedTasksViewController
 
-- (NSMutableArray *)totalList{
-    if (_totalList == NULL) {
+- (NSMutableArray *)ongoingTasks{
+    if (_ongoingTasks == NULL) {
+        _ongoingTasks = [NSMutableArray array];
         
-        _totalList = [NSMutableArray array];
-        
-        //Group 0 - Planned tasks
-        TaskCollectionGroupModel *plannedTasksGroup = [[TaskCollectionGroupModel alloc]init];
         TaskCollectionFrame *collectionF0 = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *plannedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"准备去做收集箱主界面" taskDetailInfo:@"7月29号，下午3:00"];
         collectionF0.taskCollectionModel = plannedTaskGroupItem0;
         
         TaskCollectionFrame *collectionF1 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *plannedTaskGroupItem1 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"晚上和同事们一起去健身房" taskDetailInfo:@""];
+        TaskCollectionModel *plannedTaskGroupItem1 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"晚上和同事们一起去健身房" taskDetailInfo:@"7月30号，下午4:00"];
         collectionF1.taskCollectionModel = plannedTaskGroupItem1;
         
         TaskCollectionFrame *collectionF2 = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *plannedTaskGroupItem2 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"买菜烧晚饭啦" taskDetailInfo:@"7月29号，下午6:00"];
         collectionF2.taskCollectionModel = plannedTaskGroupItem2;
-        plannedTasksGroup.TaskCollectionItems = @[collectionF0,collectionF1,collectionF2];
         
-        
-        //Group 1 - Completed tasks
-        TaskCollectionGroupModel *completedTasksGroup = [[TaskCollectionGroupModel alloc]init];
+        [_ongoingTasks addObjectsFromArray:@[collectionF0,collectionF1,collectionF2]];
+    }
+    return _ongoingTasks;
+}
+
+- (NSMutableArray *)completedTasks{
+    if (_completedTasks == NULL) {
+        _completedTasks = [NSMutableArray array];
         TaskCollectionFrame *collectionF3 = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *completedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"继续做界面设计" taskDetailInfo:@""];
         collectionF3.taskCollectionModel = completedTaskGroupItem0;
@@ -58,11 +62,14 @@
         TaskCollectionFrame *collectionF4 = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *completedTaskGroupItem1 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"吃晚饭" taskDetailInfo:@"7月30号，下午3:00"];
         collectionF4.taskCollectionModel = completedTaskGroupItem1;
-        completedTasksGroup.TaskCollectionItems = @[collectionF3,collectionF4];
         
-        [_totalList addObjectsFromArray:@[plannedTasksGroup,completedTasksGroup]];
+        TaskCollectionFrame *collectionF5 = [[TaskCollectionFrame alloc]init];
+        TaskCollectionModel *completedTaskGroupItem2 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"看电影" taskDetailInfo:@"7月31号，下午5:00"];
+        collectionF5.taskCollectionModel = completedTaskGroupItem2;
+        
+        [_completedTasks addObjectsFromArray:@[collectionF3,collectionF4,collectionF5]];
     }
-    return _totalList;
+    return _completedTasks;
 }
 
 - (instancetype)init{
@@ -228,12 +235,18 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.totalList.count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    TaskCollectionGroupModel *group = self.totalList[section];
-    return group.TaskCollectionItems.count;
+    switch (section) {
+        case 0:
+            return self.ongoingTasks.count;
+        
+        case 1:
+            return self.completedTasks.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -243,16 +256,31 @@
         cell = [[TaskCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     }
     
-    TaskCollectionGroupModel *group = self.totalList[indexPath.section];
-    TaskCollectionFrame *itemFrame = group.TaskCollectionItems[indexPath.row];
-    cell.taskCollectionFrame = itemFrame;
+    TaskCollectionFrame *itemFrame = NULL;
+    switch (indexPath.section) {
+        case 0:
+            itemFrame = self.ongoingTasks[indexPath.row];
+            break;
+        case 1:
+            itemFrame = self.completedTasks[indexPath.row];
+            break;
+    }
     
+    cell.taskCollectionFrame = itemFrame;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TaskCollectionGroupModel *group = self.totalList[indexPath.section];
-    TaskCollectionFrame *itemFrame = group.TaskCollectionItems[indexPath.row];
+    TaskCollectionFrame *itemFrame = NULL;
+    switch (indexPath.section) {
+        case 0:
+            itemFrame = self.ongoingTasks[indexPath.row];
+            break;
+        case 1:
+            itemFrame = self.completedTasks[indexPath.row];
+            break;
+    }
+    
     return itemFrame.collectionRowHegiht;
 }
 
