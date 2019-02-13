@@ -157,15 +157,32 @@
     [self.view endEditing:YES];
 }
 
+-(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
+    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
+    act.activityDescription = activityDesc;
+    act.plannedBeginDate = beginDate;
+    act.isActivityCompleted = isCompleted;
+    
+    NSError *error;
+    if([self.managedObjContext save:&error])
+    {
+        
+    }
+}
+
 -(void)sendNewActivity:(UIButton *)button{
     //1.Fetch the data from the textField and store to db
+    NSString *newActivityDesc = self.inputedNewTf.text;
+    NSDate *plannedDate = [NSDate date];
     
+    // Save the Activity with the specific date
+    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:true];
     
     //2.Reload the db and show the latest info on the screen
     
-    
     //3.Resign the first responder
     [self.view endEditing:YES];
+    self.inputedNewTf.text = @"";
 }
 
 /*显示键盘*/
@@ -208,20 +225,7 @@
     }
 }
 
--(void)saveActivity{
-    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
-    act.activityDescription = @"明天早上5点半起床自己做面吃";
-    NSTimeInterval day = 24 * 60 * 60;
-    NSDate *tomorrowDate = [[NSDate date] dateByAddingTimeInterval:day];
-    act.plannedBeginDate = tomorrowDate;
-    act.isActivityCompleted = true;
-    
-    NSError *error;
-    if([self.managedObjContext save:&error])
-    {
-        
-    }
-}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.totalList.count;
