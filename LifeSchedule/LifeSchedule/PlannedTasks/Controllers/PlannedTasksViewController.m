@@ -34,20 +34,6 @@
 - (NSMutableArray *)ongoingTasks{
     if (_ongoingTasks == NULL) {
         _ongoingTasks = [NSMutableArray array];
-        
-        TaskCollectionFrame *collectionF0 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *plannedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"准备去做收集箱主界面" taskDetailInfo:@"7月29号，下午3:00"];
-        collectionF0.taskCollectionModel = plannedTaskGroupItem0;
-        
-        TaskCollectionFrame *collectionF1 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *plannedTaskGroupItem1 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"晚上和同事们一起去健身房" taskDetailInfo:@"7月30号，下午4:00"];
-        collectionF1.taskCollectionModel = plannedTaskGroupItem1;
-        
-        TaskCollectionFrame *collectionF2 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *plannedTaskGroupItem2 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"买菜烧晚饭啦" taskDetailInfo:@"7月29号，下午6:00"];
-        collectionF2.taskCollectionModel = plannedTaskGroupItem2;
-        
-        [_ongoingTasks addObjectsFromArray:@[collectionF0,collectionF1,collectionF2]];
     }
     return _ongoingTasks;
 }
@@ -118,7 +104,36 @@
     // Do any additional setup after loading the view.
     
     [self initOperations];
+    
+    //2.Initalize the data
+    [self refreshData];
 }
+
+#pragma mark Reload data
+-(void)refreshData{
+    /*CoreData - Try to load the data from local db*/
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.resultType = NSManagedObjectResultType;
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    
+    NSMutableArray *arrayM = [NSMutableArray array];
+    for (TimeActivity *act in timeActivityDbArray) {
+        NSString *activityDesc = act.activityDescription;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *dateStr = [dateFormatter stringFromDate:act.plannedBeginDate];
+        NSLog(@"activityDesc=%@,dateStr=%@",activityDesc,dateStr);
+        
+        TaskCollectionFrame *collectionF = [[TaskCollectionFrame alloc]init];
+        TaskCollectionModel *plannedTaskGroupItem = [TaskCollectionModel createCollectionTaskModelWithTitle:activityDesc taskDetailInfo:dateStr];
+        collectionF.taskCollectionModel = plannedTaskGroupItem;
+        
+        [arrayM addObject:collectionF];
+    }
+    self.ongoingTasks = arrayM;
+}
+
 
 #pragma mark Event Clicked
 -(void)addNewActivityButtonClicked:(UIButton *)button{
@@ -173,7 +188,8 @@
     NSError *error;
     if([self.managedObjContext save:&error])
     {
-        
+        [self refreshData];
+        [self.tableView reloadData];
     }
 }
 
