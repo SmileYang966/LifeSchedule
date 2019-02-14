@@ -115,6 +115,8 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
     request.resultType = NSManagedObjectResultType;
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
+    [request setPredicate:pre];
     NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
     
     NSMutableArray *arrayM = [NSMutableArray array];
@@ -332,6 +334,35 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     //Delete operations
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSFetchRequest *deleteRequest = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+        //添加查询条件，一个section是正在进行的，另一个section表示的是w已经完成的
+        NSPredicate *pre = NULL;
+        switch (indexPath.section) {
+            case 0:
+                //1. Activities are ongoing or planned
+                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
+                break;
+            case 1:
+                //2. Activities are completed
+                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",0];
+                break;
+        }
+        deleteRequest.predicate = pre;
+        
+        //这边得到的要删除的Array是经过预先筛选过的
+        NSArray *deleteArray = [self.managedObjContext executeFetchRequest:deleteRequest error:nil];
+        TimeActivity *act = deleteArray[indexPath.row];
+        [self.managedObjContext deleteObject:act];
+        
+        NSError *error = nil;
+        if ([self.managedObjContext save:&error]) {
+            NSLog(@"删除数据成功");
+            [self refreshData];
+            NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, indexPath.row)];
+            [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationMiddle];
+        }else{
+            NSLog(@"删除数据失败,%@",error);
+        }
     }
 }
 
