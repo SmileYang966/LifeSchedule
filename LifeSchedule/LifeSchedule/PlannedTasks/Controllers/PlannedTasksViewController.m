@@ -137,10 +137,23 @@
     [self.inputedNewTf becomeFirstResponder];
 }
 
-- (void)taskCollectionTableViewCellSelected{
-    int a = 10;
+- (void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
+    //Update the data
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
+    [request setPredicate:pre];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    TimeActivity *act = timeActivityDbArray[cellIndex.row];
+    act.isActivityCompleted = !act.isActivityCompleted;
+    NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
+    NSError *error = nil;
+    [self.managedObjContext save:&error];
+    
+    /*After changed the completed status , we should put the cell to the suitable section*/
+    [self refreshData];
+    [self.tableView reloadData];
 }
-
 
 #pragma mark Initalizations
 -(void)initOperations{
@@ -286,6 +299,7 @@
     }
     
     cell.taskCollectionFrame = itemFrame;
+    cell.cellIndex = indexPath;
     return cell;
 }
 

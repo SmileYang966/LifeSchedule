@@ -35,8 +35,8 @@
 }
 
 - (void)taskcheckBoxClicked:(UIButton *)taskcheckBoxButton{
-    if ([self.delegate respondsToSelector:@selector(taskCollectionTableViewCellSelected)]) {
-        [self.delegate taskCollectionTableViewCellSelected];
+    if ([self.delegate respondsToSelector:@selector(taskCollectionTableViewCell:selectedIndex:)]) {
+        [self.delegate taskCollectionTableViewCell:self selectedIndex:self.cellIndex];
     }
 }
 

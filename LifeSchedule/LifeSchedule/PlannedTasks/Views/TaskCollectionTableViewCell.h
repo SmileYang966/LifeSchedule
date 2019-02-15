@@ -15,7 +15,7 @@
 
 @protocol TaskCollectionTableViewCellDelegate<NSObject>
 
--(void)taskCollectionTableViewCellSelected;
+-(void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex;
 
 @end
 
@@ -23,5 +23,8 @@
 @property(nonatomic,strong) TaskCollectionModel *taskCollectionModel;
 @property(nonatomic,strong) TaskCollectionFrame *taskCollectionFrame;
 @property(nonatomic,weak) id<TaskCollectionTableViewCellDelegate> delegate;
+
+/*Just a workaround , there should be a better way to design this*/
+@property(nonatomic,strong) NSIndexPath *cellIndex;
 
 @end
