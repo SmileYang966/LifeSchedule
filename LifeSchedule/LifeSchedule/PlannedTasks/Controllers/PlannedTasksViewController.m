@@ -358,8 +358,7 @@
         if ([self.managedObjContext save:&error]) {
             NSLog(@"删除数据成功");
             [self refreshData];
-            NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.section, indexPath.row)];
-            [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView reloadData];
         }else{
             NSLog(@"删除数据失败,%@",error);
         }
