@@ -27,7 +27,7 @@
 
 - (UIButton *)taskcheckBoxSelected{
     if (_taskcheckBoxSelected == NULL) {
-        _taskcheckBoxSelected = [[UIButton alloc]init];
+        _taskcheckBoxSelected = [[UIButton alloc]initWithFrame:CGRectMake(0,0,32,32)];
         [self addSubview:_taskcheckBoxSelected];
     }
     return _taskcheckBoxSelected;
