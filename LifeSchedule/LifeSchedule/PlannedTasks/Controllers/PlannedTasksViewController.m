@@ -13,7 +13,7 @@
 #import "TaskCollectionFrame.h"
 #import "TimeActivity+CoreDataProperties.h"
 
-@interface PlannedTasksViewController ()
+@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate>
 
 @property(nonatomic,strong) UIButton *addNewActivityButton;
 
@@ -41,21 +41,6 @@
 - (NSMutableArray *)completedTasks{
     if (_completedTasks == NULL) {
         _completedTasks = [NSMutableArray array];
-        /*
-        TaskCollectionFrame *collectionF3 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *completedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"继续做界面设计" taskDetailInfo:@""];
-        collectionF3.taskCollectionModel = completedTaskGroupItem0;
-        
-        TaskCollectionFrame *collectionF4 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *completedTaskGroupItem1 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"吃晚饭" taskDetailInfo:@"7月30号，下午3:00"];
-        collectionF4.taskCollectionModel = completedTaskGroupItem1;
-        
-        TaskCollectionFrame *collectionF5 = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *completedTaskGroupItem2 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"看电影" taskDetailInfo:@"7月31号，下午5:00"];
-        collectionF5.taskCollectionModel = completedTaskGroupItem2;
-        
-        [_completedTasks addObjectsFromArray:@[collectionF3,collectionF4,collectionF5]];
-         */
     }
     return _completedTasks;
 }
@@ -147,9 +132,15 @@
 
 
 #pragma mark Event Clicked
+
 -(void)addNewActivityButtonClicked:(UIButton *)button{
     [self.inputedNewTf becomeFirstResponder];
 }
+
+- (void)taskCollectionTableViewCellSelected{
+    int a = 10;
+}
+
 
 #pragma mark Initalizations
 -(void)initOperations{
@@ -281,6 +272,7 @@
     TaskCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell==NULL) {
         cell = [[TaskCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+        cell.delegate = self;
     }
     
     TaskCollectionFrame *itemFrame = NULL;

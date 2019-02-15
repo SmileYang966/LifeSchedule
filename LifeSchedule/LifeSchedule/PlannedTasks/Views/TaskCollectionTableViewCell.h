@@ -11,10 +11,17 @@
 @class TaskCollectionModel;
 @class TaskCollectionFrame;
 
+@class TaskCollectionTableViewCell;
+
+@protocol TaskCollectionTableViewCellDelegate<NSObject>
+
+-(void)taskCollectionTableViewCellSelected;
+
+@end
+
 @interface TaskCollectionTableViewCell : UITableViewCell
-
 @property(nonatomic,strong) TaskCollectionModel *taskCollectionModel;
-
 @property(nonatomic,strong) TaskCollectionFrame *taskCollectionFrame;
+@property(nonatomic,weak) id<TaskCollectionTableViewCellDelegate> delegate;
 
 @end
