@@ -349,11 +349,11 @@
         switch (indexPath.section) {
             case 0:
                 //1. Activities are ongoing or planned
-                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
+                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",0];
                 break;
             case 1:
                 //2. Activities are completed
-                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",0];
+                pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
                 break;
         }
         deleteRequest.predicate = pre;
