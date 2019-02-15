@@ -41,6 +41,7 @@
 - (NSMutableArray *)completedTasks{
     if (_completedTasks == NULL) {
         _completedTasks = [NSMutableArray array];
+        /*
         TaskCollectionFrame *collectionF3 = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *completedTaskGroupItem0 = [TaskCollectionModel createCollectionTaskModelWithTitle:@"继续做界面设计" taskDetailInfo:@""];
         collectionF3.taskCollectionModel = completedTaskGroupItem0;
@@ -54,6 +55,7 @@
         collectionF5.taskCollectionModel = completedTaskGroupItem2;
         
         [_completedTasks addObjectsFromArray:@[collectionF3,collectionF4,collectionF5]];
+         */
     }
     return _completedTasks;
 }
@@ -115,11 +117,12 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
     request.resultType = NSManagedObjectResultType;
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
-    [request setPredicate:pre];
+//    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
+//    [request setPredicate:pre];
     NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
     
-    NSMutableArray *arrayM = [NSMutableArray array];
+    NSMutableArray *ongoingActivityarrayM = [NSMutableArray array];
+    NSMutableArray *completedActivityArrayM = [NSMutableArray array];
     for (TimeActivity *act in timeActivityDbArray) {
         NSString *activityDesc = act.activityDescription;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -129,11 +132,17 @@
         
         TaskCollectionFrame *collectionF = [[TaskCollectionFrame alloc]init];
         TaskCollectionModel *plannedTaskGroupItem = [TaskCollectionModel createCollectionTaskModelWithTitle:activityDesc taskDetailInfo:dateStr];
+        plannedTaskGroupItem.isCompleted = act.isActivityCompleted;
         collectionF.taskCollectionModel = plannedTaskGroupItem;
         
-        [arrayM addObject:collectionF];
+        if (!act.isActivityCompleted) {
+            [ongoingActivityarrayM addObject:collectionF];
+        }else{
+            [completedActivityArrayM addObject:collectionF];
+        }
     }
-    self.ongoingTasks = arrayM;
+    self.ongoingTasks = ongoingActivityarrayM;
+    self.completedTasks = completedActivityArrayM;
 }
 
 
@@ -201,7 +210,7 @@
     NSDate *plannedDate = [NSDate date];
     
     // Save the Activity with the specific date
-    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:true];
+    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:false];
     
     //2.Reload the db and show the latest info on the screen
     

@@ -28,7 +28,6 @@
 - (UIButton *)taskcheckBoxSelected{
     if (_taskcheckBoxSelected == NULL) {
         _taskcheckBoxSelected = [[UIButton alloc]init];
-        [_taskcheckBoxSelected setBackgroundImage:[UIImage imageNamed:@"checkboxNonSelected"] forState:UIControlStateNormal];
         [self addSubview:_taskcheckBoxSelected];
     }
     return _taskcheckBoxSelected;
@@ -76,6 +75,14 @@
 -(void)setTaskCollectionFrame:(TaskCollectionFrame *)taskCollectionFrame{
     _taskCollectionFrame = taskCollectionFrame;
     TaskCollectionModel *model = taskCollectionFrame.taskCollectionModel;
+    
+    if (model.isCompleted) {
+        //Completed
+        [_taskcheckBoxSelected setBackgroundImage:[UIImage imageNamed:@"checkboxSelected"] forState:UIControlStateNormal];
+    }else {
+        //Not completed
+        [_taskcheckBoxSelected setBackgroundImage:[UIImage imageNamed:@"checkboxNonSelected"] forState:UIControlStateNormal];
+    }
     
     //CheckBox
     self.taskcheckBoxSelected.frame = taskCollectionFrame.checkBoxF;
