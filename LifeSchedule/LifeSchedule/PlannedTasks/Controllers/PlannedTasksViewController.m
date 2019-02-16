@@ -380,4 +380,10 @@
     }
 }
 
+/*When user start to dragging the tableView, it will end endEditing.*/
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
+
+
 @end
