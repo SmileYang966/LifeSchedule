@@ -13,7 +13,7 @@
 #import "TaskCollectionFrame.h"
 #import "TimeActivity+CoreDataProperties.h"
 
-@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate>
+@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong) UIButton *addNewActivityButton;
 
@@ -170,56 +170,9 @@
 
 
 #pragma mark Event Clicked
-
 -(void)addNewActivityButtonClicked:(UIButton *)button{
     /* To show the keyboard, we let the hiddenTf become the first responder */
     [self.hiddenTf becomeFirstResponder];
-}
-
-- (void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
-    //Update the data
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
-    [request setPredicate:pre];
-    
-    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
-    TimeActivity *act = timeActivityDbArray[cellIndex.row];
-    act.isActivityCompleted = !act.isActivityCompleted;
-    NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
-    NSError *error = nil;
-    [self.managedObjContext save:&error];
-    
-    /*After changed the completed status , we should put the cell to the suitable section*/
-    [self refreshData];
-    [self.tableView reloadData];
-}
-
-#pragma mark Initalizations
--(void)initOperations{
-    /*1.Hide the keyboard*/
-    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
-    [self.view addGestureRecognizer:tapGr];
-    /*2.Add two notifications related to the keyboard*/
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)tapClicked:(UITapGestureRecognizer *)tapGr{
-    [self resignResponderForAllTextFields];
-}
-
--(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
-    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
-    act.activityDescription = activityDesc;
-    act.plannedBeginDate = beginDate;
-    act.isActivityCompleted = isCompleted;
-    
-    NSError *error;
-    if([self.managedObjContext save:&error])
-    {
-        [self refreshData];
-        [self.tableView reloadData];
-    }
 }
 
 -(void)sendNewActivity:(UIButton *)button{
@@ -239,6 +192,35 @@
     self.inputNewActTf.text = @"";
 }
 
+-(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
+    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
+    act.activityDescription = activityDesc;
+    act.plannedBeginDate = beginDate;
+    act.isActivityCompleted = isCompleted;
+    
+    NSError *error;
+    if([self.managedObjContext save:&error])
+    {
+        [self refreshData];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)tapClicked:(UITapGestureRecognizer *)tapGr{
+    [self resignResponderForAllTextFields];
+}
+
+#pragma mark Initalizations
+-(void)initOperations{
+    /*1.Hide the keyboard*/
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
+    tapGr.delegate = self;
+    [self.view addGestureRecognizer:tapGr];
+    /*2.Add two notifications related to the keyboard*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
 /*显示键盘*/
 - (void)keyBoardWillShow:(NSNotification *)notification{
     /*When the keyboard show on the screen, we will let the another textField(used for enter acitvity) become the first responder */
@@ -249,6 +231,7 @@
 -(void)keyBoardWillHide:(NSNotification *)notification{
 }
 
+#pragma mark Delegate for tableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -316,14 +299,14 @@
     return 0.01f;
 }
 
+/* Just found the didSelectRowAtIndexPath can not work normally
+ * Reason : We added the UITapGestureRecognizer on the current view , there are some
+ * conflicts between the gesture and the didSelectRowAtIndexPath function
+ */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *vc1 = [[UIViewController alloc]init];
     vc1.view.backgroundColor = UIColor.whiteColor;
     [self.navigationController pushViewController:vc1 animated:true];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return true;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -374,6 +357,33 @@
     [self.inputNewActTf resignFirstResponder];
     /*Used for the hiddenTextField*/
     [self.view endEditing:YES];
+}
+
+#pragma mark Delegate for the TaskCollectionTableViewCell
+- (void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
+    //Update the data
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
+    [request setPredicate:pre];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    TimeActivity *act = timeActivityDbArray[cellIndex.row];
+    act.isActivityCompleted = !act.isActivityCompleted;
+    NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
+    NSError *error = nil;
+    [self.managedObjContext save:&error];
+    
+    /*After changed the completed status , we should put the cell to the suitable section*/
+    [self refreshData];
+    [self.tableView reloadData];
+}
+
+#pragma mark Delegate for the gestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end
