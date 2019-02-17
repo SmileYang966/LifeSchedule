@@ -23,9 +23,11 @@
 
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
 
-/*A new activity textfield*/
-@property(nonatomic,strong) UIView *createNewActivityView;
-@property(nonatomic,strong) UITextField *inputedNewTf;
+/*New Method*/
+@property(nonatomic,strong) UITextField *hiddenTf;
+
+@property(nonatomic,strong) UIView *keyboardTopAccessoryView;
+@property(nonatomic,strong) UITextField *inputNewActTf;
 
 @end
 
@@ -66,6 +68,42 @@
         [_addNewActivityButton addTarget:self action:@selector(addNewActivityButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addNewActivityButton;
+}
+
+- (UITextField *)hiddenTf{
+    if (_hiddenTf == NULL) {
+        _hiddenTf = [UITextField new];
+        UIView *accessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44.0f)];
+        accessoryView.backgroundColor = UIColor.redColor;
+        _hiddenTf.inputAccessoryView = self.keyboardTopAccessoryView;
+        [self.view addSubview:_hiddenTf];
+    }
+    return _hiddenTf;
+}
+
+- (UIView *)keyboardTopAccessoryView{
+    if (_keyboardTopAccessoryView == NULL) {
+        _keyboardTopAccessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50.0f)];
+        _keyboardTopAccessoryView.backgroundColor = [UIColor whiteColor];
+        _keyboardTopAccessoryView.layer.borderWidth = 0.7;
+        _keyboardTopAccessoryView.layer.borderColor = [UIColor orangeColor].CGColor;
+        
+        UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_keyboardTopAccessoryView.bounds.size.width-60-12, 4, 60, 45)];
+        [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+        [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
+        [_keyboardTopAccessoryView addSubview:sendBtn];
+        
+        UITextField *inputTf = [[UITextField alloc]init];
+        inputTf.frame = CGRectMake(10, 4, _keyboardTopAccessoryView.bounds.size.width-72-10, 45);
+        inputTf.placeholder = @"请输入新的Activity";
+        inputTf.layer.cornerRadius = 5;
+        inputTf.layer.masksToBounds = YES;
+        [_keyboardTopAccessoryView addSubview:inputTf];
+        
+        self.inputNewActTf = inputTf;
+    }
+    return _keyboardTopAccessoryView;
 }
 
 - (NSManagedObjectContext *)managedObjContext{
@@ -134,7 +172,8 @@
 #pragma mark Event Clicked
 
 -(void)addNewActivityButtonClicked:(UIButton *)button{
-    [self.inputedNewTf becomeFirstResponder];
+    /* To show the keyboard, we let the hiddenTf become the first responder */
+    [self.hiddenTf becomeFirstResponder];
 }
 
 - (void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
@@ -157,41 +196,16 @@
 
 #pragma mark Initalizations
 -(void)initOperations{
-    /*1.Initalize the keyboard top view*/
-    [self createKeyboardTopView];
-    
-    /*2.Hide the keyboard*/
+    /*1.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
     [self.view addGestureRecognizer:tapGr];
-}
-
--(void)createKeyboardTopView{
-    UIView *keyBoardTopView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 50.0f)];
-    keyBoardTopView.backgroundColor = [UIColor whiteColor];
-    keyBoardTopView.layer.borderWidth = 0.7;
-    keyBoardTopView.layer.borderColor = [UIColor orangeColor].CGColor;
-    UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(keyBoardTopView.bounds.size.width-60-12, 4, 60, 45)];
-    [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
-    [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-    [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
-    [keyBoardTopView addSubview:sendBtn];
-    
-    UITextField *inputTf = [[UITextField alloc]init];
-    inputTf.frame = CGRectMake(10, 4, keyBoardTopView.bounds.size.width-72-10, 45);
-    inputTf.placeholder = @"请输入新的Activity";
-    inputTf.layer.cornerRadius = 5;
-    inputTf.layer.masksToBounds = YES;
-    [keyBoardTopView addSubview:inputTf];
-    self.inputedNewTf = inputTf;
-    self.createNewActivityView = keyBoardTopView;
-    [self.view addSubview:keyBoardTopView];
-    
+    /*2.Add two notifications related to the keyboard*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)tapClicked:(UITapGestureRecognizer *)tapGr{
-    [self.view endEditing:YES];
+    [self resignResponderForAllTextFields];
 }
 
 -(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
@@ -210,7 +224,7 @@
 
 -(void)sendNewActivity:(UIButton *)button{
     //1.Fetch the data from the textField and store to db
-    NSString *newActivityDesc = self.inputedNewTf.text;
+    NSString *newActivityDesc = self.inputNewActTf.text;
     NSDate *plannedDate = [NSDate date];
     
     // Save the Activity with the specific date
@@ -219,51 +233,21 @@
     //2.Reload the db and show the latest info on the screen
     
     //3.Resign the first responder
-    [self.view endEditing:YES];
-    self.inputedNewTf.text = @"";
+    [self resignResponderForAllTextFields];
+    
+    //4.Clear the text for this textField
+    self.inputNewActTf.text = @"";
 }
 
 /*显示键盘*/
 - (void)keyBoardWillShow:(NSNotification *)notification{
-    //获取用户信息
-    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
-    //获取键盘高度
-    CGRect keyBoardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat keyBoardHeight = keyBoardBounds.size.height;
-    //获取键盘动画时间
-    CGFloat animationTime = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    void (^animation)(void) = ^void(void){
-        self.createNewActivityView.transform = CGAffineTransformMakeTranslation(0, -keyBoardHeight);
-    };
-    
-    if (animationTime > 0) {
-        [UIView animateWithDuration:animationTime animations:animation];
-    }else{
-        animation();
-    }
+    /*When the keyboard show on the screen, we will let the another textField(used for enter acitvity) become the first responder */
+    [self.inputNewActTf becomeFirstResponder];
 }
 
 /*隐藏键盘*/
 -(void)keyBoardWillHide:(NSNotification *)notification{
-    // 获取用户信息
-    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
-    // 获取键盘动画时间
-    CGFloat animationTime  = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    // 定义好动作
-    void (^animation)(void) = ^void(void) {
-        self.createNewActivityView.transform = CGAffineTransformIdentity;
-    };
-    
-    if (animationTime > 0) {
-        [UIView animateWithDuration:animationTime animations:animation];
-    } else {
-        animation();
-    }
 }
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -382,8 +366,14 @@
 
 /*When user start to dragging the tableView, it will end endEditing.*/
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    [self.view endEditing:YES];
+    [self resignResponderForAllTextFields];
 }
 
+-(void)resignResponderForAllTextFields{
+    /*Used for the inputActiviy*/
+    [self.inputNewActTf resignFirstResponder];
+    /*Used for the hiddenTextField*/
+    [self.view endEditing:YES];
+}
 
 @end
