@@ -10,7 +10,7 @@
 #import "TaskCollectionModel.h"
 
 @interface LSTextViewController ()
-
+@property(nonatomic,strong) UITextView *textView;
 @end
 
 @implementation LSTextViewController
@@ -19,6 +19,13 @@
     if (self=[super init]) {
         self.view = [[UIView alloc]initWithFrame:UIScreen.mainScreen.bounds];
         self.view.backgroundColor = UIColor.blueColor;
+        
+        self.textView = [[UITextView alloc]initWithFrame:self.view.bounds];
+        self.textView.font = [UIFont systemFontOfSize:20.0f];
+        [self.view addSubview:self.textView];
+        
+        
+        
     }
     return self;
 }
@@ -31,6 +38,7 @@
 - (void)setTaskModel:(TaskCollectionModel *)taskModel{
     _taskModel = taskModel;
     self.navigationItem.title = taskModel.taskDetailedInfo;
+    self.textView.text = taskModel.taskTitle;
 }
 
 @end
