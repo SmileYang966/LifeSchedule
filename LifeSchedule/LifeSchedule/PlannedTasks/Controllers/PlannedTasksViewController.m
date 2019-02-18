@@ -12,6 +12,7 @@
 #import "TaskCollectionGroupModel.h"
 #import "TaskCollectionFrame.h"
 #import "TimeActivity+CoreDataProperties.h"
+#import "LSTextViewController.h"
 
 @interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
 
@@ -304,9 +305,8 @@
  * conflicts between the gesture and the didSelectRowAtIndexPath function
  */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *vc1 = [[UIViewController alloc]init];
-    vc1.view.backgroundColor = UIColor.whiteColor;
-    [self.navigationController pushViewController:vc1 animated:true];
+    LSTextViewController *plannedActDetailVC = [[LSTextViewController alloc]init];
+    [self.navigationController pushViewController:plannedActDetailVC animated:true];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
