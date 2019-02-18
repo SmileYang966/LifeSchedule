@@ -305,7 +305,19 @@
  * conflicts between the gesture and the didSelectRowAtIndexPath function
  */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TaskCollectionFrame *itemFrame = NULL;
+    switch (indexPath.section) {
+        case 0:
+            itemFrame = self.ongoingTasks[indexPath.row];
+            break;
+            
+        case 1:
+            itemFrame = self.completedTasks[indexPath.row];
+            break;
+    }
+    
     LSTextViewController *plannedActDetailVC = [[LSTextViewController alloc]init];
+    plannedActDetailVC.taskModel = itemFrame.taskCollectionModel;
     [self.navigationController pushViewController:plannedActDetailVC animated:true];
 }
 

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class TaskCollectionModel;
 
 @interface LSTextViewController : UIViewController
+
+@property(nonatomic,strong)  TaskCollectionModel *taskModel;
 
 @end
 
