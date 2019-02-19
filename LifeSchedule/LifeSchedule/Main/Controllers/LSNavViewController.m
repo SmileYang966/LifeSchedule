@@ -28,13 +28,18 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ * Why do we need to override the pushViewController function ?
+ * Currently, only the main screen (Four screens need to show the tabbar)
+ * The other screen default to hide the tabbar . If we want to this rule adapted for all screen, we should override the pushViewController
+ * by the navigationController which defined by ourselves.
+ */
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    NSLog(@"viewController class=%@ count=%ld",[viewController class],[self.viewControllers count]);
+    if (self.viewControllers.count>=1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    [super pushViewController:viewController animated:animated];
 }
-*/
+
 
 @end
