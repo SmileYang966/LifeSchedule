@@ -177,20 +177,52 @@
 }
 
 -(void)sendNewActivity:(UIButton *)button{
-    //1.Fetch the data from the textField and store to db
-    NSString *newActivityDesc = self.inputNewActTf.text;
-    NSDate *plannedDate = [NSDate date];
+//    //1.Fetch the data from the textField and store to db
+//    NSString *newActivityDesc = self.inputNewActTf.text;
+//    NSDate *plannedDate = [NSDate date];
+//
+//    // Save the Activity with the specific date
+//    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:false];
+//
+//    //2.Reload the db and show the latest info on the screen
+//
+//    //3.Resign the first responder
+//    [self resignResponderForAllTextFields];
+//
+//    //4.Clear the text for this textField
+//    self.inputNewActTf.text = @"";
     
-    // Save the Activity with the specific date
-    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:false];
-    
-    //2.Reload the db and show the latest info on the screen
-    
-    //3.Resign the first responder
     [self resignResponderForAllTextFields];
     
-    //4.Clear the text for this textField
-    self.inputNewActTf.text = @"";
+    UIAlertController *alertController = [[UIAlertController alloc]init];
+    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    
+    CGRect datePickerFrame = datePicker.frame;
+    datePickerFrame.origin.y += 35.0f;
+    datePicker.frame = datePickerFrame;
+    
+    datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"ZH"];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [alertController.view addSubview:datePicker];
+    
+    NSMutableAttributedString *alertControllerStr = [[NSMutableAttributedString alloc] initWithString:@"请选择活动时间\n\n\n\n\n\n\n\n\n\n\n"];
+    [alertControllerStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,7)];
+    [alertControllerStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0,7)];
+    [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.hiddenTf becomeFirstResponder];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:ok];
+    [alertController addAction:cancel];
+    
+    [self presentViewController:alertController animated:YES completion:^{
+        
+    }];
+    
 }
 
 -(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
