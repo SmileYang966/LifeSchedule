@@ -90,14 +90,14 @@
         _keyboardTopAccessoryView.layer.borderColor = [UIColor orangeColor].CGColor;
         
         UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_keyboardTopAccessoryView.bounds.size.width-60-12, 4, 60, 45)];
-        [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+        [sendBtn setTitle:@"Go" forState:UIControlStateNormal];
         [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
         [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
         [_keyboardTopAccessoryView addSubview:sendBtn];
         
         UITextField *inputTf = [[UITextField alloc]init];
         inputTf.frame = CGRectMake(10, 4, _keyboardTopAccessoryView.bounds.size.width-72-10, 45);
-        inputTf.placeholder = @"请输入新的Activity";
+        inputTf.placeholder = @"请输入新的任务";
         inputTf.layer.cornerRadius = 5;
         inputTf.layer.masksToBounds = YES;
         [_keyboardTopAccessoryView addSubview:inputTf];
@@ -177,21 +177,10 @@
 }
 
 -(void)sendNewActivity:(UIButton *)button{
-//    //1.Fetch the data from the textField and store to db
-//    NSString *newActivityDesc = self.inputNewActTf.text;
-//    NSDate *plannedDate = [NSDate date];
-//
-//    // Save the Activity with the specific date
-//    [self saveActivityWithDesc:newActivityDesc plannedBeginDate:plannedDate isActivityCompleted:false];
-//
-//    //2.Reload the db and show the latest info on the screen
-//
-//    //3.Resign the first responder
-//    [self resignResponderForAllTextFields];
-//
-//    //4.Clear the text for this textField
-//    self.inputNewActTf.text = @"";
+    /*1.Record the inputNewActTf's text and it will be used later*/
+    NSString *newActivityDesc = self.inputNewActTf.text;
     
+    /*2.All TextFields Lose the first responder , as the UIDatePicker will be the first responder*/
     [self resignResponderForAllTextFields];
     
     UIAlertController *alertController = [[UIAlertController alloc]init];
@@ -201,7 +190,7 @@
     datePickerFrame.origin.y += 35.0f;
     datePicker.frame = datePickerFrame;
     
-    datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"ZH"];
+    datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
     datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     [alertController.view addSubview:datePicker];
     
@@ -209,9 +198,21 @@
     [alertControllerStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,7)];
     [alertControllerStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0,7)];
     [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        [self.hiddenTf becomeFirstResponder];
+        /*1.Get the selected date*/
+        NSDate *selectedDate = datePicker.date;
+        
+        /*2.Get the activity description*/
+        NSString *activityDesc = newActivityDesc;
+        
+        //3.Save the activity description and relative date
+        [self saveActivityWithDesc:activityDesc plannedBeginDate:selectedDate isActivityCompleted:false];
+        
+        //4.Clear the text for this textField
+        self.inputNewActTf.text = @"";
+        
+        //5. To do list : Order the activity by the date
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
