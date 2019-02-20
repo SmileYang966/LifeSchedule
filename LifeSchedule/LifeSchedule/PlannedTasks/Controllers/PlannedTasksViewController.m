@@ -141,8 +141,11 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
     request.resultType = NSManagedObjectResultType;
-//    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",1];
-//    [request setPredicate:pre];
+    
+    //创建排序描述器
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
     NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
     
     NSMutableArray *ongoingActivityarrayM = [NSMutableArray array];
@@ -410,6 +413,10 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
     [request setPredicate:pre];
+    
+    //创建排序描述器
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
     TimeActivity *act = timeActivityDbArray[cellIndex.row];
