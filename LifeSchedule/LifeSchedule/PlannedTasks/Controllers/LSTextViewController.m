@@ -8,9 +8,14 @@
 
 #import "LSTextViewController.h"
 #import "TaskCollectionModel.h"
+#import "TimeActivity+CoreDataProperties.h"
 
 @interface LSTextViewController ()
+
 @property(nonatomic,strong) UITextView *textView;
+
+@property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
+
 @end
 
 @implementation LSTextViewController
@@ -29,8 +34,32 @@
     return self;
 }
 
+- (NSManagedObjectContext *)managedObjContext{
+    if (_managedObjContext == NULL) {
+        _managedObjContext = [CoreDataManager sharedManager].dBContext;
+    }
+    return _managedObjContext;
+}
+
 -(void)backButtonClicked:(UIBarButtonItem *)barButtonItem{
     // Before press back button, we saved the description again
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.resultType = NSManagedObjectResultType;
+    
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"plannedBeginDate=%@ && activityDescription=%@",_taskModel.taskStartedDate,_taskModel.taskTitle];
+    [request setPredicate:pre];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    for (TimeActivity *act in timeActivityDbArray) {
+        act.activityDescription = self.textView.text;
+    }
+    NSError *error;
+    if([self.managedObjContext save:&error])
+    {
+        NSLog(@"Update the database successfully");
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

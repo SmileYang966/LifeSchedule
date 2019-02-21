@@ -118,6 +118,11 @@
     [super viewWillAppear:animated];
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.addNewActivityButton];
+    
+    
+    //Refresh the data
+    [self refreshData];
+    [self.tableView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -130,9 +135,6 @@
     // Do any additional setup after loading the view.
     
     [self initOperations];
-    
-    //2.Initalize the data
-    [self refreshData];
 }
 
 #pragma mark Reload data
