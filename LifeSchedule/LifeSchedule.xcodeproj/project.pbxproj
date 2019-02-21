@@ -506,6 +506,8 @@
 		7CAC2D9720C9F1D600D648E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				712F34A7221A975E0017A359 /* LSTextViewController.h */,
+				712F34A8221A975E0017A359 /* LSTextViewController.m */,
 				7CAC2DA720C9F25500D648E3 /* PlannedTasksViewController.h */,
 				7CAC2DA820C9F25500D648E3 /* PlannedTasksViewController.m */,
 			);
@@ -620,8 +622,6 @@
 				7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */,
 				7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */,
 				7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */,
-				712F34A7221A975E0017A359 /* LSTextViewController.h */,
-				712F34A8221A975E0017A359 /* LSTextViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
