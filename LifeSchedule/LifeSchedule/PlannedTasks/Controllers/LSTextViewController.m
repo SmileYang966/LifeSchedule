@@ -24,10 +24,14 @@
         self.textView.font = [UIFont systemFontOfSize:20.0f];
         [self.view addSubview:self.textView];
         
-        
-        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked:)];
     }
     return self;
+}
+
+-(void)backButtonClicked:(UIBarButtonItem *)barButtonItem{
+    // Before press back button, we saved the description again
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
