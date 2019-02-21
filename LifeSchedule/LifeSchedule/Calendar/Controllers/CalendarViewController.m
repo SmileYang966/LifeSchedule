@@ -91,34 +91,6 @@
     return _managedObjectContext;
 }
 
-- (NSArray *)calendarActivities{
-    if (_calendarActivities == NULL) {
-        NSMutableArray *arrayM = [NSMutableArray array];
-        
-        TimeActivity *act1 = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjectContext];
-        act1.plannedBeginDate = [NSDate date];
-        act1.activityDescription = @"TimeActivity Desc1";
-        act1.isActivityCompleted = YES;
-        [arrayM addObject:act1];
-        
-        //昨天
-        NSTimeInterval day = 24 * 60 * 60;
-        NSDate *yesterdayDate = [[NSDate date] dateByAddingTimeInterval:-day];
-        TimeActivity *act2 = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjectContext];
-        act2.plannedBeginDate = yesterdayDate;
-        act2.activityDescription = @"TimeActivity Desc2";
-        act2.isActivityCompleted = NO;
-        
-        NSError *error = nil;
-        NSLog(@"沙盒的绝对路径是%@",[self applicationDocumentsDirectory].absoluteString);
-        if ([self.managedObjectContext save:&error]) {
-            int a = 15;
-        }
-        [arrayM addObject:act2];
-    }
-    return _calendarActivities;
-}
-
 -(NSURL *)applicationDocumentsDirectory
 {
     //获取沙盒路径下documents文件夹的路径(类似于search)
@@ -257,9 +229,6 @@
     NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
-    
-    
-    [self calendarActivities];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
