@@ -10,10 +10,10 @@
 
 @implementation TaskCollectionModel
 
-+(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskDetailInfo:(NSString *)detailInfo{
++(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskStartedDate:(NSDate *)startedDate{
     TaskCollectionModel *taskModel = [[self alloc]init];
     taskModel.taskTitle = taskTitle;
-    taskModel.taskDetailedInfo = detailInfo;
+    taskModel.taskStartedDate = startedDate;
     return taskModel;
 }
 

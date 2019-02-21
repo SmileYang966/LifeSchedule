@@ -152,13 +152,8 @@
     NSMutableArray *completedActivityArrayM = [NSMutableArray array];
     for (TimeActivity *act in timeActivityDbArray) {
         NSString *activityDesc = act.activityDescription;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSString *dateStr = [dateFormatter stringFromDate:act.plannedBeginDate];
-        NSLog(@"activityDesc=%@,dateStr=%@",activityDesc,dateStr);
-        
         TaskCollectionFrame *collectionF = [[TaskCollectionFrame alloc]init];
-        TaskCollectionModel *plannedTaskGroupItem = [TaskCollectionModel createCollectionTaskModelWithTitle:activityDesc taskDetailInfo:dateStr];
+        TaskCollectionModel *plannedTaskGroupItem = [TaskCollectionModel createCollectionTaskModelWithTitle:activityDesc taskStartedDate:act.plannedBeginDate];
         plannedTaskGroupItem.isCompleted = act.isActivityCompleted;
         collectionF.taskCollectionModel = plannedTaskGroupItem;
         

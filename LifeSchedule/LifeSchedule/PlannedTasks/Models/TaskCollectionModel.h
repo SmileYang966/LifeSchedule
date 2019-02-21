@@ -11,10 +11,10 @@
 @interface TaskCollectionModel : NSObject
 
 @property(nonatomic,copy) NSString *taskTitle;
-@property(nonatomic,copy) NSString *taskDetailedInfo;
+@property(nonatomic,strong) NSDate *taskStartedDate;
 @property(nonatomic,assign) BOOL isCompleted;
 
-+(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskDetailInfo:(NSString *)detailInfo;
++(instancetype)createCollectionTaskModelWithTitle:(NSString *)taskTitle taskStartedDate:(NSDate *)startedDate;
 
 /*RowHeight*/
 @property(nonatomic,assign)float  taskCellRowHeigth;

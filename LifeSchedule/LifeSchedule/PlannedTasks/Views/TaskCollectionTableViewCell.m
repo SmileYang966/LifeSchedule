@@ -100,7 +100,12 @@
     
     //detailed info
     self.additionalDetailInfo.frame = taskCollectionFrame.collectionDetailedInfoF;
-    self.additionalDetailInfo.text = model.taskDetailedInfo;
+    
+    /*Convert the date to the string*/
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [dateFormatter stringFromDate:model.taskStartedDate];
+    self.additionalDetailInfo.text = dateStr;
 }
 
 - (void)awakeFromNib {

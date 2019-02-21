@@ -41,7 +41,12 @@
 
 - (void)setTaskModel:(TaskCollectionModel *)taskModel{
     _taskModel = taskModel;
-    self.navigationItem.title = taskModel.taskDetailedInfo;
+    
+    //Detail info
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [dateFormatter stringFromDate:taskModel.taskStartedDate];
+    self.navigationItem.title = dateStr;
     self.textView.text = taskModel.taskTitle;
 }
 
