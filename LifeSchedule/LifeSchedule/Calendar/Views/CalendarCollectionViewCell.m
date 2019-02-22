@@ -108,7 +108,7 @@
     NSString *dayNoStr = [NSString stringWithFormat:@"%ld",dayNo];
     self.dayLabel.textColor = [UIColor blackColor];
     self.dayLabel.textAlignment = NSTextAlignmentCenter;
-    self.dayLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    self.dayLabel.font = [UIFont boldSystemFontOfSize:15.0f];
     self.dayLabel.textColor = UIColor.blackColor;
     self.dayLabel.text = dayNoStr;
 }
