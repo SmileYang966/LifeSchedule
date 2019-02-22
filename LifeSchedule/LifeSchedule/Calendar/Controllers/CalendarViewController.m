@@ -331,11 +331,6 @@
     self.tempSavedCollectionViewCell = cell;
 }
 
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"scrollViewDidScroll---%f",scrollView.contentOffset.x);
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
@@ -448,7 +443,7 @@
     
     NSDateComponents *comp = [self getNSDateComponentsByDate:self.currentCalendarDate];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
-    self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     
     [self.totalDict setObject:currentMonth forKey:CURRENTMONTH];
     [self.totalDict setObject:lastMonth forKey:LASTMONTH];
