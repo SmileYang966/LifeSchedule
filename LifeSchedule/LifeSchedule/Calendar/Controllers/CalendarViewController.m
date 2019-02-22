@@ -365,13 +365,21 @@
 }
 
 -(NSArray *)getMonthDaysByDate:(NSDate *)date{
-    //得到当月一共有多少天
-    NSInteger daysOfCurrentMonth1 = [self getDaysByCurrentMonth:date];
-    //得到当月第一天
-    NSInteger indexDay1 =  [self getFirstDayOfMonth:date];
-    NSArray *dateArrayM1 = [self GetCalendarForCurrentMonth:daysOfCurrentMonth1 FirstDayOfMonth:indexDay1];
+    //得到当月一共多少天
+    NSInteger daysOfCurrentMonth = [self getDaysByCurrentMonth:date];
+    //得到下月一共多少天
+    NSDate *nextMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:1];
+    NSInteger daysOfNextMonth = [self getDaysByCurrentMonth:nextMonthDate];
     
-    return dateArrayM1;
+    //得到上月一共多少天
+    NSDate *lastMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:-1];
+    NSInteger daysOfLastMonth = [self getDaysByCurrentMonth:lastMonthDate];
+    
+    //得到当月第一天
+    NSInteger indexDay =  [self getFirstDayOfMonth:date];
+    NSArray *dateArrayM = [self GetCalendarForCurrentMonthDays:daysOfCurrentMonth FirstDayOfCurrentMonth:indexDay LatMonthDays:daysOfLastMonth];
+    
+    return dateArrayM;
 }
 
 /*根据日期得到日期当月一共有多少天*/
@@ -393,17 +401,32 @@
 }
 
 /*输入当月一共多少天，并且当月的第一天是星期几，之后可以得到日历所需要的当月的所有数据*/
--(NSArray *)GetCalendarForCurrentMonth:(NSInteger)monthDays FirstDayOfMonth:(NSInteger)firstDayOfMonth{
+-(NSArray *)GetCalendarForCurrentMonthDays:(NSInteger)monthDays FirstDayOfCurrentMonth:(NSInteger)firstDayOfMonth LatMonthDays:(NSInteger)lastMonthDays{
     NSMutableArray *dateArrayM = [NSMutableArray array];
     NSNumber *iNumber;
-    int jjj=0;
+    
+    int currentMonthIndex = 0;
+    int nextMonthIndex = 0;
+    int firstDayOfPreviousMonthInCurrentMonth =(int)(lastMonthDays-(firstDayOfMonth-2));
+    
     for (int i=0; i<=41; i++) {
-        if (i>=firstDayOfMonth-1 && i<(firstDayOfMonth-1+monthDays)) {
-            iNumber = [NSNumber numberWithInt:jjj+1];
-            jjj++;
-        }else{
-            iNumber = [NSNumber numberWithInt:0];
+        //这里可能需要分成三组
+        //第一组: Index为0到First day之间(上个月的最后几天)
+        if (i<=firstDayOfMonth-2) {
+            iNumber = [NSNumber numberWithInt:firstDayOfPreviousMonthInCurrentMonth];
+            firstDayOfPreviousMonthInCurrentMonth++;
         }
+        //第二组: 实际显示的天数(这个月的实际日期)
+        else if(i>firstDayOfMonth-2 && i<(firstDayOfMonth-1+monthDays)){
+            iNumber = [NSNumber numberWithInt:currentMonthIndex+1];
+            currentMonthIndex++;
+        }
+        //第三组: 最后剩余的天数(下个月的前几天)
+        else{
+            iNumber = [NSNumber numberWithInt:nextMonthIndex+1];
+            nextMonthIndex++;
+        }
+        
         [dateArrayM addObject:iNumber];
     }
     return dateArrayM;
