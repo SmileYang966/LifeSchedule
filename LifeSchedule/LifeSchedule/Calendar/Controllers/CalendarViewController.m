@@ -228,7 +228,7 @@
     NSDate *dt = [NSDate date];
     NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
-    self.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
