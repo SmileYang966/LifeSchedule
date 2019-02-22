@@ -270,6 +270,11 @@
             currentDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:-1];
         }
         
+        //这里需要做一下判断，对于不在当月的日子，需要加上背景颜色
+        //IndexPath的row一共有42个才对,Index是从0到41为止
+        if(![self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row])
+            cell.isInactiveStatus = true;
+        
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
         NSInteger year = [components year];
@@ -362,6 +367,20 @@
         }
     }
     return 0;
+}
+
+/*Check当前给定的日期以及对应的dayIndex是否在这个区间内，如果不在，说明dayIndex可能会是上月或下月的日期*/
+-(BOOL)isDayIndexInCurrentMonthWithDate:(NSDate *)date dayIndex:(int)dayIndex{
+    //得到当月一共多少天
+    NSInteger daysOfCurrentMonth = [self getDaysByCurrentMonth:date];
+    //得到当月的第一天
+    NSInteger indexDay =  [self getFirstDayOfMonth:date];
+    
+    NSInteger startIndex = indexDay - 1;
+    NSInteger endIndex = startIndex + daysOfCurrentMonth - 1;
+    if (dayIndex>=startIndex && dayIndex<=endIndex)
+        return true;
+    return false;
 }
 
 -(NSArray *)getMonthDaysByDate:(NSDate *)date{

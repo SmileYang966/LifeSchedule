@@ -128,9 +128,18 @@
     }
 }
 
+- (void)setIsInactiveStatus:(bool)isInactiveStatus{
+    if (isInactiveStatus) {
+        self.dayLabel.textColor = UIColor.lightGrayColor;
+        self.dayLabel.alpha = 0.3f;
+    }
+}
+
 -(void)clearTextsOncell{
     self.holidayDescLabel.text = @"";
     self.dayLabel.text = @"";
+    self.dayLabel.alpha = 1.0f;
+    self.dayLabel.textColor = UIColor.blackColor;
 }
 
 @end
