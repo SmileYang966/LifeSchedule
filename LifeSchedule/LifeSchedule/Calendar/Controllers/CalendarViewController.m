@@ -54,6 +54,9 @@
 
 /*New activity button*/
 @property(nonatomic,strong) UIButton *addNewActivityButton;
+@property(nonatomic,strong) UITextField *hiddenTf;
+@property(nonatomic,strong) UIView *keyboardTopAccessoryView;
+@property(nonatomic,strong) UITextField *inputNewActTf;
 
 @end
 
@@ -231,6 +234,64 @@
     return _addNewActivityButton;
 }
 
+/*用于UITextField以及相应的keyboardTopAccessoryView*/
+- (UITextField *)hiddenTf{
+    if (_hiddenTf == NULL) {
+        _hiddenTf = [UITextField new];
+        UIView *accessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44.0f)];
+        accessoryView.backgroundColor = UIColor.redColor;
+        _hiddenTf.inputAccessoryView = self.keyboardTopAccessoryView;
+        [self.view addSubview:_hiddenTf];
+    }
+    return _hiddenTf;
+}
+
+- (UIView *)keyboardTopAccessoryView{
+    if (_keyboardTopAccessoryView == NULL) {
+        _keyboardTopAccessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50.0f)];
+        _keyboardTopAccessoryView.backgroundColor = [UIColor whiteColor];
+        _keyboardTopAccessoryView.layer.borderWidth = 0.7;
+        _keyboardTopAccessoryView.layer.borderColor = [UIColor orangeColor].CGColor;
+        
+        UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_keyboardTopAccessoryView.bounds.size.width-60-12, 4, 60, 45)];
+        [sendBtn setTitle:@"Go" forState:UIControlStateNormal];
+        [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
+        [_keyboardTopAccessoryView addSubview:sendBtn];
+        
+        UITextField *inputTf = [[UITextField alloc]init];
+        inputTf.frame = CGRectMake(10, 4, _keyboardTopAccessoryView.bounds.size.width-72-10, 45);
+        inputTf.placeholder = @"请输入新的任务";
+        inputTf.layer.cornerRadius = 5;
+        inputTf.layer.masksToBounds = YES;
+        [_keyboardTopAccessoryView addSubview:inputTf];
+        
+        self.inputNewActTf = inputTf;
+    }
+    return _keyboardTopAccessoryView;
+}
+
+#pragma mark - Event clicked
+
+-(void)addNewActivityButtonClicked:(UIButton *)addNewActivityButton{
+    [self.hiddenTf becomeFirstResponder];
+}
+
+-(void)sendNewActivity:(UIButton *)sendNewActivityButton{
+    
+}
+
+-(void)resignResponderForAllTextFields{
+    /*Used for the inputActiviy*/
+    [self.inputNewActTf resignFirstResponder];
+    /*Used for the hiddenTextField*/
+    [self.view endEditing:YES];
+}
+
+-(void)tapScreenClicked:(UITapGestureRecognizer *)tap{
+    [self resignResponderForAllTextFields];
+}
+
 #pragma mark -Basic operations for view
 
 - (void)viewDidLoad {
@@ -253,6 +314,10 @@
     NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapScreenClicked:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -375,6 +440,10 @@
 }
 
 #pragma mark -UIScrollView Delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self resignResponderForAllTextFields];
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
@@ -620,12 +689,6 @@
 -(NSInteger)getWeekdayByDate:(NSDate *)date{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond|NSCalendarUnitWeekday fromDate:date];
     return [components weekday];
-}
-
-#pragma mark - Event clicked
-
--(void)addNewActivityButtonClicked:(UIButton *)addNewActivityButton{
-    int a = 10;
 }
 
 #pragma mark - UITableView Part
