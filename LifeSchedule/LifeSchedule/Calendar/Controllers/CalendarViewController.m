@@ -49,7 +49,7 @@
 
 
 /*Core data part*/
-@property(nonatomic,strong) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
 @property(nonatomic,strong) NSArray *calendarActivities;
 
 /*New activity button*/
@@ -92,11 +92,11 @@
     return _totalDict;
 }
 
-- (NSManagedObjectContext *)managedObjectContext{
-    if (_managedObjectContext == NULL) {
-        _managedObjectContext = [CoreDataManager sharedManager].dBContext;
+- (NSManagedObjectContext *)managedObjContext{
+    if (_managedObjContext == NULL) {
+        _managedObjContext = [CoreDataManager sharedManager].dBContext;
     }
-    return _managedObjectContext;
+    return _managedObjContext;
 }
 
 -(NSURL *)applicationDocumentsDirectory
@@ -278,7 +278,60 @@
 }
 
 -(void)sendNewActivity:(UIButton *)sendNewActivityButton{
+    // 1. Record the text of inputNewActTf
+    NSString *recordNewActText = self.inputNewActTf.text;
     
+    // 2. 隐藏keyboard
+    [self resignResponderForAllTextFields];
+    
+    // 3. 弹出UIAlertController
+    UIAlertController *alertController = [[UIAlertController alloc]init];
+    
+    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    CGRect datePickerFrame = datePicker.frame;
+    datePickerFrame.origin.y += 35.0f;
+    datePicker.frame = datePickerFrame;
+    
+    datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+    datePicker.datePickerMode = UIDatePickerModeTime;
+    [alertController.view addSubview:datePicker];
+    
+    NSMutableAttributedString *alertControllerStr = [[NSMutableAttributedString alloc] initWithString:@"请选择活动时间\n\n\n\n\n\n\n\n\n\n\n"];
+    [alertControllerStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,7)];
+    [alertControllerStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0,7)];
+    [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //1.Get the activity description
+        //2.Get the activity start date
+        NSDate *selectedDate = datePicker.date;
+        
+        //3.save the data to the db
+        [self saveActivityWithDesc:recordNewActText plannedBeginDate:selectedDate isActivityCompleted:NO];
+        
+        //4.Clear the inputNewActTf
+        self.inputNewActTf.text = @"";
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    [alertController addAction:confirmAction];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
+    TimeActivity *act = [NSEntityDescription insertNewObjectForEntityForName:@"TimeActivity" inManagedObjectContext:self.managedObjContext];
+    act.activityDescription = activityDesc;
+    act.plannedBeginDate = beginDate;
+    act.isActivityCompleted = isCompleted;
+    
+    NSError *error;
+    if([self.managedObjContext save:&error])
+    {
+    }
 }
 
 -(void)resignResponderForAllTextFields{
@@ -313,6 +366,10 @@
     
     
     [self initOperations];
+    
+    
+     NSURL *url = [self applicationDocumentsDirectory];
+     NSLog(@"url path =%@",url.absoluteString);
 }
 
 -(void)initOperations{
