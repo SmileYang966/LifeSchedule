@@ -52,9 +52,14 @@
 @property(nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic,strong) NSArray *calendarActivities;
 
+/*New activity button*/
+@property(nonatomic,strong) UIButton *addNewActivityButton;
+
 @end
 
 @implementation CalendarViewController
+
+#pragma mark -Lazy loading
 
 - (NSMutableDictionary *)totalDict{
     if (_totalDict == NULL) {
@@ -209,6 +214,25 @@
     return _nextCollectionView;
 }
 
+/*Add new activity button*/
+- (UIButton *)addNewActivityButton{
+    if (_addNewActivityButton == NULL) {
+        _addNewActivityButton = [[UIButton alloc]init];
+        CGFloat addNewActivityButtonWidth = 48.0f;
+        CGFloat addNewActivityButtonHeight = 48.0f;
+        CGFloat addNewActivityButtonX = UIScreen.mainScreen.bounds.size.width - addNewActivityButtonWidth-20;
+        CGFloat addNewActivityButtonY = UIScreen.mainScreen.bounds.size.height - addNewActivityButtonHeight - self.tabBarController.tabBar.frame.size.height-20;
+        _addNewActivityButton.frame = CGRectMake(addNewActivityButtonX, addNewActivityButtonY, addNewActivityButtonWidth, addNewActivityButtonHeight);
+        [_addNewActivityButton setBackgroundImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
+        _addNewActivityButton.layer.masksToBounds = YES;
+        _addNewActivityButton.alpha = 0.7f;
+        [_addNewActivityButton addTarget:self action:@selector(addNewActivityButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _addNewActivityButton;
+}
+
+#pragma mark -Basic operations for view
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -230,6 +254,20 @@
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    [keyWindow addSubview:self.addNewActivityButton];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.addNewActivityButton removeFromSuperview];
+}
+
+#pragma mark -UICollectionView Delegate
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 #warning Incomplete implementation, return the number of sections
@@ -270,7 +308,7 @@
             currentDate = [self getPreviousOrNextDateFromDate:self.currentCalendarDate WithMonth:-1];
         }
         
-        //这里需要做一下判断，对于不在当月的日子，需要加上背景颜色
+        //这里需要做一下判断，对于不在当月的日子，需要改变字体的颜色为浅灰色
         //IndexPath的row一共有42个才对,Index是从0到41为止
         if(![self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row])
             cell.isInactiveStatus = true;
@@ -336,6 +374,7 @@
     self.tempSavedCollectionViewCell = cell;
 }
 
+#pragma mark -UIScrollView Delegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
@@ -352,7 +391,7 @@
     self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
 }
 
-
+#pragma mark -Integrated functions
 -(NSDateComponents *)getNSDateComponentsByDate:(NSDate *)date{
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
@@ -583,7 +622,13 @@
     return [components weekday];
 }
 
-#pragma mark - UITableView Parts
+#pragma mark - Event clicked
+
+-(void)addNewActivityButtonClicked:(UIButton *)addNewActivityButton{
+    int a = 10;
+}
+
+#pragma mark - UITableView Part
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
