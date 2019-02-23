@@ -288,10 +288,6 @@
     [self.view endEditing:YES];
 }
 
--(void)tapScreenClicked:(UITapGestureRecognizer *)tap{
-    [self resignResponderForAllTextFields];
-}
-
 #pragma mark -Basic operations for view
 
 - (void)viewDidLoad {
@@ -316,8 +312,30 @@
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapScreenClicked:)];
-    [self.view addGestureRecognizer:tap];
+    [self initOperations];
+}
+
+-(void)initOperations{
+    /*1.Hide the keyboard*/
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
+    [self.view addGestureRecognizer:tapGr];
+    /*2.Add two notifications related to the keyboard*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+-(void)tapClicked:(UITapGestureRecognizer *)tap{
+    [self resignResponderForAllTextFields];
+}
+
+/*显示键盘*/
+- (void)keyBoardWillShow:(NSNotification *)notification{
+    /*When the keyboard show on the screen, we will let the another textField(used for enter acitvity) become the first responder */
+    [self.inputNewActTf becomeFirstResponder];
+}
+
+/*隐藏键盘*/
+-(void)keyBoardWillHide:(NSNotification *)notification{
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -411,7 +429,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger myTag = collectionView.tag;
     
     // Clear the background color
     if (self.tempSavedCollectionViewCell != NULL) {
