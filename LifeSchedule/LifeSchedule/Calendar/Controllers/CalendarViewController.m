@@ -418,7 +418,7 @@
 -(void)initOperations{
     /*1.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
-    [self.view addGestureRecognizer:tapGr];
+//    [self.view addGestureRecognizer:tapGr];
     /*2.Add two notifications related to the keyboard*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -518,18 +518,26 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
-    if(selectedIndex==1)
+    if(selectedIndex == 0)
     {
+        //向左偏移到上一月
         NSLog(@"selectedIndex==1");
+        [self.calendarScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self scrollTheCalendarToLeft:false];
     }
-    else if(selectedIndex==0)
+    else if(selectedIndex == 1)
     {
+        //当月
         NSLog(@"selectedIndex==0");
     }
     else{
+        //向右偏移到下一月
         NSLog(@"selectedIndex==2");
+        [self.calendarScrollView setContentOffset:CGPointMake(self.view.bounds.size.width * 2, 0) animated:YES];
+        [self scrollTheCalendarToLeft:true];
     }
     
+    self.calendarScrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
     
     // Clear the background color
     if (self.tempSavedCollectionViewCell != NULL) {
