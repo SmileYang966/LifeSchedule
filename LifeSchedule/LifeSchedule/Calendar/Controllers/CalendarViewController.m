@@ -58,6 +58,11 @@
 @property(nonatomic,strong) UIView *keyboardTopAccessoryView;
 @property(nonatomic,strong) UITextField *inputNewActTf;
 
+/*Activity related database*/
+@property(nonatomic,strong) NSMutableArray *ongoingTasks;
+@property(nonatomic,strong) NSMutableArray *completedTasks;
+@property(nonatomic,strong) NSDate *calendarSelectedDate;
+
 @end
 
 @implementation CalendarViewController
@@ -271,7 +276,21 @@
     return _keyboardTopAccessoryView;
 }
 
-#pragma mark - Event clicked
+- (NSMutableArray *)ongoingTasks{
+    if (_ongoingTasks == NULL) {
+        _ongoingTasks = [NSMutableArray array];
+    }
+    return _ongoingTasks;
+}
+
+- (NSMutableArray *)completedTasks{
+    if (_completedTasks == NULL) {
+        _completedTasks = [NSMutableArray array];
+    }
+    return _completedTasks;
+}
+
+#pragma mark -Event clicked
 
 -(void)addNewActivityButtonClicked:(UIButton *)addNewActivityButton{
     [self.hiddenTf becomeFirstResponder];
@@ -341,6 +360,18 @@
     [self.view endEditing:YES];
 }
 
+- (void)refreshedData{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.resultType = NSManagedObjectResultType;
+    
+    NSError *error = NULL;
+    NSArray *timeActivityArray = [self.managedObjContext executeFetchRequest:request error:&error];
+    for (TimeActivity *act in timeActivityArray) {
+        
+    }
+}
+
 #pragma mark -Basic operations for view
 
 - (void)viewDidLoad {
@@ -372,6 +403,18 @@
      NSLog(@"url path =%@",url.absoluteString);
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    [keyWindow addSubview:self.addNewActivityButton];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.addNewActivityButton removeFromSuperview];
+}
+
 -(void)initOperations{
     /*1.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
@@ -393,18 +436,6 @@
 
 /*隐藏键盘*/
 -(void)keyBoardWillHide:(NSNotification *)notification{
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    [keyWindow addSubview:self.addNewActivityButton];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.addNewActivityButton removeFromSuperview];
 }
 
 #pragma mark -UICollectionView Delegate
@@ -450,7 +481,7 @@
         
         //这里需要做一下判断，对于不在当月的日子，需要改变字体的颜色为浅灰色
         //IndexPath的row一共有42个才对,Index是从0到41为止
-        if(![self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row])
+        if([self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row]!=1)
             cell.isInactiveStatus = true;
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -486,6 +517,19 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
+    if(selectedIndex==1)
+    {
+        NSLog(@"selectedIndex==1");
+    }
+    else if(selectedIndex==0)
+    {
+        NSLog(@"selectedIndex==0");
+    }
+    else{
+        NSLog(@"selectedIndex==2");
+    }
+    
     
     // Clear the background color
     if (self.tempSavedCollectionViewCell != NULL) {
@@ -552,7 +596,7 @@
 }
 
 /*Check当前给定的日期以及对应的dayIndex是否在这个区间内，如果不在，说明dayIndex可能会是上月或下月的日期*/
--(BOOL)isDayIndexInCurrentMonthWithDate:(NSDate *)date dayIndex:(int)dayIndex{
+-(int)isDayIndexInCurrentMonthWithDate:(NSDate *)date dayIndex:(int)dayIndex{
     //得到当月一共多少天
     NSInteger daysOfCurrentMonth = [self getDaysByCurrentMonth:date];
     //得到当月的第一天
@@ -561,7 +605,11 @@
     NSInteger startIndex = indexDay - 1;
     NSInteger endIndex = startIndex + daysOfCurrentMonth - 1;
     if (dayIndex>=startIndex && dayIndex<=endIndex)
-        return true;
+        return 1;
+    else if(dayIndex<startIndex)
+        return 0;
+    else
+        return 2;
     return false;
 }
 
@@ -765,10 +813,10 @@
     return [components weekday];
 }
 
-#pragma mark - UITableView Part
+#pragma mark -UITableView Part
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
