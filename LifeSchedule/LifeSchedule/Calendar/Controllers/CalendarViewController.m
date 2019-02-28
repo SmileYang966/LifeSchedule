@@ -17,6 +17,8 @@
 #define NEXTMONTH       @"nextMonth"
 #define LASTMONTH       @"lastMonth"
 
+#define     CalendarCollectionViewItemSizeWidthOrHeight     38.0f
+
 @interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 /*1.Defined a scrollView on the top half*/
@@ -37,6 +39,10 @@
 @property(nonatomic,strong) UICollectionView *currentCollectionView;
 @property(nonatomic,strong) UICollectionView *previousCollectionView;
 @property(nonatomic,strong) UICollectionView *nextCollectionView;
+
+/*5.Defined the size*/
+@property(nonatomic,assign) int collectionViewItemMarginX;
+@property(nonatomic,assign) CGFloat collectionViewSizeHeight;
 
 
 /*Data part*/
@@ -169,11 +175,14 @@
     if (_currentCollectionView == NULL) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 0;
+        layout.minimumInteritemSpacing = self.collectionViewItemMarginX;
         layout.sectionHeadersPinToVisibleBounds = true;
+        layout.itemSize = CGSizeMake(CalendarCollectionViewItemSizeWidthOrHeight, CalendarCollectionViewItemSizeWidthOrHeight);
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         
-        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*1, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        
+        
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*1, 0, self.view.bounds.size.width, self.collectionViewSizeHeight) collectionViewLayout:layout];
         collectionView.backgroundColor = UIColor.whiteColor;
         collectionView.delegate = self;
         collectionView.dataSource = self;
@@ -188,11 +197,12 @@
     if (_previousCollectionView == NULL) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 0;
+        layout.minimumInteritemSpacing = self.collectionViewItemMarginX;
         layout.sectionHeadersPinToVisibleBounds = true;
+        layout.itemSize = CGSizeMake(CalendarCollectionViewItemSizeWidthOrHeight, CalendarCollectionViewItemSizeWidthOrHeight);
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         
-        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.collectionViewSizeHeight) collectionViewLayout:layout];
         collectionView.backgroundColor = UIColor.whiteColor;
         collectionView.delegate = self;
         collectionView.dataSource = self;
@@ -207,11 +217,12 @@
     if (_nextCollectionView == NULL) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 0;
+        layout.minimumInteritemSpacing = self.collectionViewItemMarginX;
         layout.sectionHeadersPinToVisibleBounds = true;
+        layout.itemSize = CGSizeMake(CalendarCollectionViewItemSizeWidthOrHeight, CalendarCollectionViewItemSizeWidthOrHeight);
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         
-        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*2, 0, self.view.bounds.size.width, 325.0f) collectionViewLayout:layout];
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*2, 0, self.view.bounds.size.width, self.collectionViewSizeHeight) collectionViewLayout:layout];
         collectionView.backgroundColor = UIColor.whiteColor;
         collectionView.delegate = self;
         collectionView.dataSource = self;
@@ -378,7 +389,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
-    
+    self.collectionViewItemMarginX = (int)((self.view.bounds.size.width - CalendarCollectionViewItemSizeWidthOrHeight * 7) / 6.0f);
+    CGFloat collectionViewItemMarginY = 5.0f;
+    self.collectionViewSizeHeight = CalendarCollectionViewItemSizeWidthOrHeight*6 + collectionViewItemMarginY*5;
     self.dailyScheduledTableView.rowHeight = 120.0f;
     
     /*将三个UICollectionView加入到scrollView当中*/

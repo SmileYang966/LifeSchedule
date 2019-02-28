@@ -26,7 +26,7 @@
 /* 1.Generate all the elements which the cell used */
 - (UIView *)rectangleView{
     if (_rectangleView == NULL) {
-        _rectangleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+        _rectangleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
 //        _rectangleView.backgroundColor = UIColor.blueColor;
     }
     return _rectangleView;
@@ -34,8 +34,8 @@
 
 - (UILabel *)dayLabel{
     if (_dayLabel == NULL) {
-        _dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _dayLabel.layer.cornerRadius = 25.0f;
+        _dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        _dayLabel.layer.cornerRadius = 20.0f;
         _dayLabel.numberOfLines = 0;
         [self.rectangleView addSubview:_dayLabel];
     }
@@ -45,7 +45,7 @@
 - (UILabel *)holidayDescLabel{
     if (_holidayDescLabel == NULL) {
         CGFloat maxY = CGRectGetMaxY(self.dayLabel.frame);
-        _holidayDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 38, self.rectangleView.bounds.size.width, 10.0f)];
+        _holidayDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-7.0f, self.rectangleView.bounds.size.width, 10.0f)];
         _holidayDescLabel.font = [UIFont boldSystemFontOfSize:8.0f];
         _holidayDescLabel.textAlignment = NSTextAlignmentCenter;
         _holidayDescLabel.textColor = [UIColor colorWithRed:54/255.0 green:211/255.0 blue:160/255.0 alpha:1.0];
