@@ -303,14 +303,14 @@
 
 #pragma mark-Play Audio
 -(void)playRestAudio{
-    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"workingTimeExpired" ofType:@"mp3"];
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"breakTimeExpired" ofType:@"mp3"];
     [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
         SCLog(@"Play Break audio");
     }];
 }
 
 -(void)playContinueWorkingAudio{
-    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"breakTimeExpired" ofType:@"mp3"];
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"workingTimeExpired" ofType:@"mp3"];
     [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
         SCLog(@"Play continue to work audio");
     }];
