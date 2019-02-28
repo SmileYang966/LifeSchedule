@@ -517,11 +517,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Before clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
     int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
     if(selectedIndex == 0)
     {
         //向左偏移到上一月 selectedIndex==0
+        [self.calendarScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         [self scrollTheCalendarToLeft:false];
     }
     else if(selectedIndex == 1)
@@ -530,9 +530,10 @@
     }
     else{
         //向右偏移到下一月 selectedIndex==2
+        [self.calendarScrollView setContentOffset:CGPointMake(self.view.bounds.size.width * 2, 0) animated:YES];
         [self scrollTheCalendarToLeft:true];
     }
-        
+    
     // Clear the background color
     if (self.tempSavedCollectionViewCell != NULL) {
         self.tempSavedCollectionViewCell.backgroundColor = UIColor.clearColor;
@@ -578,6 +579,11 @@
         [self scrollTheCalendarToLeft:false];
     }
     
+    self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
+}
+
+/* called when setContentOffset/scrollRectVisible:animated: finishes */
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
 }
 
