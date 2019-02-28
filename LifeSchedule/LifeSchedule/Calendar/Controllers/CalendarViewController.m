@@ -482,7 +482,8 @@
         
         //这里需要做一下判断，对于不在当月的日子，需要改变字体的颜色为浅灰色
         //IndexPath的row一共有42个才对,Index是从0到41为止
-        if([self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row]!=1)
+        int dayIndexInCurrentMonth = [self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:(int)indexPath.row];
+        if(dayIndexInCurrentMonth != 1)
             cell.isInactiveStatus = true;
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -492,7 +493,7 @@
 //        NSLog(@" %ld-%ld-%ld ",year,month,[dayNumber integerValue]);
         NSString *dayKey = [NSString stringWithFormat:@"%ld-%ld-%ld",year,month,[dayNumber integerValue]];
         NSString *holidayDesc = [self.publicHolidayDictM objectForKey:dayKey];
-        if (holidayDesc != NULL) {
+        if (holidayDesc != NULL && dayIndexInCurrentMonth == 1) {
             cell.holidayDesc = holidayDesc;
         }
     }
