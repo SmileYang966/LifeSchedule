@@ -303,17 +303,15 @@
 
 #pragma mark-Play Audio
 -(void)playRestAudio{
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
-    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/finishedWorkAndStartToBreak.caf"];
-    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"workingTimeExpired" ofType:@"mp3"];
+    [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
         SCLog(@"Play Break audio");
     }];
 }
 
 -(void)playContinueWorkingAudio{
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) lastObject];
-    NSString *audioPath = [path stringByAppendingPathComponent:@"sounds/finishedBreakAndStartToWork.caf"];
-    [LSAudioPlayTool playAudioWithPath:audioPath finishedAudioPlay:^{
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"breakTimeExpired" ofType:@"mp3"];
+    [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
         SCLog(@"Play continue to work audio");
     }];
 }
