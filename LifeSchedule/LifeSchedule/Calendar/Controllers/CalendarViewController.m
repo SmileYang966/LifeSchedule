@@ -488,7 +488,7 @@
         NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
         NSInteger year = [components year];
         NSInteger month = [components month];
-        NSLog(@" %ld-%ld-%ld ",year,month,[dayNumber integerValue]);
+//        NSLog(@" %ld-%ld-%ld ",year,month,[dayNumber integerValue]);
         NSString *dayKey = [NSString stringWithFormat:@"%ld-%ld-%ld",year,month,[dayNumber integerValue]];
         NSString *holidayDesc = [self.publicHolidayDictM objectForKey:dayKey];
         if (holidayDesc != NULL) {
@@ -517,28 +517,22 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"Before clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
     int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
     if(selectedIndex == 0)
     {
-        //向左偏移到上一月
-        NSLog(@"selectedIndex==1");
-        [self.calendarScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        //向左偏移到上一月 selectedIndex==0
         [self scrollTheCalendarToLeft:false];
     }
     else if(selectedIndex == 1)
     {
-        //当月
-        NSLog(@"selectedIndex==0");
+        //当月 selectedIndex==1
     }
     else{
-        //向右偏移到下一月
-        NSLog(@"selectedIndex==2");
-        [self.calendarScrollView setContentOffset:CGPointMake(self.view.bounds.size.width * 2, 0) animated:YES];
+        //向右偏移到下一月 selectedIndex==2
         [self scrollTheCalendarToLeft:true];
     }
-    
-    self.calendarScrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
-    
+        
     // Clear the background color
     if (self.tempSavedCollectionViewCell != NULL) {
         self.tempSavedCollectionViewCell.backgroundColor = UIColor.clearColor;
@@ -563,6 +557,7 @@
     }
     
     self.tempSavedCollectionViewCell = cell;
+    NSLog(@"After clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
 }
 
 #pragma mark -UIScrollView Delegate
@@ -789,7 +784,7 @@
                     [self.publicHolidayDictM setObject:holidayDict[@"name"] forKey:holidayDict[@"startday"]];
                 }
                 
-                NSLog(@"holidayList=%@",self.publicHolidayList);
+                
             }
         }
     }];
