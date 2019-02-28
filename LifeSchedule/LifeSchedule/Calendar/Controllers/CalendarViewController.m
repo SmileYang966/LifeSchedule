@@ -461,6 +461,7 @@
     NSNumber *dayNumber = (NSNumber *)daysArray[indexPath.row];
     cell.dayNo  = [dayNumber integerValue];
     cell.hiddenSelectedView = true;
+    cell.isInactiveStatus = false;
     
     //To do : 需要得到有效dayNo的具体日期，当它满足holiday day的条件时，需要去对这个cell做一些额外的处理
     //可以得到当前日历的日期,只有大约0才是有效的
@@ -595,9 +596,11 @@
 }
 
 -(NSInteger)getCurrentDayIndexInMonth:(NSDateComponents *)comp{
-    NSArray *currentDays = [self getMonthDaysByDate:[NSDate date]];
+    NSDate *currentDate = [NSDate date];
+    NSArray *currentDays = [self getMonthDaysByDate:currentDate];
     for (int i=0; i<42; i++) {
-        if ([currentDays[i] integerValue] == comp.day) {
+        /* It's necessary to check the if the current day index belong to the current month day or not the next or previous month day */
+        if ([currentDays[i] integerValue] == comp.day && [self isDayIndexInCurrentMonthWithDate:currentDate dayIndex:i]==1) {
             return i;
         }
     }
