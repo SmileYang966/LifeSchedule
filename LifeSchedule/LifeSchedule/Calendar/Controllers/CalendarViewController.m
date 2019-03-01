@@ -12,6 +12,10 @@
 #import "PublicHolidayDay.h"
 #import "CalendarTableViewCell.h"
 #import "TimeActivity+CoreDataClass.h"
+#import "TaskCollectionGroupModel.h"
+#import "TaskCollectionFrame.h"
+#import "TaskCollectionGroupModel.h"
+#import "TaskCollectionModel.h"
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
@@ -306,6 +310,55 @@
     return _completedTasks;
 }
 
+#pragma mark -Data Process
+
+-(void)refreshData{
+    /*CoreData - Try to load the data from local db*/
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.resultType = NSManagedObjectResultType;
+    
+    /*创建筛选条件,所选中的日期*/
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
+    components.day = [self.currentSelectedMonthDay integerValue];
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    NSDate *minDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    components.hour = 23;
+    components.minute = 59;
+    components.second = 59;
+    NSDate *maxDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"plannedBeginDate >= %@ AND plannedBeginDate <= %@",minDate,maxDate];
+    [request setPredicate:predicate];
+    
+    //创建排序描述器
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    
+    NSMutableArray *ongoingActivityarrayM = [NSMutableArray array];
+    NSMutableArray *completedActivityArrayM = [NSMutableArray array];
+    for (TimeActivity *act in timeActivityDbArray) {
+        NSString *activityDesc = act.activityDescription;
+        TaskCollectionFrame *collectionF = [[TaskCollectionFrame alloc]init];
+        TaskCollectionModel *plannedTaskGroupItem = [TaskCollectionModel createCollectionTaskModelWithTitle:activityDesc taskStartedDate:act.plannedBeginDate];
+        plannedTaskGroupItem.isCompleted = act.isActivityCompleted;
+        collectionF.taskCollectionModel = plannedTaskGroupItem;
+        
+        if (!act.isActivityCompleted) {
+            [ongoingActivityarrayM addObject:collectionF];
+        }else{
+            [completedActivityArrayM addObject:collectionF];
+        }
+    }
+    self.ongoingTasks = ongoingActivityarrayM;
+    self.completedTasks = completedActivityArrayM;
+}
+
 #pragma mark -Event clicked
 
 -(void)addNewActivityButtonClicked:(UIButton *)addNewActivityButton{
@@ -416,8 +469,7 @@
     NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
     self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
-    
-    
+    self.currentSelectedMonthDay = [NSNumber numberWithInteger:comp.day];
     [self initOperations];
     
     
@@ -430,6 +482,8 @@
 
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.addNewActivityButton];
+    
+    [self refreshData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -534,7 +588,6 @@
         cell.hiddenSelectedView = false;
         /*确保当前保存的cell是默认当天选中的cell*/
         self.tempSavedCollectionViewCell = cell;
-        self.currentSelectedMonthDay = [NSNumber numberWithInteger:components.day];
     }
     
     return cell;
@@ -588,6 +641,8 @@
     
     self.tempSavedCollectionViewCell = cell;
     NSLog(@"After clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
+    
+    [self refreshData];
 }
 
 #pragma mark -UIScrollView Delegate
