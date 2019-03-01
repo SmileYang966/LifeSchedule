@@ -50,7 +50,12 @@
 @property(nonatomic,strong) NSMutableArray *publicHolidayList;
 @property(nonatomic,strong) NSMutableDictionary *publicHolidayDictM;
 
+/*
+ * currentCalendarDate => Just care its year and month
+ * currentSelectedDate => Care its year、month and the specific day
+ */
 @property(nonatomic,strong) NSDate *currentCalendarDate;
+@property(nonatomic,strong) NSNumber *currentSelectedMonthDay;
 @property(nonatomic,assign) NSInteger currentDayIndex;
 
 
@@ -181,7 +186,7 @@
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         
         
-        
+    
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*1, 0, self.view.bounds.size.width, self.collectionViewSizeHeight) collectionViewLayout:layout];
         collectionView.backgroundColor = UIColor.whiteColor;
         collectionView.delegate = self;
@@ -335,6 +340,10 @@
         //1.Get the activity description
         //2.Get the activity start date
         NSDate *selectedDate = datePicker.date;
+        /* User selected the assigned day as the activity date*/
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:selectedDate];
+        components.day = [self.currentSelectedMonthDay integerValue];
+        selectedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
         
         //3.save the data to the db
         [self saveActivityWithDesc:recordNewActText plannedBeginDate:selectedDate isActivityCompleted:NO];
@@ -503,7 +512,6 @@
         NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
         NSInteger year = [components year];
         NSInteger month = [components month];
-//        NSLog(@" %ld-%ld-%ld ",year,month,[dayNumber integerValue]);
         NSString *dayKey = [NSString stringWithFormat:@"%ld-%ld-%ld",year,month,[dayNumber integerValue]];
         NSString *holidayDesc = [self.publicHolidayDictM objectForKey:dayKey];
         if (holidayDesc != NULL && dayIndexInCurrentMonth == 1) {
@@ -526,6 +534,7 @@
         cell.hiddenSelectedView = false;
         /*确保当前保存的cell是默认当天选中的cell*/
         self.tempSavedCollectionViewCell = cell;
+        self.currentSelectedMonthDay = [NSNumber numberWithInteger:components.day];
     }
     
     return cell;
@@ -533,6 +542,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
+    NSArray *monthDays = [self getMonthDaysByDate:self.currentCalendarDate];
+    NSNumber *monthDay = monthDays[indexPath.row];
+    
     if(selectedIndex == 0)
     {
         //向左偏移到上一月 selectedIndex==0
@@ -542,6 +554,8 @@
     else if(selectedIndex == 1)
     {
         //当月 selectedIndex==1
+        NSLog(@"current Date = %@",self.currentCalendarDate);
+        self.currentSelectedMonthDay = monthDay;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
