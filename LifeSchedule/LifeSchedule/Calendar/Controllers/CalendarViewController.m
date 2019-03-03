@@ -16,6 +16,7 @@
 #import "TaskCollectionFrame.h"
 #import "TaskCollectionGroupModel.h"
 #import "TaskCollectionModel.h"
+#import "TaskCollectionTableViewCell.h"
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
@@ -23,7 +24,7 @@
 
 #define     CalendarCollectionViewItemSizeWidthOrHeight     38.0f
 
-@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,TaskCollectionTableViewCellDelegate>
 
 /*1.Defined a scrollView on the top half*/
 @property(nonatomic,strong) UIScrollView *calendarScrollView;
@@ -423,6 +424,9 @@
     NSError *error;
     if([self.managedObjContext save:&error])
     {
+        //After save the data successfully, refresh the data
+        [self refreshData];
+        [self.dailyScheduledTableView reloadData];
     }
 }
 
@@ -643,6 +647,7 @@
     NSLog(@"After clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
     
     [self refreshData];
+    [self.dailyScheduledTableView reloadData];
 }
 
 #pragma mark -UIScrollView Delegate
@@ -910,16 +915,43 @@
 
 #pragma mark -UITableView Part
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    int sectionCount = 0;
+    if (self.ongoingTasks.count>0)
+        sectionCount++;
+    if (self.completedTasks.count>0)
+        sectionCount++;
+    
+    return sectionCount;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    if (section == 1) {
+        return self.completedTasks.count;
+    }
+    return self.ongoingTasks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID = @"CELL";
-    CalendarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (cell == NULL) {
-        cell = [[CalendarTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+    static NSString *cellID = @"CELLID";
+    TaskCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell==NULL) {
+        cell = [[TaskCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+        cell.delegate = self;
     }
+    
+    TaskCollectionFrame *itemFrame = NULL;
+    switch (indexPath.section) {
+        case 0:
+            itemFrame = self.ongoingTasks[indexPath.row];
+            break;
+        case 1:
+            itemFrame = self.completedTasks[indexPath.row];
+            break;
+    }
+    
+    cell.taskCollectionFrame = itemFrame;
+    cell.cellIndex = indexPath;
     return cell;
 }
 
@@ -928,7 +960,36 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section == 1) {
+        return @"已完成";
+    }
     return @"今天";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0f;
+}
+
+-(void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
+    //Update the data
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
+    [request setPredicate:pre];
+    
+    //创建排序描述器
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    TimeActivity *act = timeActivityDbArray[cellIndex.row];
+    act.isActivityCompleted = !act.isActivityCompleted;
+    NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
+    NSError *error = nil;
+    [self.managedObjContext save:&error];
+    
+    /*After changed the completed status , we should put the cell to the suitable section*/
+    [self refreshData];
+    [self.dailyScheduledTableView reloadData];
 }
 
 @end
