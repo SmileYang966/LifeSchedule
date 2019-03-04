@@ -648,6 +648,7 @@
     
     [self refreshData];
     [self.dailyScheduledTableView reloadData];
+    [self.dailyScheduledTableView reloadSectionIndexTitles];
 }
 
 #pragma mark -UIScrollView Delegate
@@ -963,11 +964,45 @@
     if (section == 1) {
         return @"已完成";
     }
-    return @"今天";
+    
+    /* Check today if the current day ,if YES, just show the section title"今天"
+     * Else show the specific date string
+     */
+    /*Today date*/
+    NSDate *todayDate = [NSDate date];
+    NSDate *selectedDate = [self getSelectedDate];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:selectedDate];
+    bool isEqual = [self isSameDay:todayDate withComparedDate:selectedDate];
+    
+    if (isEqual) {
+        return @"今天";
+    }else{
+        return [NSString stringWithFormat:@"%ld-%ld-%ld",components.year,components.month,components.day];
+    }
+}
+
+-(NSDate *)getSelectedDate{
+    NSDate *currentDate = self.currentCalendarDate == nil ? [NSDate date] : self.currentCalendarDate;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:currentDate];
+    components.day = [self.currentSelectedMonthDay integerValue];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
+}
+
+/*Compare the two dates if belong to the same day*/
+- (BOOL)isSameDay:(NSDate *)date1 withComparedDate:(NSDate *)date2{
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+    NSDateComponents* comp1 = [calendar components:unitFlags fromDate:date1];
+    NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date2];
+    
+    return [comp1 day]   == [comp2 day] &&
+    [comp1 month] == [comp2 month] &&
+    [comp1 year]  == [comp2 year];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20.0f;
+    return 30.0f;
 }
 
 -(void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
