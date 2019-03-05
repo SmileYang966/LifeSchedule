@@ -319,8 +319,9 @@
     [request setReturnsObjectsAsFaults:NO];
     request.resultType = NSManagedObjectResultType;
     
-    /*创建筛选条件,所选中的日期*/
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
+    /*创建筛选条件,所选中的日期*/;
+    NSDate *fromDate = self.currentCalendarDate==nil ? [NSDate date] : self.currentCalendarDate;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:fromDate];
     components.day = [self.currentSelectedMonthDay integerValue];
     components.hour = 0;
     components.minute = 0;
@@ -391,11 +392,16 @@
     [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
     
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //1.Get the activity description
-        //2.Get the activity start date
+        /* 1.We can get the Hour、minute info from the current "datePicker.date" */
         NSDate *selectedDate = datePicker.date;
+        /* 2.We can get the Year、month info from the  self.currentCalendarDate */
+        NSDateComponents *currentCalendarComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:self.currentCalendarDate];
+        
         /* User selected the assigned day as the activity date*/
         NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:selectedDate];
+        components.year = currentCalendarComponents.year;
+        components.month = currentCalendarComponents.month;
+        /* 3.We can get the MonthDay info from the self.currentSelectedMonthDay */
         components.day = [self.currentSelectedMonthDay integerValue];
         selectedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
         
