@@ -676,6 +676,10 @@
     }
     
     self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
+    
+    /*When scroll to another month , the data will be refreshed*/
+    [self refreshData];
+    [self.dailyScheduledTableView reloadData];
 }
 
 /* called when setContentOffset/scrollRectVisible:animated: finishes */
