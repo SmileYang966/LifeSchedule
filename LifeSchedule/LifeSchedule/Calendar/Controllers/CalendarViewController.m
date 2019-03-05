@@ -961,24 +961,33 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    //Only have 1 section,it just was the completed section
+    if (self.ongoingTasks.count==0 && self.completedTasks.count>0) {
+        return @"已完成";
+    }
+    
+    if (section == 0) {
+        /* Check today if the current day ,if YES, just show the section title"今天"
+         * Else show the specific date string
+         */
+        /*Today date*/
+        NSDate *todayDate = [NSDate date];
+        NSDate *selectedDate = [self getSelectedDate];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:selectedDate];
+        bool isEqual = [self isSameDay:todayDate withComparedDate:selectedDate];
+        
+        if (isEqual) {
+            return @"今天";
+        }else{
+            return [NSString stringWithFormat:@"%ld-%ld-%ld",components.year,components.month,components.day];
+        }
+    }
+    
     if (section == 1) {
         return @"已完成";
     }
     
-    /* Check today if the current day ,if YES, just show the section title"今天"
-     * Else show the specific date string
-     */
-    /*Today date*/
-    NSDate *todayDate = [NSDate date];
-    NSDate *selectedDate = [self getSelectedDate];
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:selectedDate];
-    bool isEqual = [self isSameDay:todayDate withComparedDate:selectedDate];
-    
-    if (isEqual) {
-        return @"今天";
-    }else{
-        return [NSString stringWithFormat:@"%ld-%ld-%ld",components.year,components.month,components.day];
-    }
+    return @"";
 }
 
 -(NSDate *)getSelectedDate{
