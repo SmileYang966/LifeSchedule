@@ -17,6 +17,7 @@
 #import "TaskCollectionGroupModel.h"
 #import "TaskCollectionModel.h"
 #import "TaskCollectionTableViewCell.h"
+#import "LSTextViewController.h"
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
@@ -973,6 +974,27 @@
     cell.taskCollectionFrame = itemFrame;
     cell.cellIndex = indexPath;
     return cell;
+}
+
+/* Just found the didSelectRowAtIndexPath can not work normally
+ * Reason : We added the UITapGestureRecognizer on the current view , there are some
+ * conflicts between the gesture and the didSelectRowAtIndexPath function
+ */
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TaskCollectionFrame *itemFrame = NULL;
+    switch (indexPath.section) {
+        case 0:
+            itemFrame = self.ongoingTasks[indexPath.row];
+            break;
+            
+        case 1:
+            itemFrame = self.completedTasks[indexPath.row];
+            break;
+    }
+    
+    LSTextViewController *plannedActDetailVC = [[LSTextViewController alloc]init];
+    plannedActDetailVC.taskModel = itemFrame.taskCollectionModel;
+    [self.navigationController pushViewController:plannedActDetailVC animated:true];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
