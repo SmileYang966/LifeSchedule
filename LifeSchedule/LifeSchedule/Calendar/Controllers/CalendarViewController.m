@@ -927,6 +927,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.ongoingTasks.count==0 && self.completedTasks.count>0) {
+        return self.completedTasks.count;
+    }
+    
     if (section == 1) {
         return self.completedTasks.count;
     }
@@ -942,13 +946,17 @@
     }
     
     TaskCollectionFrame *itemFrame = NULL;
-    switch (indexPath.section) {
-        case 0:
-            itemFrame = self.ongoingTasks[indexPath.row];
-            break;
-        case 1:
-            itemFrame = self.completedTasks[indexPath.row];
-            break;
+    if (self.ongoingTasks.count==0 && self.completedTasks.count>0) {
+        itemFrame = self.completedTasks[indexPath.row];
+    }else{
+        switch (indexPath.section) {
+            case 0:
+                itemFrame = self.ongoingTasks[indexPath.row];
+                break;
+            case 1:
+                itemFrame = self.completedTasks[indexPath.row];
+                break;
+        }
     }
     
     cell.taskCollectionFrame = itemFrame;
