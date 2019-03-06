@@ -12,6 +12,7 @@
 #import "LSSwitcherSettingCellModel.h"
 #import "LSSettingPreferenceViewController.h"
 #import "SecurityAndDataTableViewController.h"
+#import "AboutUsScreenViewController.h"
 
 @interface LSSettingTableViewController ()
 
@@ -45,7 +46,7 @@
         LSSettingSectionModel *section2 = [[LSSettingSectionModel alloc]init];
         LSSettingCellModel *helpCenterModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"帮助中心" iconWithName:@"MoreHelp" destClass:[LSSettingPreferenceViewController class]];
         LSSettingCellModel *feedbackAndAdviceModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"反馈与建议" iconWithName:@"sound_Effect" destClass:[LSSettingPreferenceViewController class]];
-        LSSettingCellModel *aboutModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"MoreAbout" destClass:[LSSettingPreferenceViewController class]];
+        LSSettingCellModel *aboutModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"MoreAbout" destClass:[AboutUsScreenViewController class]];
         LSSettingCellModel *shareModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"推荐给好友" iconWithName:@"MoreShare" destClass:[LSSettingPreferenceViewController class]];
         NSArray *group2 = @[helpCenterModel,feedbackAndAdviceModel,aboutModel,shareModel];
         section2.sectionItems = group2;
