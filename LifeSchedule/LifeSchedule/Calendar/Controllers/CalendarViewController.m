@@ -1061,9 +1061,38 @@
 
 -(void)taskCollectionTableViewCell:(TaskCollectionTableViewCell *)cell selectedIndex:(NSIndexPath *)cellIndex{
     //Update the data
+    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d",cellIndex.section==0 ? 0 : 1];
-    [request setPredicate:pre];
+    NSDate *fromDate = self.currentCalendarDate==nil ? [NSDate date] : self.currentCalendarDate;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:fromDate];
+    components.day = [self.currentSelectedMonthDay integerValue];
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    NSDate *minDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    components.hour = 23;
+    components.minute = 59;
+    components.second = 59;
+    NSDate *maxDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    /* It seems current NSFetchRequest object only support 1 NSPredicate object , when I try to set 2 NSPredicate objects,
+     * only the second NSPredicate object work , and the first one will be ingored.
+     * Scenario 2 need to be considered especially
+     * Three scenarios:
+     * 1.Only Activities Ongoing section
+     * 2.Only Activities Completed section
+     * 3.Activities Ongoing section and Activities Completed section both existed
+     */
+    BOOL isActivityCompleted = false;
+    if (self.ongoingTasks.count==0 && self.completedTasks.count>0) {
+        isActivityCompleted = true;
+    }else{
+        isActivityCompleted = (cellIndex.section==0 ? 0 : 1);
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d AND plannedBeginDate >= %@ AND plannedBeginDate <= %@",isActivityCompleted,minDate,maxDate];
+    [request setPredicate:predicate];
     
     //创建排序描述器
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
@@ -1072,7 +1101,7 @@
     NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
     TimeActivity *act = timeActivityDbArray[cellIndex.row];
     act.isActivityCompleted = !act.isActivityCompleted;
-    NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
+    NSLog(@"act.ISComplete=%d,act Desc=%@",act.isActivityCompleted,act.activityDescription);
     NSError *error = nil;
     [self.managedObjContext save:&error];
     
