@@ -33,11 +33,12 @@
 /*2.Defined a view on the bottom half*/
 @property(nonatomic,strong) UIView *scheduleView;
 
-/*3.Header View for the calendar*/
-@property(nonatomic,strong)UIView *headerView;
-
 /*4.Defined a tableView to save the schedule for the current day*/
 @property(nonatomic,strong)UITableView *dailyScheduledTableView;
+@property(nonatomic,strong)UILabel *infoLabel;
+
+/*3.Header View for the calendar*/
+@property(nonatomic,strong)UIView *headerView;
 
 @property(nonatomic,strong)CalendarCollectionViewCell *tempSavedCollectionViewCell;
 
@@ -165,7 +166,7 @@
 - (UIView *)scheduleView{
     if (_scheduleView == NULL) {
         _scheduleView = [[UIView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.calendarScrollView.frame),self.view.bounds.size.width,self.view.bounds.size.height-CGRectGetMaxY(self.calendarScrollView.frame))];
-        _scheduleView.backgroundColor = UIColor.redColor;
+        _scheduleView.backgroundColor = UIColor.whiteColor;
         [self.view addSubview:_scheduleView];
     }
     return _scheduleView;
@@ -176,9 +177,20 @@
         _dailyScheduledTableView = [[UITableView alloc]initWithFrame:self.scheduleView.bounds];
         _dailyScheduledTableView.dataSource = self;
         _dailyScheduledTableView.delegate = self;
-        [self.scheduleView addSubview:_dailyScheduledTableView];
     }
     return _dailyScheduledTableView;
+}
+
+- (UILabel *)infoLabel{
+    if (_infoLabel == NULL) {
+        _infoLabel = [[UILabel alloc]initWithFrame:self.scheduleView.bounds];
+        _infoLabel.backgroundColor = UIColor.whiteColor;
+        _infoLabel.text = @"没有任务，放松一下";
+        _infoLabel.font = [UIFont systemFontOfSize:20.0f];
+        _infoLabel.textColor = UIColor.blackColor;
+        _infoLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _infoLabel;
 }
 
 /*Three collection views to save the data*/
@@ -360,6 +372,14 @@
     }
     self.ongoingTasks = ongoingActivityarrayM;
     self.completedTasks = completedActivityArrayM;
+    
+    if (self.ongoingTasks.count==0 && self.completedTasks.count==0) {
+        [self.dailyScheduledTableView removeFromSuperview];
+        [self.scheduleView addSubview:self.infoLabel];
+    }else{
+        [self.infoLabel removeFromSuperview];
+        [self.scheduleView addSubview:self.dailyScheduledTableView];
+    }
 }
 
 #pragma mark -Event clicked
