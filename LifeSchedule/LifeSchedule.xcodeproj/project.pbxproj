@@ -11,7 +11,6 @@
 		25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25230022210DACA200BBF862 /* TaskCollectionModel.m */; };
 		254928B621D2759500AFC0DD /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 254928B521D2759500AFC0DD /* CalendarTableViewCell.m */; };
 		254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */; };
-		254DCEAF21B5784F008990D9 /* AboutUsScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */; };
 		2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2562CD03210FD98000419B79 /* TaskCollectionFrame.m */; };
 		2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2562CD05210FDC6B00419B79 /* UIKit.framework */; };
 		256560DA21CE34B5009988CA /* CalendarCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 256560D921CE34B5009988CA /* CalendarCollectionViewCell.m */; };
@@ -81,7 +80,6 @@
 		254928B521D2759500AFC0DD /* CalendarTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		254DCEAB21B5784F008990D9 /* AboutUsScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsScreenViewController.h; sourceTree = "<group>"; };
 		254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsScreenViewController.m; sourceTree = "<group>"; };
-		254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsScreenViewController.xib; sourceTree = "<group>"; };
 		2562CD02210FD98000419B79 /* TaskCollectionFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCollectionFrame.h; sourceTree = "<group>"; };
 		2562CD03210FD98000419B79 /* TaskCollectionFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionFrame.m; sourceTree = "<group>"; };
 		2562CD05210FDC6B00419B79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -224,7 +222,6 @@
 			children = (
 				254DCEAB21B5784F008990D9 /* AboutUsScreenViewController.h */,
 				254DCEAC21B5784F008990D9 /* AboutUsScreenViewController.m */,
-				254DCEAD21B5784F008990D9 /* AboutUsScreenViewController.xib */,
 			);
 			path = AboutScreen;
 			sourceTree = "<group>";
@@ -745,7 +742,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */,
-				254DCEAF21B5784F008990D9 /* AboutUsScreenViewController.xib in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
 				71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,

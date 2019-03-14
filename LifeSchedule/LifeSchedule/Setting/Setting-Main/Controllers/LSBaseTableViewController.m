@@ -70,6 +70,7 @@
         LSArrowSettingCellModel *arrowCellModel = (LSArrowSettingCellModel *)cellModel;
         Class destClass = arrowCellModel.destClass;
          UIViewController *vc = [[destClass alloc]init];
+        vc.title = arrowCellModel.title;
         [self.navigationController pushViewController:vc animated:true];
     }
 }
