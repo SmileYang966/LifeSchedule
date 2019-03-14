@@ -186,8 +186,8 @@
         _infoLabel = [[UILabel alloc]initWithFrame:self.scheduleView.bounds];
         _infoLabel.backgroundColor = UIColor.whiteColor;
         _infoLabel.text = @"没有任务，放松一下";
-        _infoLabel.font = [UIFont systemFontOfSize:20.0f];
-        _infoLabel.textColor = UIColor.blackColor;
+        _infoLabel.font = [UIFont systemFontOfSize:25.0f];
+        _infoLabel.textColor = UIColor.lightGrayColor;
         _infoLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _infoLabel;
