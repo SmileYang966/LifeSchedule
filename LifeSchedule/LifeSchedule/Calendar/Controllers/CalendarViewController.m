@@ -608,7 +608,7 @@
         if (dayIndexInCurrentMonth == 1) {
             if ([self isCalendarActivitiesExistedByAssignedDate:currentDate withDayNumber:dayNumber]) {
                 //Temp workaround , will do the enhancement later
-                cell.backgroundColor = UIColor.redColor;
+//                cell.backgroundColor = UIColor.redColor;
             }
         }
     }

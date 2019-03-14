@@ -27,7 +27,11 @@
 -(UIView *)iconView{
     if (_iconView == NULL) {
         _iconView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,200)];
-        _iconView.backgroundColor = UIColor.brownColor;
+        UIImage *img = [UIImage imageNamed:@"list.png"];
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-img.size.width)*0.5f, (_iconView.bounds.size.height-img.size.height-64)*0.5 + 64 , img.size.width, img.size.height)];
+//        imgView.backgroundColor = UIColor.redColor;
+        imgView.image = img;
+        [_iconView addSubview:imgView];
         [self.view addSubview:_iconView];
     }
     return _iconView;
