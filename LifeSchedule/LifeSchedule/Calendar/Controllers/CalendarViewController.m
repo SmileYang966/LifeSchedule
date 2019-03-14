@@ -549,6 +549,7 @@
     cell.dayNo  = [dayNumber integerValue];
     cell.hiddenSelectedView = true;
     cell.isInactiveStatus = false;
+    cell.backgroundColor = UIColor.clearColor;
     
     //To do : 需要得到有效dayNo的具体日期，当它满足holiday day的条件时，需要去对这个cell做一些额外的处理
     //可以得到当前日历的日期,只有大约0才是有效的
@@ -581,6 +582,14 @@
         NSString *holidayDesc = [self.publicHolidayDictM objectForKey:dayKey];
         if (holidayDesc != NULL && dayIndexInCurrentMonth == 1) {
             cell.holidayDesc = holidayDesc;
+        }
+        
+        //当前day是在当月的
+        if (dayIndexInCurrentMonth == 1) {
+            if ([self isCalendarActivitiesExistedByAssignedDate:currentDate withDayNumber:dayNumber]) {
+                //Temp workaround , will do the enhancement later
+                cell.backgroundColor = UIColor.redColor;
+            }
         }
     }
     
@@ -1108,6 +1117,34 @@
     /*After changed the completed status , we should put the cell to the suitable section*/
     [self refreshData];
     [self.dailyScheduledTableView reloadData];
+}
+
+/* If the selected date have any activities? */
+-(BOOL)isCalendarActivitiesExistedByAssignedDate:(NSDate *)selectedDate withDayNumber:(NSNumber *)dayNumber{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.resultType = NSManagedObjectResultType;
+    
+    NSDateComponents *components11 = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:selectedDate];
+    components11.day = [dayNumber integerValue];
+    components11.hour = 0;
+    components11.minute = 0;
+    components11.second = 0;
+    NSDate *minDate = [[NSCalendar currentCalendar] dateFromComponents:components11];
+    
+    components11.hour = 23;
+    components11.minute = 59;
+    components11.second = 59;
+    NSDate *maxDate = [[NSCalendar currentCalendar] dateFromComponents:components11];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"plannedBeginDate >= %@ AND plannedBeginDate <= %@",minDate,maxDate];
+    [request setPredicate:predicate];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:request error:nil];
+    if (timeActivityDbArray.count>0) {
+        return true;
+    }
+    return false;
 }
 
 @end
