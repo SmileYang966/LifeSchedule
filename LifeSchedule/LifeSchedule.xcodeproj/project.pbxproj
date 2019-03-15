@@ -24,6 +24,8 @@
 		25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779E121CE47960028FBE3 /* PublicHolidayDay.m */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
+		71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */; };
+		71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */; };
 		71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */; };
 		71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
@@ -103,6 +105,8 @@
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
+		71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "云书法手书建刚静心楷简.ttf"; sourceTree = "<group>"; };
+		71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正粗谭黑简体.ttf"; sourceTree = "<group>"; };
 		71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
 		71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
@@ -262,6 +266,15 @@
 				25DE0781210C2817002D944E /* LSAudioPlayTool.m */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		71478860223B53AD0009F6ED /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */,
+				71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
@@ -451,6 +464,7 @@
 		7CAC2D8320C8A70100D648E3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				71478860223B53AD0009F6ED /* fonts */,
 				2576FD1421E393F900316F20 /* DB */,
 				2592821A21E1BF2700DDE639 /* Singleton */,
 				25DE077E210C2817002D944E /* Tools */,
@@ -744,7 +758,9 @@
 				7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
 				71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */,
+				71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
+				71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */,
 				7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */,
 				71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */,
 			);
