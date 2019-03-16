@@ -2,4 +2,5 @@ target 'LifeSchedule' do
 pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'MBProgressHUD'
+pod 'skpsmtpmessage'
 end

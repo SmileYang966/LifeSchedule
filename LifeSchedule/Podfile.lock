@@ -18,23 +18,27 @@ PODS:
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
+  - skpsmtpmessage (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking
   - MBProgressHUD
   - SDWebImage
+  - skpsmtpmessage
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - MBProgressHUD
     - SDWebImage
+    - skpsmtpmessage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  skpsmtpmessage: f6e913380c784dd8d4a9f83c8790a302445a5e05
 
-PODFILE CHECKSUM: 17789b6a2f0aff4a153ae509c208d7f1e4710b28
+PODFILE CHECKSUM: 9c0b6f5cbe8c4d37d521975d59646a9f7614f7df
 
 COCOAPODS: 1.6.0

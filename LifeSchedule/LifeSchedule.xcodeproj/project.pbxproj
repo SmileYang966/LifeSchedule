@@ -22,6 +22,7 @@
 		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
 		25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779DE21CE3E710028FBE3 /* CalendarHeaderView.m */; };
 		25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779E121CE47960028FBE3 /* PublicHolidayDay.m */; };
+		711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D58DA223B9DC2004A3635 /* CFNetwork.framework */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
 		71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */; };
@@ -105,6 +106,7 @@
 		25F779E021CE47960028FBE3 /* PublicHolidayDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicHolidayDay.h; sourceTree = "<group>"; };
 		25F779E121CE47960028FBE3 /* PublicHolidayDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicHolidayDay.m; sourceTree = "<group>"; };
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		711D58DA223B9DC2004A3635 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
 		71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "云书法手书建刚静心楷简.ttf"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */,
 				2562CD06210FDC6B00419B79 /* UIKit.framework in Frameworks */,
 				E1C1A1A627030735D83A8C03 /* libPods-LifeSchedule.a in Frameworks */,
 			);
@@ -198,6 +201,7 @@
 		09AF0C4C60F1BB814E5A6C35 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				711D58DA223B9DC2004A3635 /* CFNetwork.framework */,
 				2562CD05210FDC6B00419B79 /* UIKit.framework */,
 				2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */,
 			);
