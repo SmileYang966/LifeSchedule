@@ -54,14 +54,21 @@
 }
 
 -(void)sendButtonClicked:(UIBarButtonItem *)barButtonItem{
-    //开始显示遮罩
-     [self.progressHUD showAnimated:YES];
-    
+
     //1. Collect subject info
     NSString *subjectInfo = self.subjectTf.text;
 
     //2. Collect content info
     NSString *contentTv = self.contentTv.text;
+    
+    if (subjectInfo.length==0 || contentTv.length==0) {
+        NSString *msg = subjectInfo.length==0 ? @"主题不能为空(⊙o⊙)哦" : @"内容不能为空(⊙o⊙)哦";
+        [self showErrorMessageWithTitle:@"Error" message:msg];
+        return;
+    }
+    
+    //开始显示遮罩
+    [self.progressHUD showAnimated:YES];
 
     //3. send mail from addr
     NSString *sendAddr = @"lifeschedule@163.com";
@@ -106,6 +113,12 @@
         [self.navigationController popViewControllerAnimated:YES];
     }]];
     
+    [self.navigationController presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)showErrorMessageWithTitle:(NSString *)title message:(NSString *)msg{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 
