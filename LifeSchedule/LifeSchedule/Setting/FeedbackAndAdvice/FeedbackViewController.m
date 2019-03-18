@@ -67,6 +67,9 @@
         return;
     }
     
+    //Resign the all responders
+    [self.view endEditing:YES];
+    
     //开始显示遮罩
     [self.progressHUD showAnimated:YES];
 
