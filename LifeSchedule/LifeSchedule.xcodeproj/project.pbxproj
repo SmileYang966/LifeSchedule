@@ -22,6 +22,9 @@
 		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
 		25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779DE21CE3E710028FBE3 /* CalendarHeaderView.m */; };
 		25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779E121CE47960028FBE3 /* PublicHolidayDay.m */; };
+		710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE6C223F494600BC41EF /* ConfigurationViewController.m */; };
+		710EDE74223F554D00BC41EF /* ConfigurationTimeSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */; };
+		710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */; };
 		711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D58DA223B9DC2004A3635 /* CFNetwork.framework */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
@@ -106,6 +109,11 @@
 		25F779E021CE47960028FBE3 /* PublicHolidayDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicHolidayDay.h; sourceTree = "<group>"; };
 		25F779E121CE47960028FBE3 /* PublicHolidayDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicHolidayDay.m; sourceTree = "<group>"; };
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		710EDE6B223F494600BC41EF /* ConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
+		710EDE6C223F494600BC41EF /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
+		710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetCell.h; sourceTree = "<group>"; };
+		710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetCell.m; sourceTree = "<group>"; };
+		710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationTimeSetCell.xib; sourceTree = "<group>"; };
 		711D58DA223B9DC2004A3635 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
@@ -275,6 +283,18 @@
 				25DE0781210C2817002D944E /* LSAudioPlayTool.m */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		710EDE6A223F490500BC41EF /* ConfigurationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				710EDE6B223F494600BC41EF /* ConfigurationViewController.h */,
+				710EDE6C223F494600BC41EF /* ConfigurationViewController.m */,
+				710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */,
+				710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */,
+				710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */,
+			);
+			path = ConfigurationScreen;
 			sourceTree = "<group>";
 		};
 		71478860223B53AD0009F6ED /* fonts */ = {
@@ -561,6 +581,7 @@
 		7CAC2D9920C9F1D600D648E3 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				710EDE6A223F490500BC41EF /* ConfigurationScreen */,
 				71478867223B6B380009F6ED /* FeedbackAndAdvice */,
 				254DCEAA21B5771C008990D9 /* AboutScreen */,
 				7C16952B20D799B7004ED9D9 /* Setting-Main */,
@@ -783,6 +804,7 @@
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
 				71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */,
 				7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */,
+				710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */,
 				71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -851,7 +873,9 @@
 				7CF0B6BC20F9825800705C44 /* SCCircleView.m in Sources */,
 				7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */,
 				7C16952920D7917F004ED9D9 /* LSSwitcherSettingCellModel.m in Sources */,
+				710EDE74223F554D00BC41EF /* ConfigurationTimeSetCell.m in Sources */,
 				7C69676020C75BFA00EAC951 /* main.m in Sources */,
+				710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */,
 				25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */,
 				7C16952620D7910C004ED9D9 /* LSArrowSettingCellModel.m in Sources */,
 				7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */,

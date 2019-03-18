@@ -27,6 +27,11 @@ typedef enum{
     WaitToStartBreakTomatoesStatus
 }TomatoesStatus;
 
+typedef enum{
+    WorkingTime,
+    BreakTime
+}TimeCategory;
+
 #import "CoreDataManager.h"
 
 

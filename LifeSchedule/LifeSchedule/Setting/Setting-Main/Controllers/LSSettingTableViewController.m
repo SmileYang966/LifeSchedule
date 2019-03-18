@@ -14,6 +14,7 @@
 #import "SecurityAndDataTableViewController.h"
 #import "AboutUsScreenViewController.h"
 #import "FeedbackViewController.h"
+#import "ConfigurationViewController.h"
 
 @interface LSSettingTableViewController ()
 
@@ -28,7 +29,7 @@
     if (_settingItemsList == NULL) {
         //section 0
         LSSettingSectionModel *section0 = [[LSSettingSectionModel alloc]init];
-        LSSettingCellModel *themesModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"配置" iconWithName:@"IDInfo" destClass:[LSSettingPreferenceViewController class]];
+        LSSettingCellModel *themesModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"配置" iconWithName:@"IDInfo" destClass:[ConfigurationViewController class]];
         LSSettingCellModel *advancedOptionsModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"高级选项" iconWithName:@"MoreUpdate" destClass:[LSSettingPreferenceViewController class]];
         NSArray *group0 =  @[themesModel,advancedOptionsModel];
         section0.sectionItems = group0;
