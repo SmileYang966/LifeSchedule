@@ -34,6 +34,7 @@
 		7147886C223B6B650009F6ED /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7147886A223B6B650009F6ED /* FeedbackViewController.xib */; };
 		71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */; };
 		71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */; };
+		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
 		7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */; };
 		7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */; };
@@ -124,6 +125,8 @@
 		7147886A223B6B650009F6ED /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
 		71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
 		71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
+		71FC3D70223FC4B00079FDDC /* ConfigurationTimeSetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetModel.h; sourceTree = "<group>"; };
+		71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetModel.m; sourceTree = "<group>"; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
 		7C0F93FE20E1B2DD009B7D06 /* LSSettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingTableViewController.h; sourceTree = "<group>"; };
@@ -288,6 +291,7 @@
 		710EDE6A223F490500BC41EF /* ConfigurationScreen */ = {
 			isa = PBXGroup;
 			children = (
+				71FC3D6F223FC3E50079FDDC /* Models */,
 				710EDE6B223F494600BC41EF /* ConfigurationViewController.h */,
 				710EDE6C223F494600BC41EF /* ConfigurationViewController.m */,
 				710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */,
@@ -323,6 +327,15 @@
 				71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		71FC3D6F223FC3E50079FDDC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				71FC3D70223FC4B00079FDDC /* ConfigurationTimeSetModel.h */,
+				71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		78C7703CCE08D0302BA9B6A5 /* Pods */ = {
@@ -863,6 +876,7 @@
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
+				71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */,
 				254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */,
 				712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */,
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,

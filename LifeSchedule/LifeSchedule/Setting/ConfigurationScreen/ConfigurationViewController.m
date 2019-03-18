@@ -8,10 +8,12 @@
 
 #import "ConfigurationViewController.h"
 #import "ConfigurationTimeSetCell.h"
+#import "ConfigurationTimeSetModel.h"
 
 @interface ConfigurationViewController ()<ConfigurationTimeSetCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property(nonatomic,strong) UIPickerView *pickerView;
+@property(nonatomic,strong) NSArray *totalData;
 @property(nonatomic,strong) NSArray *dataArray;
 
 @end
@@ -25,6 +27,20 @@
     return self;
 }
 
+- (NSArray *)totalData{
+    if (_totalData == NULL) {
+        NSMutableArray *arrayM = [NSMutableArray array];
+        
+        ConfigurationTimeSetModel *model1 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"工作时间" matchedValue:@"60min" category:WorkingTime];
+        ConfigurationTimeSetModel *model2 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"休息时间" matchedValue:@"15min" category:BreakTime];
+        [arrayM addObject:model1];
+        [arrayM addObject:model2];
+        
+        _totalData = arrayM;
+    }
+    return _totalData;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -35,20 +51,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *title;
-    ConfigurationTimeSetCell *timeSetCell = NULL;
-    switch (indexPath.row) {
-        case 0:
-            timeSetCell = [ConfigurationTimeSetCell timeSetCellWithTitle:@"工作时间" timeCategory:WorkingTime];
-            break;
-       
-        case 1:
-            timeSetCell = [ConfigurationTimeSetCell timeSetCellWithTitle:@"休息时间" timeCategory:BreakTime];
-            break;
-            
-        default:
-            break;
-    }
+    ConfigurationTimeSetCell *timeSetCell = [ConfigurationTimeSetCell timeSetCell];
+    timeSetCell.timeSetModel = self.totalData[indexPath.row];
     timeSetCell.delegate = self;
     return timeSetCell;
 }
@@ -70,13 +74,30 @@
         NSNumber *selectedTimeNum = self.dataArray[selectedIndex];
         NSInteger recordedMinutes = [selectedTimeNum integerValue];
         //Distinguish the workingTime or BreakTime
+        NSLog(@"recordedMinutes=%ld",recordedMinutes);
+        NSString *updatedTimeSetValue = [NSString stringWithFormat:@"%ld分钟",recordedMinutes];
+        [self updateTimeSetValue:updatedTimeSetValue withTimeCategory:category];
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
     
     NSMutableArray *arrayM = [NSMutableArray array];
-    
     [arrayM addObjectsFromArray:@[@15,@30,@45,@60]];
     self.dataArray = arrayM;
+}
+
+-(void)updateTimeSetValue:(NSString *)updatedValue withTimeCategory:(TimeCategory)timeCategory{
+    NSMutableArray *updatedArrayM = [NSMutableArray array];
+    for (ConfigurationTimeSetModel *timeSetModel in self.totalData) {
+        if (timeSetModel.timeCategory == timeCategory) {
+            timeSetModel.configItemValue = updatedValue;
+        }
+        [updatedArrayM addObject:timeSetModel];
+    }
+    self.totalData = updatedArrayM;
+    [self.tableView reloadData];
 }
 
 // returns the number of 'columns' to display.
@@ -96,9 +117,6 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    int a = 10;
 }
-
-
 
 @end

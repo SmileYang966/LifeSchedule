@@ -40,7 +40,7 @@
                             <action selector="setTimeClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="E7y-Ml-lNO"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX1-gW-itW">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX1-gW-itW">
                         <rect key="frame" x="255" y="0.0" width="65" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="OoA-PE-rmb"/>
@@ -64,8 +64,9 @@
             <connections>
                 <outlet property="timeLabel" destination="WQ4-oG-ROa" id="Jvt-0P-pWe"/>
                 <outlet property="timeSetButton" destination="E3z-DO-rfH" id="lYT-vs-yxh"/>
+                <outlet property="timeSetValue" destination="oX1-gW-itW" id="9ql-LG-rZH"/>
             </connections>
-            <point key="canvasLocation" x="-902.39999999999998" y="149.32533733133434"/>
+            <point key="canvasLocation" x="-1549" y="149"/>
         </tableViewCell>
     </objects>
     <resources>

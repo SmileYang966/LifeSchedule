@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ConfigurationTimeSetModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConfigurationTimeSetCell : UITableViewCell
 
-+(instancetype)timeSetCellWithTitle:(NSString *)title timeCategory:(TimeCategory)category;
+@property(nonatomic,strong)ConfigurationTimeSetModel *timeSetModel;
+
++(instancetype)timeSetCell;
 @property(nonatomic,weak) id<ConfigurationTimeSetCellDelegate> delegate;
 
 @end
