@@ -253,10 +253,8 @@
 		2576FD1421E393F900316F20 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				2576FD2421E3969100316F20 /* TimeActivity+CoreDataProperties.h */,
-				2576FD2521E3969100316F20 /* TimeActivity+CoreDataClass.h */,
-				2576FD2621E3969100316F20 /* TimeActivity+CoreDataClass.m */,
-				2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */,
+				71FC3D74223FD7200079FDDC /* Configuration */,
+				71FC3D73223FD6FF0079FDDC /* TimeActivity */,
 				2576FD1B21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld */,
 			);
 			path = DB;
@@ -336,6 +334,24 @@
 				71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		71FC3D73223FD6FF0079FDDC /* TimeActivity */ = {
+			isa = PBXGroup;
+			children = (
+				2576FD2421E3969100316F20 /* TimeActivity+CoreDataProperties.h */,
+				2576FD2521E3969100316F20 /* TimeActivity+CoreDataClass.h */,
+				2576FD2621E3969100316F20 /* TimeActivity+CoreDataClass.m */,
+				2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */,
+			);
+			path = TimeActivity;
+			sourceTree = "<group>";
+		};
+		71FC3D74223FD7200079FDDC /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		78C7703CCE08D0302BA9B6A5 /* Pods */ = {
