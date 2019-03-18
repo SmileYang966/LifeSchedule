@@ -31,8 +31,8 @@
     if (_totalData == NULL) {
         NSMutableArray *arrayM = [NSMutableArray array];
         
-        ConfigurationTimeSetModel *model1 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"工作时间" matchedValue:@"60min" category:WorkingTime];
-        ConfigurationTimeSetModel *model2 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"休息时间" matchedValue:@"15min" category:BreakTime];
+        ConfigurationTimeSetModel *model1 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"工作时间" matchedValue:@"60分钟" category:WorkingTime];
+        ConfigurationTimeSetModel *model2 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"休息时间" matchedValue:@"15分钟" category:BreakTime];
         [arrayM addObject:model1];
         [arrayM addObject:model2];
         
