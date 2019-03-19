@@ -30,7 +30,7 @@
         //section 0
         LSSettingSectionModel *section0 = [[LSSettingSectionModel alloc]init];
         LSSettingCellModel *themesModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"配置" iconWithName:@"IDInfo" destClass:[ConfigurationViewController class]];
-        LSSettingCellModel *advancedOptionsModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"高级选项" iconWithName:@"MoreUpdate" destClass:[LSSettingPreferenceViewController class]];
+        LSSettingCellModel *advancedOptionsModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"偏好设置" iconWithName:@"MoreUpdate" destClass:[LSSettingPreferenceViewController class]];
         NSArray *group0 =  @[themesModel,advancedOptionsModel];
         section0.sectionItems = group0;
         
