@@ -121,7 +121,7 @@
     }]];
     
     NSMutableArray *arrayM = [NSMutableArray array];
-    [arrayM addObjectsFromArray:@[@15,@30,@45,@60]];
+    [arrayM addObjectsFromArray:@[@1,@2,@3,@4]];
     self.dataArray = arrayM;
 }
 

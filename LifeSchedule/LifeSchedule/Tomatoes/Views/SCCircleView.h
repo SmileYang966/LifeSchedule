@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define TOMATOESCOUNTDOWNMINUTESFORWORKING    1
-#define TOMATOESCOUNTDOWNMINUTESFORBREAK      2
-#define TOMATOESCOUNTDOWNSECONDS    0
-
 @protocol SCCircleViewDelegate <NSObject>
 -(void)SCCircleViewTimeFinishedWithTomatoesStatus:(TomatoesStatus)finishedStatus;
 @end

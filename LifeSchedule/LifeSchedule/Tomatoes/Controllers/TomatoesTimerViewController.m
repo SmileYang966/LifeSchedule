@@ -10,6 +10,7 @@
 #import "SCCircleView.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "LSAudioPlayTool.h"
+#import "Setting+CoreDataClass.h"
 
 
 @interface TomatoesTimerViewController ()<SCCircleViewDelegate>
@@ -26,6 +27,13 @@
 @property(nonatomic,strong) UIImage *breakImage;
 
 @property(nonatomic,assign) TomatoesStatus currentTomatoesStatus;
+
+/*DB part*/
+@property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
+
+@property(nonatomic,copy) NSString *workingTimeValue;
+@property(nonatomic,copy) NSString *breakTimeValue;
+
 @end
 
 @implementation TomatoesTimerViewController
@@ -114,6 +122,13 @@
     return _focusBtn;
 }
 
+- (NSManagedObjectContext *)managedObjContext{
+    if (_managedObjContext == NULL) {
+        _managedObjContext = [CoreDataManager sharedManager].dBContext;
+    }
+    return _managedObjContext;
+}
+
 -(void)focusBtnClicked:(UIButton *)button{
     [self.circleView stopTimer];
     
@@ -161,13 +176,13 @@
         case WorkingTomatoesStatus:
             [self adjustDifferentScreenWithButtonTextDesc:@"退出" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
             
-            [self.circleView startTimerWithMinutes:TOMATOESCOUNTDOWNMINUTESFORWORKING seconds:TOMATOESCOUNTDOWNSECONDS status:WorkingTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
+            [self.circleView startTimerWithMinutes:[self.workingTimeValue integerValue] seconds:0 status:WorkingTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
             break;
         
         case BreakTomatoesStatus:
             [self adjustDifferentScreenWithButtonTextDesc:@"退出" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
             
-            [self.circleView startTimerWithMinutes:TOMATOESCOUNTDOWNMINUTESFORBREAK seconds:TOMATOESCOUNTDOWNSECONDS status:BreakTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
+            [self.circleView startTimerWithMinutes:[self.breakTimeValue integerValue] seconds:0 status:BreakTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
             break;
             
         default:
@@ -178,12 +193,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
     [self initOperations];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //Need to do the initData here to update the working time and break time in time
+    [self initData];
 }
 
 
@@ -212,6 +228,22 @@
     //初始阶段为DefaultTomatoesStatus
      self.currentTomatoesStatus = DefaultTomatoesStatus;
     [self setDefaultStatusForCircleView];
+}
+
+-(void)initData{
+    Setting *workTimeSetting = [self querySettingObjectWithKeyName:@"workTime"];
+    Setting *breakTimeSetting = [self querySettingObjectWithKeyName:@"breakTime"];
+    //Set the workingTime value && Set the breakTime value
+    self.workingTimeValue = workTimeSetting.settingValue;
+    self.breakTimeValue = breakTimeSetting.settingValue;
+}
+
+-(Setting *)querySettingObjectWithKeyName:(NSString *)settingKeyName{
+    NSError *error = NULL;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"settingKeyName=%@",settingKeyName];
+    fetchRequest.predicate = predicate;
+    return [[self.managedObjContext executeFetchRequest:fetchRequest error:&error] firstObject];
 }
 
 -(void)setDefaultStatusForCircleView{
@@ -247,14 +279,16 @@
 - (void)SCCircleViewTimeFinishedWithTomatoesStatus:(TomatoesStatus)finishedStatus{
     if (finishedStatus == BreakTomatoesStatus) {//1.休息时间结束后，进入到工作时间
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
-        [self.circleView setCircleTitleWithStr:@"01 : 00" textColor:[UIColor whiteColor]];
+        NSString *workingTitleStr = [NSString stringWithFormat:@"%02ld : 00",[self.workingTimeValue integerValue]];
+        [self.circleView setCircleTitleWithStr:workingTitleStr textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
         [self playRestAudio];
     }
     
     if (finishedStatus == WorkingTomatoesStatus) {//2.工作时间结束后，进入到休息时间
         self.currentTomatoesStatus = WaitToStartBreakTomatoesStatus;
-        [self.circleView setCircleTitleWithStr:@"02 : 00" textColor:[UIColor whiteColor]];
+        NSString *breakTitleStr = [NSString stringWithFormat:@"%02ld : 00",[self.breakTimeValue integerValue]];
+        [self.circleView setCircleTitleWithStr:breakTitleStr textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始休息" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
         [self playContinueWorkingAudio];
     }
