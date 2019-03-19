@@ -74,15 +74,22 @@ static CoreDataManager * _sharedManager;
 
 -(void)initData{
     NSError *error = NULL;
-    Setting *workTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
-    workTimeSetting.settingKeyName = @"workTime";
-    workTimeSetting.settingValue = @"30";
-    [_dBContext save:&error];
-    
-    Setting *breakTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
-    breakTimeSetting.settingKeyName = @"breakTime";
-    breakTimeSetting.settingValue = @"45";
-    [_dBContext save:&error];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"settingKeyName=%@",@"workTime"];
+    fetchRequest.predicate = predicate;
+    NSArray *array = [_dBContext executeFetchRequest:fetchRequest error:&error];
+    //To avoid to create the "workTime" and "breakTime" every time, we need to add this check.
+    if (array.count == 0) {
+        Setting *workTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
+        workTimeSetting.settingKeyName = @"workTime";
+        workTimeSetting.settingValue = @"30";
+        [_dBContext save:&error];
+        
+        Setting *breakTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
+        breakTimeSetting.settingKeyName = @"breakTime";
+        breakTimeSetting.settingValue = @"5";
+        [_dBContext save:&error];
+    }
 }
 
 @end

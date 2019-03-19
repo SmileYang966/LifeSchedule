@@ -42,14 +42,25 @@
     if (_totalData == NULL) {
         NSMutableArray *arrayM = [NSMutableArray array];
         
-        ConfigurationTimeSetModel *model1 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"工作时间" matchedValue:@"60分钟" category:WorkingTime];
-        ConfigurationTimeSetModel *model2 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"休息时间" matchedValue:@"15分钟" category:BreakTime];
+        Setting *workTimeSetting = [self querySettingObjectWithKeyName:@"workTime"];
+        Setting *breakTimeSetting = [self querySettingObjectWithKeyName:@"breakTime"];
+        
+        ConfigurationTimeSetModel *model1 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"工作时间" matchedValue:[NSString stringWithFormat:@"%@分钟",workTimeSetting.settingValue] category:WorkingTime];
+        ConfigurationTimeSetModel *model2 = [ConfigurationTimeSetModel CreateConfigurationTimeSetModelWithTitle:@"休息时间" matchedValue:[NSString stringWithFormat:@"%@分钟",breakTimeSetting.settingValue] category:BreakTime];
         [arrayM addObject:model1];
         [arrayM addObject:model2];
         
         _totalData = arrayM;
     }
     return _totalData;
+}
+
+-(Setting *)querySettingObjectWithKeyName:(NSString *)settingKeyName{
+    NSError *error = NULL;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"settingKeyName=%@",settingKeyName];
+    fetchRequest.predicate = predicate;
+    return [[self.managedObjContext executeFetchRequest:fetchRequest error:&error] firstObject];
 }
 
 - (void)viewDidLoad {
@@ -89,18 +100,19 @@
         NSString *updatedTimeSetValue = [NSString stringWithFormat:@"%ld分钟",recordedMinutes];
         [self updateTimeSetValue:updatedTimeSetValue withTimeCategory:category];
         
-        Setting *setting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:self.managedObjContext];
-        if (category == WorkingTime) {
-            setting.settingKeyName = @"workTime";
-            setting.settingValue = [NSString stringWithFormat:@"%ld",recordedMinutes];
-        }else if(category == BreakTime){
-            setting.settingKeyName = @"breakTime";
-            setting.settingValue = [NSString stringWithFormat:@"%ld",recordedMinutes];
-        }
         
+        Setting *settingItem = NULL;
         NSError *error = NULL;
-        if ([self.managedObjContext save:&error]) {
-            NSLog(@"错误信息=%@",error);
+        if (category == WorkingTime) {
+            settingItem = [self querySettingObjectWithKeyName:@"workTime"];
+        }else if(category == BreakTime){
+            settingItem = [self querySettingObjectWithKeyName:@"breakTime"];
+        }
+        settingItem.settingValue = [NSString stringWithFormat:@"%ld",recordedMinutes];
+        
+        //Any changes need to be updated to the db
+        if ([self.managedObjContext hasChanges]) {
+            [self.managedObjContext save:&error];
         }
     }]];
     
