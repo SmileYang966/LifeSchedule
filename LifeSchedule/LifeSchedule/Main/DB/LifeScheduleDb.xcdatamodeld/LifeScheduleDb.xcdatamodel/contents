@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D42" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Setting" representedClassName="Setting" syncable="YES">
+        <attribute name="settingKeyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="settingValue" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="TimeActivity" representedClassName="TimeActivity" syncable="YES">
         <attribute name="activityDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActivityCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -7,5 +11,6 @@
     </entity>
     <elements>
         <element name="TimeActivity" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Setting" positionX="-27" positionY="45" width="128" height="75"/>
     </elements>
 </model>

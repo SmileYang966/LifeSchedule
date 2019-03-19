@@ -9,12 +9,16 @@
 #import "ConfigurationViewController.h"
 #import "ConfigurationTimeSetCell.h"
 #import "ConfigurationTimeSetModel.h"
+#import "Setting+CoreDataClass.h"
 
 @interface ConfigurationViewController ()<ConfigurationTimeSetCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property(nonatomic,strong) UIPickerView *pickerView;
 @property(nonatomic,strong) NSArray *totalData;
 @property(nonatomic,strong) NSArray *dataArray;
+
+/*DB part*/
+@property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
 
 @end
 
@@ -25,6 +29,13 @@
         
     }
     return self;
+}
+
+- (NSManagedObjectContext *)managedObjContext{
+    if (_managedObjContext == NULL) {
+        _managedObjContext = [CoreDataManager sharedManager].dBContext;
+    }
+    return _managedObjContext;
 }
 
 - (NSArray *)totalData{
@@ -77,6 +88,20 @@
         NSLog(@"recordedMinutes=%ld",recordedMinutes);
         NSString *updatedTimeSetValue = [NSString stringWithFormat:@"%ld分钟",recordedMinutes];
         [self updateTimeSetValue:updatedTimeSetValue withTimeCategory:category];
+        
+        Setting *setting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:self.managedObjContext];
+        if (category == WorkingTime) {
+            setting.settingKeyName = @"workTime";
+            setting.settingValue = [NSString stringWithFormat:@"%ld",recordedMinutes];
+        }else if(category == BreakTime){
+            setting.settingKeyName = @"breakTime";
+            setting.settingValue = [NSString stringWithFormat:@"%ld",recordedMinutes];
+        }
+        
+        NSError *error = NULL;
+        if ([self.managedObjContext save:&error]) {
+            NSLog(@"错误信息=%@",error);
+        }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
