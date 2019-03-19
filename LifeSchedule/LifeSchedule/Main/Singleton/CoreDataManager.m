@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataManager.h"
+#import "Setting+CoreDataClass.h"
 
 @implementation CoreDataManager
 
@@ -40,13 +41,14 @@ static CoreDataManager * _sharedManager;
         if (_sharedManager == nil) {
             _sharedManager = [[CoreDataManager alloc]init];
             //create the initalized context data
+            [_sharedManager initOperations];
             [_sharedManager initData];
         }
     });
     return _sharedManager;
 }
 
--(void)initData{
+-(void)initOperations{
     //1.创建模型对象
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LifeScheduleDb" withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc]initWithContentsOfURL:modelURL];
@@ -68,6 +70,19 @@ static CoreDataManager * _sharedManager;
     [context setPersistentStoreCoordinator:store];
     
     _dBContext = context;
+}
+
+-(void)initData{
+    NSError *error = NULL;
+    Setting *workTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
+    workTimeSetting.settingKeyName = @"workTime";
+    workTimeSetting.settingValue = @"30";
+    [_dBContext save:&error];
+    
+    Setting *breakTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
+    breakTimeSetting.settingKeyName = @"breakTime";
+    breakTimeSetting.settingValue = @"45";
+    [_dBContext save:&error];
 }
 
 @end
