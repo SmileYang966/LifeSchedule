@@ -12,12 +12,27 @@
 
 @property(nonatomic,strong) UICollectionView *collectionView;
 
+@property(nonatomic,strong) NSArray *allColorsData;
+
 @end
 
 static NSString *collectionCellReuseId = @"collectionCellID";
 CGFloat cellMargin = 10.0f;
 
 @implementation LSThemeStyleViewController
+
+- (NSArray *)allColorsData{
+    if (_allColorsData == NULL) {
+        NSMutableArray *arrayM = [NSMutableArray array];
+        [arrayM addObject:[UIColor redColor]];
+        [arrayM addObject:[UIColor blueColor]];
+        [arrayM addObject:[UIColor blackColor]];
+        [arrayM addObject:[UIColor yellowColor]];
+        [arrayM addObject:[UIColor brownColor]];
+        _allColorsData = arrayM;
+    }
+    return _allColorsData;
+}
 
 - (UICollectionView *)collectionView{
     if (_collectionView == NULL) {
@@ -53,7 +68,8 @@ CGFloat cellMargin = 10.0f;
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCellReuseId forIndexPath:indexPath];
-    cell.backgroundColor = UIColor.redColor;
+    UIColor *bgColor = self.allColorsData[indexPath.row];
+    cell.backgroundColor = bgColor;
     return cell;
 }
 
