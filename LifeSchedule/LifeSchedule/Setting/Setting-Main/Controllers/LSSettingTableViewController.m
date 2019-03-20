@@ -15,6 +15,7 @@
 #import "AboutUsScreenViewController.h"
 #import "FeedbackViewController.h"
 #import "ConfigurationViewController.h"
+#import "LSSettingPreferenceViewController.h"
 
 @interface LSSettingTableViewController ()
 

@@ -39,6 +39,8 @@
 		71D351D02242206100241CE4 /* LSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351CF2242206100241CE4 /* LSBaseViewController.m */; };
 		71D351D3224223C600241CE4 /* LSThemeTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */; };
 		71D351D6224225D300241CE4 /* UIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D5224225D300241CE4 /* UIFactory.m */; };
+		71D351D92242327900241CE4 /* LSThemeStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D82242327900241CE4 /* LSThemeStyleViewController.m */; };
+		71D351DC224232B100241CE4 /* LSFontStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351DB224232B100241CE4 /* LSFontStyleViewController.m */; };
 		71DCA0172240A6E200810958 /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */; };
 		71DCA0182240A6E200810958 /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0162240A6E200810958 /* Setting+CoreDataProperties.m */; };
 		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
@@ -141,6 +143,10 @@
 		71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSThemeTabBarItem.m; sourceTree = "<group>"; };
 		71D351D4224225D300241CE4 /* UIFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFactory.h; sourceTree = "<group>"; };
 		71D351D5224225D300241CE4 /* UIFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIFactory.m; sourceTree = "<group>"; };
+		71D351D72242327900241CE4 /* LSThemeStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSThemeStyleViewController.h; sourceTree = "<group>"; };
+		71D351D82242327900241CE4 /* LSThemeStyleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSThemeStyleViewController.m; sourceTree = "<group>"; };
+		71D351DA224232B100241CE4 /* LSFontStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSFontStyleViewController.h; sourceTree = "<group>"; };
+		71D351DB224232B100241CE4 /* LSFontStyleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSFontStyleViewController.m; sourceTree = "<group>"; };
 		71DCA0132240A6E200810958 /* Setting+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataProperties.h"; sourceTree = "<group>"; };
 		71DCA0142240A6E200810958 /* Setting+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataClass.h"; sourceTree = "<group>"; };
 		71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -466,6 +472,10 @@
 			children = (
 				7C16953420D80327004ED9D9 /* LSSettingPreferenceViewController.h */,
 				7C16953520D80327004ED9D9 /* LSSettingPreferenceViewController.m */,
+				71D351D72242327900241CE4 /* LSThemeStyleViewController.h */,
+				71D351D82242327900241CE4 /* LSThemeStyleViewController.m */,
+				71D351DA224232B100241CE4 /* LSFontStyleViewController.h */,
+				71D351DB224232B100241CE4 /* LSFontStyleViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -889,6 +899,7 @@
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
 				71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */,
+				71D351D92242327900241CE4 /* LSThemeStyleViewController.m in Sources */,
 				254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */,
 				712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */,
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
@@ -919,6 +930,7 @@
 				25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */,
 				7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */,
 				7147886B223B6B650009F6ED /* FeedbackViewController.m in Sources */,
+				71D351DC224232B100241CE4 /* LSFontStyleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
