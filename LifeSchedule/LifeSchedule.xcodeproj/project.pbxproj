@@ -25,6 +25,7 @@
 		710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE6C223F494600BC41EF /* ConfigurationViewController.m */; };
 		710EDE74223F554D00BC41EF /* ConfigurationTimeSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */; };
 		710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */; };
+		71143E9522420C270040A412 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71143E9422420C270040A412 /* ThemeManager.m */; };
 		711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D58DA223B9DC2004A3635 /* CFNetwork.framework */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
@@ -117,6 +118,8 @@
 		710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetCell.h; sourceTree = "<group>"; };
 		710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetCell.m; sourceTree = "<group>"; };
 		710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationTimeSetCell.xib; sourceTree = "<group>"; };
+		71143E9322420C270040A412 /* ThemeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
+		71143E9422420C270040A412 /* ThemeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
 		711D58DA223B9DC2004A3635 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
@@ -305,6 +308,15 @@
 			path = ConfigurationScreen;
 			sourceTree = "<group>";
 		};
+		71143E9222420C090040A412 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				71143E9322420C270040A412 /* ThemeManager.h */,
+				71143E9422420C270040A412 /* ThemeManager.m */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		71478860223B53AD0009F6ED /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,13 +394,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		7C0E2ED620CDECF600EFD1D5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		7C0F940120E1B5B3009B7D06 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,13 +401,6 @@
 				7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		7C16952A20D799A2004ED9D9 /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Theme;
 			sourceTree = "<group>";
 		};
 		7C16952B20D799B7004ED9D9 /* Setting-Main */ = {
@@ -413,13 +411,6 @@
 				7CAC2D9C20C9F1D600D648E3 /* Views */,
 			);
 			path = "Setting-Main";
-			sourceTree = "<group>";
-		};
-		7C16952C20D799CE004ED9D9 /* ListAndTags */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ListAndTags;
 			sourceTree = "<group>";
 		};
 		7C16952D20D799E5004ED9D9 /* Preference */ = {
@@ -438,20 +429,6 @@
 				7C0F940120E1B5B3009B7D06 /* Controllers */,
 			);
 			path = SecurityAndData;
-			sourceTree = "<group>";
-		};
-		7C16952F20D79A00004ED9D9 /* AdvanceOptions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AdvanceOptions;
-			sourceTree = "<group>";
-		};
-		7C16953020D79A11004ED9D9 /* TomatoTimer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TomatoTimer;
 			sourceTree = "<group>";
 		};
 		7C16953120D802CF004ED9D9 /* Views */ = {
@@ -542,14 +519,13 @@
 		7CAC2D8320C8A70100D648E3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				71143E9222420C090040A412 /* Theme */,
 				71478860223B53AD0009F6ED /* fonts */,
 				2576FD1421E393F900316F20 /* DB */,
 				2592821A21E1BF2700DDE639 /* Singleton */,
 				25DE077E210C2817002D944E /* Tools */,
-				7C0E2ED620CDECF600EFD1D5 /* Models */,
 				7C0E2ED520CDECEA00EFD1D5 /* Views */,
 				7CAC2DAF20C9F49200D648E3 /* Controllers */,
-				7CAC2DAE20C9F47B00D648E3 /* Libs */,
 				7CAC2DAD20C9F46C00D648E3 /* Others */,
 			);
 			path = Main;
@@ -624,12 +600,8 @@
 				71478867223B6B380009F6ED /* FeedbackAndAdvice */,
 				254DCEAA21B5771C008990D9 /* AboutScreen */,
 				7C16952B20D799B7004ED9D9 /* Setting-Main */,
-				7C16953020D79A11004ED9D9 /* TomatoTimer */,
-				7C16952F20D79A00004ED9D9 /* AdvanceOptions */,
 				7C16952E20D799F5004ED9D9 /* SecurityAndData */,
 				7C16952D20D799E5004ED9D9 /* Preference */,
-				7C16952C20D799CE004ED9D9 /* ListAndTags */,
-				7C16952A20D799A2004ED9D9 /* Theme */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -711,13 +683,6 @@
 				7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */,
 			);
 			path = Others;
-			sourceTree = "<group>";
-		};
-		7CAC2DAE20C9F47B00D648E3 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Libs;
 			sourceTree = "<group>";
 		};
 		7CAC2DAF20C9F49200D648E3 /* Controllers */ = {
@@ -919,6 +884,7 @@
 				710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */,
 				25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */,
 				7C16952620D7910C004ED9D9 /* LSArrowSettingCellModel.m in Sources */,
+				71143E9522420C270040A412 /* ThemeManager.m in Sources */,
 				71DCA0172240A6E200810958 /* Setting+CoreDataClass.m in Sources */,
 				7CFE3AC720D67A6C009D88DA /* LSSettingTableViewCell.m in Sources */,
 				7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */,
