@@ -35,6 +35,7 @@
 		7147886C223B6B650009F6ED /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7147886A223B6B650009F6ED /* FeedbackViewController.xib */; };
 		71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */; };
 		71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */; };
+		71D351CD224216C200241CE4 /* ThemePlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71D351CC224216C200241CE4 /* ThemePlist.plist */; };
 		71DCA0172240A6E200810958 /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */; };
 		71DCA0182240A6E200810958 /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0162240A6E200810958 /* Setting+CoreDataProperties.m */; };
 		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
@@ -130,6 +131,7 @@
 		7147886A223B6B650009F6ED /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
 		71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
 		71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
+		71D351CC224216C200241CE4 /* ThemePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ThemePlist.plist; sourceTree = "<group>"; };
 		71DCA0132240A6E200810958 /* Setting+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataProperties.h"; sourceTree = "<group>"; };
 		71DCA0142240A6E200810958 /* Setting+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataClass.h"; sourceTree = "<group>"; };
 		71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			children = (
 				71143E9322420C270040A412 /* ThemeManager.h */,
 				71143E9422420C270040A412 /* ThemeManager.m */,
+				71D351CC224216C200241CE4 /* ThemePlist.plist */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				7147886C223B6B650009F6ED /* FeedbackViewController.xib in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
 				71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */,
+				71D351CD224216C200241CE4 /* ThemePlist.plist in Resources */,
 				71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
 				71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */,
