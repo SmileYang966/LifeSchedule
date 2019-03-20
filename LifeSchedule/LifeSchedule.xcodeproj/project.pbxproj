@@ -36,6 +36,9 @@
 		71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */; };
 		71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */; };
 		71D351CD224216C200241CE4 /* ThemePlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71D351CC224216C200241CE4 /* ThemePlist.plist */; };
+		71D351D02242206100241CE4 /* LSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351CF2242206100241CE4 /* LSBaseViewController.m */; };
+		71D351D3224223C600241CE4 /* LSThemeTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */; };
+		71D351D6224225D300241CE4 /* UIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D5224225D300241CE4 /* UIFactory.m */; };
 		71DCA0172240A6E200810958 /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */; };
 		71DCA0182240A6E200810958 /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0162240A6E200810958 /* Setting+CoreDataProperties.m */; };
 		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
@@ -132,6 +135,12 @@
 		71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
 		71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
 		71D351CC224216C200241CE4 /* ThemePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ThemePlist.plist; sourceTree = "<group>"; };
+		71D351CE2242206100241CE4 /* LSBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBaseViewController.h; sourceTree = "<group>"; };
+		71D351CF2242206100241CE4 /* LSBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBaseViewController.m; sourceTree = "<group>"; };
+		71D351D1224223C600241CE4 /* LSThemeTabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSThemeTabBarItem.h; sourceTree = "<group>"; };
+		71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSThemeTabBarItem.m; sourceTree = "<group>"; };
+		71D351D4224225D300241CE4 /* UIFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIFactory.h; sourceTree = "<group>"; };
+		71D351D5224225D300241CE4 /* UIFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIFactory.m; sourceTree = "<group>"; };
 		71DCA0132240A6E200810958 /* Setting+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataProperties.h"; sourceTree = "<group>"; };
 		71DCA0142240A6E200810958 /* Setting+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataClass.h"; sourceTree = "<group>"; };
 		71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -393,6 +402,10 @@
 			children = (
 				7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */,
 				7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */,
+				71D351D1224223C600241CE4 /* LSThemeTabBarItem.h */,
+				71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */,
+				71D351D4224225D300241CE4 /* UIFactory.h */,
+				71D351D5224225D300241CE4 /* UIFactory.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -695,6 +708,8 @@
 				7CAC2DB120C9F50000D648E3 /* LSMainTabBarViewController.m */,
 				7CAC2DB920C9F6D300D648E3 /* LSNavViewController.h */,
 				7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */,
+				71D351CE2242206100241CE4 /* LSBaseViewController.h */,
+				71D351CF2242206100241CE4 /* LSBaseViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -866,8 +881,10 @@
 				2576FD1D21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld in Sources */,
 				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
 				25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */,
+				71D351D6224225D300241CE4 /* UIFactory.m in Sources */,
 				2562CD04210FD98000419B79 /* TaskCollectionFrame.m in Sources */,
 				2523001F210D53EF00BBF862 /* TaskCollectionTableViewCell.m in Sources */,
+				71D351D02242206100241CE4 /* LSBaseViewController.m in Sources */,
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
@@ -897,6 +914,7 @@
 				25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */,
 				7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */,
 				25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */,
+				71D351D3224223C600241CE4 /* LSThemeTabBarItem.m in Sources */,
 				7CAC2DA620C9F22C00D648E3 /* LSBaseTableViewController.m in Sources */,
 				25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */,
 				7CAC2DBB20C9F6D300D648E3 /* LSNavViewController.m in Sources */,
