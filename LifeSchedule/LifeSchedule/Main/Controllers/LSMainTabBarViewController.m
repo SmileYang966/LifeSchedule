@@ -24,7 +24,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         //init方法添加所有的navigationController        
-        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"任务" itemImageName:@"tabbar_home" selectedItemImageName:@"tabbar_home_selected"];
+        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"任务" itemImageName:@"mainTask2" selectedItemImageName:@"mainTask2"];
         [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"日历" itemImageName:@"tabbar_message_center" selectedItemImageName:@"tabbar_message_center_selected"];
         [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_discover" selectedItemImageName:@"tabbar_discover_selected"];
         [self addChildControllerWithClass:[LSSettingTableViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile" selectedItemImageName:@"tabbar_profile_selected"];
@@ -37,8 +37,11 @@
     //Below code  - Navigation Title and TabBarItem will be set the same title string
     vc.title = itemTitle;
     //image有一个UIImageRenderingModeAlwaysOriginal这个属性，可以防止image被ios系统自动渲染
-    [vc.tabBarItem setImage:[[UIImage imageNamed:itemImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [vc.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImageName]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    [vc.tabBarItem setImage:[[UIImage imageNamed:itemImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    [vc.tabBarItem setSelectedImage:[[UIImage imageNamed:selectedImageName]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
+    LSThemeTabBarItem *themeTabBarItem = [[LSThemeTabBarItem alloc]initWithTitle:itemTitle imageName:itemImageName selectedImage:selectedImageName];
+    vc.tabBarItem = themeTabBarItem;
     
     NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
     [vc.tabBarItem setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];

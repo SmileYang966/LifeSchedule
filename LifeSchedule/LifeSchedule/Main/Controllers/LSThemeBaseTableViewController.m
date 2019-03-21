@@ -44,6 +44,8 @@
     ThemeManager *themeManager = [ThemeManager sharedThemeManager];
     [self.navigationController.navigationBar setBarTintColor:self.bgColor];
     [self.tabBarController.tabBar setBarTintColor:self.bgColor];
+//    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+//    [self.tabBarItem setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
     //    UIImage *navigationBackgroundImage = [themeManager themeImageWithName:@"navigationbar_background.png"];
     //    [self.navigationController.navigationBar setBackgroundImage:navigationBackgroundImage forBarMetrics:UIBarMetricsDefault];
     //

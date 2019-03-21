@@ -13,9 +13,16 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangedNotification:) name:@"" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangedNotification:) name:@"ThemeChangedNotification" object:nil];
     }
     return self;
+}
+
+-(void)themeChangedNotification:(NSNotification *)notification{
+    [self reloadThemeImage];
+    
+    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    [self setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
 }
 
 
@@ -45,22 +52,14 @@
     [self reloadThemeImage];
 }
 
-// 主题改变之后重新加载图片
-- (void)themeChangedNotification:(NSNotification *)notification {
-    [self reloadThemeImage];
-}
 
 - (void)reloadThemeImage {
-    ThemeManager * themeManager = [ThemeManager sharedThemeManager];
-    
     if (self.imageName != nil) {
-        UIImage * image = [themeManager themeImageWithName:self.imageName];
-        [self setImage:image];
+        [self setImage:[[UIImage imageNamed:self.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     }
     
     if (self.selectedImageName != nil) {
-        UIImage * selectedImage = [themeManager themeImageWithName:self.selectedImageName];
-        [self setSelectedImage:selectedImage];
+        [self setSelectedImage:[[UIImage imageNamed:self.selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     }
 }
 
