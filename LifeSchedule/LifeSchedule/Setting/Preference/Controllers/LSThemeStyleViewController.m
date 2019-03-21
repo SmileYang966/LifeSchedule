@@ -26,7 +26,7 @@ CGFloat cellMargin = 10.0f;
         NSMutableArray *arrayM = [NSMutableArray array];
         [arrayM addObject:[UIColor redColor]];
         [arrayM addObject:[UIColor blueColor]];
-        [arrayM addObject:[UIColor blackColor]];
+        [arrayM addObject:[UIColor orangeColor]];
         [arrayM addObject:[UIColor yellowColor]];
         [arrayM addObject:[UIColor brownColor]];
         _allColorsData = arrayM;
@@ -74,7 +74,9 @@ CGFloat cellMargin = 10.0f;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    int a = 10;
+    UIColor *color = self.allColorsData[indexPath.row];
+    NSDictionary *userDict = @{@"Color" : color};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ThemeChangedNotification" object:nil userInfo:userDict];
 }
 
 @end

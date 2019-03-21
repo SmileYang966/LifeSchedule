@@ -33,6 +33,9 @@ typedef enum{
 }TimeCategory;
 
 #import "CoreDataManager.h"
+#import "ThemeManager.h"
+#import "LSBaseViewController.h"
+#import "LSThemeBaseTableViewController.h"
 
 
 #define COLLECTIONCELLMARGINX 15

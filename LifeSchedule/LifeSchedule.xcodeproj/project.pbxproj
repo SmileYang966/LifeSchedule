@@ -44,6 +44,7 @@
 		71DCA0172240A6E200810958 /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0152240A6E200810958 /* Setting+CoreDataClass.m */; };
 		71DCA0182240A6E200810958 /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DCA0162240A6E200810958 /* Setting+CoreDataProperties.m */; };
 		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
+		71FD6D5122433F8400F4693C /* LSThemeBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FD6D5022433F8400F4693C /* LSThemeBaseTableViewController.m */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
 		7C0F940020E1B2DD009B7D06 /* LSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F93FF20E1B2DD009B7D06 /* LSSettingTableViewController.m */; };
 		7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F940320E1B5DD009B7D06 /* SecurityAndDataTableViewController.m */; };
@@ -153,6 +154,8 @@
 		71DCA0162240A6E200810958 /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
 		71FC3D70223FC4B00079FDDC /* ConfigurationTimeSetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetModel.h; sourceTree = "<group>"; };
 		71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetModel.m; sourceTree = "<group>"; };
+		71FD6D4F22433F8400F4693C /* LSThemeBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSThemeBaseTableViewController.h; sourceTree = "<group>"; };
+		71FD6D5022433F8400F4693C /* LSThemeBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSThemeBaseTableViewController.m; sourceTree = "<group>"; };
 		7C0E2ED720CDED6A00EFD1D5 /* LSTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTabBar.h; sourceTree = "<group>"; };
 		7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTabBar.m; sourceTree = "<group>"; };
 		7C0F93FE20E1B2DD009B7D06 /* LSSettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSSettingTableViewController.h; sourceTree = "<group>"; };
@@ -720,6 +723,8 @@
 				7CAC2DBA20C9F6D300D648E3 /* LSNavViewController.m */,
 				71D351CE2242206100241CE4 /* LSBaseViewController.h */,
 				71D351CF2242206100241CE4 /* LSBaseViewController.m */,
+				71FD6D4F22433F8400F4693C /* LSThemeBaseTableViewController.h */,
+				71FD6D5022433F8400F4693C /* LSThemeBaseTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -898,6 +903,7 @@
 				7CAC2DA320C9F21500D648E3 /* CalendarViewController.m in Sources */,
 				7CAC2DAC20C9F27E00D648E3 /* TomatoesTimerViewController.m in Sources */,
 				7C14722D20D632A100903852 /* LSSettingCellModel.m in Sources */,
+				71FD6D5122433F8400F4693C /* LSThemeBaseTableViewController.m in Sources */,
 				71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */,
 				71D351D92242327900241CE4 /* LSThemeStyleViewController.m in Sources */,
 				254DCEAE21B5784F008990D9 /* AboutUsScreenViewController.m in Sources */,
