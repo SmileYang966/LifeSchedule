@@ -21,8 +21,28 @@
 -(void)themeChangedNotification:(NSNotification *)notification{
     [self reloadThemeImage];
     
-    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    [self setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
+    UIColor *color = notification.userInfo[@"Color"];
+    if (color != UIColor.yellowColor) {
+        NSDictionary *attrDictNormal = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+        [self setTitleTextAttributes:attrDictNormal forState:UIControlStateNormal];
+        NSString *imgName = [NSString stringWithFormat:@"%@_White",self.imageName];
+        [self setImage:[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        
+        NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor yellowColor]};
+        [self setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
+        NSString *selectedImgName = [NSString stringWithFormat:@"%@_Yellow",self.imageName];
+        [self setSelectedImage:[[UIImage imageNamed:selectedImgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    }else{
+        NSDictionary *attrDictNormal = @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+        [self setTitleTextAttributes:attrDictNormal forState:UIControlStateNormal];
+        NSString *imgName = [NSString stringWithFormat:@"%@",self.imageName];
+        [self setImage:[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        
+        NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor colorWithRed:64/255.0 green:147/255.0 blue:210/255.0 alpha:1.0f]};
+        [self setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
+        NSString *selectedImgName = [NSString stringWithFormat:@"%@_Blue",self.imageName];
+        [self setSelectedImage:[[UIImage imageNamed:selectedImgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    }
 }
 
 

@@ -24,10 +24,10 @@
 - (instancetype)init{
     if (self = [super init]) {
         //init方法添加所有的navigationController        
-        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"任务" itemImageName:@"mainTask2" selectedItemImageName:@"mainTask2"];
-        [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"日历" itemImageName:@"tabbar_message_center" selectedItemImageName:@"tabbar_message_center_selected"];
-        [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"番茄" itemImageName:@"tabbar_discover" selectedItemImageName:@"tabbar_discover_selected"];
-        [self addChildControllerWithClass:[LSSettingTableViewController class] itemTitle:@"设置" itemImageName:@"tabbar_profile" selectedItemImageName:@"tabbar_profile_selected"];
+        [self addChildControllerWithClass:[PlannedTasksViewController class] itemTitle:@"任务" itemImageName:@"mainTask" selectedItemImageName:@"mainTask_Blue"];
+        [self addChildControllerWithClass:[CalendarViewController class] itemTitle:@"日历" itemImageName:@"calendar" selectedItemImageName:@"calendar_Blue"];
+        [self addChildControllerWithClass:[TomatoesTimerViewController class] itemTitle:@"计时" itemImageName:@"countdown" selectedItemImageName:@"countdown_Blue"];
+        [self addChildControllerWithClass:[LSSettingTableViewController class] itemTitle:@"设置" itemImageName:@"setting" selectedItemImageName:@"setting_Blue"];
     }
     return self;
 }
@@ -43,7 +43,7 @@
     LSThemeTabBarItem *themeTabBarItem = [[LSThemeTabBarItem alloc]initWithTitle:itemTitle imageName:itemImageName selectedImage:selectedImageName];
     vc.tabBarItem = themeTabBarItem;
     
-    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
+    NSDictionary *attrDictSelected = @{NSForegroundColorAttributeName : [UIColor colorWithRed:64/255.0 green:147/255.0 blue:210/255.0 alpha:1.0f]};
     [vc.tabBarItem setTitleTextAttributes:attrDictSelected forState:UIControlStateSelected];
     
     LSNavViewController *nav = [[LSNavViewController alloc]initWithRootViewController:vc];
