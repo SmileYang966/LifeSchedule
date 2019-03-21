@@ -15,6 +15,25 @@
 
 @implementation LSNavViewController
 
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController{
+    if (self=[super initWithRootViewController:rootViewController]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangedNotification:) name:@"ThemeChangedNotification" object:nil];
+    }
+    return self;
+}
+
+-(void)themeChangedNotification:(NSNotification *)notification{
+    UIColor *color = notification.userInfo[@"Color"];
+    if (color == UIColor.yellowColor) {
+        UIColor *tintColor = [UIColor colorWithRed:64/255.0 green:147/255.0 blue:210/255.0 alpha:1.0f];
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:tintColor}];
+        self.navigationBar.tintColor = tintColor;
+    }else{
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        self.navigationBar.tintColor = UIColor.whiteColor;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
