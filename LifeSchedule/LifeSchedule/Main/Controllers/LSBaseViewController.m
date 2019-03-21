@@ -41,15 +41,6 @@
     
     [[UINavigationBar appearance] setBarTintColor:self.bgColor];
     [[UITabBar appearance] setBarTintColor:self.bgColor];
-    
-//    [self.navigationController.navigationBar setBarTintColor:self.bgColor];
-//    [self.tabBarController.tabBar setBarTintColor:self.bgColor];
-    
-//    UIImage *navigationBackgroundImage = [themeManager themeImageWithName:@"navigationbar_background.png"];
-//    [self.navigationController.navigationBar setBackgroundImage:navigationBackgroundImage forBarMetrics:UIBarMetricsDefault];
-//
-//    UIImage *tabBarBackgroundImage = [themeManager themeImageWithName:@"tabbar_background.png"];
-//    [self.tabBarController.tabBar setBackgroundImage:tabBarBackgroundImage];
 }
 
 @end

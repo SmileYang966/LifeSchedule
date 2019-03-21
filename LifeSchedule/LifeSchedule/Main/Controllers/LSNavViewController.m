@@ -28,6 +28,10 @@
         UIColor *tintColor = [UIColor colorWithRed:64/255.0 green:147/255.0 blue:210/255.0 alpha:1.0f];
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:tintColor}];
         self.navigationBar.tintColor = tintColor;
+    }else if(color == UIColor.whiteColor){
+        UIColor *tintColor = [UIColor blackColor];
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:tintColor}];
+        self.navigationBar.tintColor = tintColor;
     }else{
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
         self.navigationBar.tintColor = UIColor.whiteColor;

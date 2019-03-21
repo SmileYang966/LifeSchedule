@@ -59,6 +59,13 @@ CGFloat cellMargin = 10.0f;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
     self.collectionView.backgroundColor = UIColor.whiteColor;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"恢复" style:UIBarButtonItemStylePlain target:self action:@selector(recoverClicked:)];
+}
+
+-(void)recoverClicked:(UIBarButtonItem *)barButtonItem{
+    NSDictionary *userDict = @{@"Color" : UIColor.whiteColor};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ThemeChangedNotification" object:nil userInfo:userDict];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
