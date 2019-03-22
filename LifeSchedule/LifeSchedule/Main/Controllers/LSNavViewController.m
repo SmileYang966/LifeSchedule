@@ -29,9 +29,8 @@
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:tintColor}];
         self.navigationBar.tintColor = tintColor;
     }else if(color == UIColor.whiteColor){
-        UIColor *tintColor = [UIColor blackColor];
-        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:tintColor}];
-        self.navigationBar.tintColor = tintColor;
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        self.navigationBar.tintColor = [UIColor colorWithRed:47/255.0 green:123/255.0 blue:246/255.0 alpha:1.0f];
     }else{
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
         self.navigationBar.tintColor = UIColor.whiteColor;
