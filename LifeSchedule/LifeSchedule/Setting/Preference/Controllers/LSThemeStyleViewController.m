@@ -11,8 +11,8 @@
 @interface LSThemeStyleViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property(nonatomic,strong) UICollectionView *collectionView;
-
 @property(nonatomic,strong) NSArray *allColorsData;
+@property(nonatomic,strong) UIColor *finalSelectedColor;
 
 @end
 
@@ -64,6 +64,10 @@ CGFloat cellMargin = 10.0f;
 }
 
 -(void)recoverClicked:(UIBarButtonItem *)barButtonItem{
+    /*Remove the selected theme's index in the Preference*/
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:@"SelectedThemeIndex"];
+    
     NSDictionary *userDict = @{@"Color" : UIColor.whiteColor};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ThemeChangedNotification" object:nil userInfo:userDict];
 }
@@ -75,15 +79,21 @@ CGFloat cellMargin = 10.0f;
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCellReuseId forIndexPath:indexPath];
-    UIColor *bgColor = self.allColorsData[indexPath.row];
+    UIColor *bgColor = TotalColorsData[indexPath.row];
     cell.backgroundColor = bgColor;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    UIColor *color = self.allColorsData[indexPath.row];
+    UIColor *color = TotalColorsData[indexPath.row];
     NSDictionary *userDict = @{@"Color" : color};
+    
+    /*Save the selected theme's index in the Preference*/
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger:indexPath.row forKey:@"SelectedThemeIndex"];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ThemeChangedNotification" object:nil userInfo:userDict];
+    self.finalSelectedColor = color;
 }
 
 @end

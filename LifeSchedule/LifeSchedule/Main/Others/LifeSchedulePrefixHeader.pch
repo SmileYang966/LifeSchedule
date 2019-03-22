@@ -51,4 +51,6 @@ typedef enum{
 #define SCLog(...)
 #endif
 
+#define TotalColorsData @[[UIColor redColor],[UIColor blueColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor brownColor]]
+
 #endif /* LifeSchedulePrefixHeader_pch */

@@ -48,6 +48,21 @@
     
     LSNavViewController *nav = [[LSNavViewController alloc]initWithRootViewController:vc];
     [self addChildViewController:nav];
+    
+    [self loadStoredThemeIfExisted];
+}
+
+- (void)loadStoredThemeIfExisted{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *themeIndexNumber = [userDefaults objectForKey:@"SelectedThemeIndex"];
+    //Default white
+    if (themeIndexNumber != NULL) {
+        NSInteger numberIndex = [themeIndexNumber integerValue];
+        UIColor *color = TotalColorsData[numberIndex];
+        
+        NSDictionary *userDict = @{@"Color" : color};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ThemeChangedNotification" object:nil userInfo:userDict];
+    }
 }
 
 - (void)viewDidLoad {
