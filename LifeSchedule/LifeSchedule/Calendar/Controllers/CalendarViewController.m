@@ -609,6 +609,7 @@
             if ([self isCalendarActivitiesExistedByAssignedDate:currentDate withDayNumber:dayNumber]) {
                 //Temp workaround , will do the enhancement later
 //                cell.backgroundColor = UIColor.redColor;
+                cell.hiddenActivityMark = false;
             }
         }
     }

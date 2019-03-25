@@ -15,6 +15,7 @@
 @property(nonatomic,strong) UILabel *dayLabel;
 @property(nonatomic,strong) UILabel *holidayDescLabel;
 @property(nonatomic,strong) UIImage *cellViewBg;
+@property(nonatomic,strong) UILabel *activitiesReminderMarkLabel;
 
 @property(nonatomic,strong) UILabel *breakLabel;
 @property(nonatomic,strong) UILabel *onDutyLabel;
@@ -54,6 +55,18 @@
     return _holidayDescLabel;
 }
 
+- (UILabel *)activitiesReminderMarkLabel{
+    if (_activitiesReminderMarkLabel == NULL) {
+        _activitiesReminderMarkLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 5, 5)];
+        _activitiesReminderMarkLabel.layer.cornerRadius = _activitiesReminderMarkLabel.bounds.size.width * 0.5f;
+        _activitiesReminderMarkLabel.layer.masksToBounds = YES;
+        _activitiesReminderMarkLabel.center = CGPointMake(self.bounds.size.width*0.5f, self.bounds.size.height*0.9f);
+        _activitiesReminderMarkLabel.backgroundColor = UIColor.redColor;
+        [self.rectangleView addSubview:_activitiesReminderMarkLabel];
+    }
+    return _activitiesReminderMarkLabel;
+}
+
 - (UILabel *)breakLabel{
     if (_breakLabel == NULL) {
         _breakLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, 14, 14)];
@@ -90,6 +103,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.rectangleView];
+//        self.rectangleView.backgroundColor = UIColor.lightGrayColor;
+        [self activitiesReminderMarkLabel];
+        self.activitiesReminderMarkLabel.hidden = YES;
+//        [self.activitiesReminderMarkLabel bringSubviewToFront:self];
     }
     return self;
 }
@@ -135,11 +152,17 @@
     }
 }
 
+- (void)setHiddenActivityMark:(bool)hiddenActivityMark{
+    _hiddenActivityMark = hiddenActivityMark;
+    self.activitiesReminderMarkLabel.hidden = hiddenActivityMark;
+}
+
 -(void)clearTextsOncell{
     self.holidayDescLabel.text = @"";
     self.dayLabel.text = @"";
     self.dayLabel.alpha = 1.0f;
     self.dayLabel.textColor = UIColor.blackColor;
+    self.activitiesReminderMarkLabel.hidden = YES;
 }
 
 @end

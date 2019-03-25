@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) bool hiddenSelectedView;
 @property(nonatomic,copy) NSString *holidayDesc;
 @property(nonatomic,assign) bool isInactiveStatus;
-
+@property(nonatomic,assign) bool hiddenActivityMark;
 -(void)clearTextsOncell;
 @end
 
