@@ -35,9 +35,10 @@
 
 - (UILabel *)dayLabel{
     if (_dayLabel == NULL) {
-        _dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-        _dayLabel.layer.cornerRadius = 20.0f;
+        _dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(2.5f, 0, self.bounds.size.width-5, self.bounds.size.height-5)];
+        _dayLabel.layer.cornerRadius = 17.5f;
         _dayLabel.numberOfLines = 0;
+//        _dayLabel.backgroundColor = UIColor.brownColor;
         [self.rectangleView addSubview:_dayLabel];
     }
     return _dayLabel;
@@ -47,7 +48,7 @@
     if (_holidayDescLabel == NULL) {
         CGFloat maxY = CGRectGetMaxY(self.dayLabel.frame);
         _holidayDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-7.0f, self.rectangleView.bounds.size.width, 10.0f)];
-        _holidayDescLabel.font = [UIFont boldSystemFontOfSize:8.0f];
+        _holidayDescLabel.font = [UIFont boldSystemFontOfSize:6.0f];
         _holidayDescLabel.textAlignment = NSTextAlignmentCenter;
         _holidayDescLabel.textColor = [UIColor colorWithRed:54/255.0 green:211/255.0 blue:160/255.0 alpha:1.0];
         [self.rectangleView addSubview:_holidayDescLabel];
@@ -57,11 +58,11 @@
 
 - (UILabel *)activitiesReminderMarkLabel{
     if (_activitiesReminderMarkLabel == NULL) {
-        _activitiesReminderMarkLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 5, 5)];
+        _activitiesReminderMarkLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 4, 4)];
         _activitiesReminderMarkLabel.layer.cornerRadius = _activitiesReminderMarkLabel.bounds.size.width * 0.5f;
         _activitiesReminderMarkLabel.layer.masksToBounds = YES;
-        _activitiesReminderMarkLabel.center = CGPointMake(self.bounds.size.width*0.5f, self.bounds.size.height*0.9f);
-        _activitiesReminderMarkLabel.backgroundColor = UIColor.redColor;
+        _activitiesReminderMarkLabel.center = CGPointMake(self.bounds.size.width*0.5f,CGRectGetMaxY(self.dayLabel.frame)-4);
+        _activitiesReminderMarkLabel.backgroundColor = UIColor.orangeColor;
         [self.rectangleView addSubview:_activitiesReminderMarkLabel];
     }
     return _activitiesReminderMarkLabel;
