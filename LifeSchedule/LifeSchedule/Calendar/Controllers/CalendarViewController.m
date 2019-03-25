@@ -62,9 +62,10 @@
  * currentSelectedDate => Care its year、month and the specific day
  */
 @property(nonatomic,strong) NSDate *currentCalendarDate;
-@property(nonatomic,strong) NSNumber *currentSelectedMonthDay;
-@property(nonatomic,assign) NSInteger currentDayIndex;
+@property(nonatomic,assign) NSInteger currentDayIndex;/*Default index for the current day*/
 
+@property(nonatomic,strong) NSNumber *currentSelectedMonthDay;/*Selected Calendar day number*/
+@property(nonatomic,assign) NSInteger currentSelectedDayIndex;/*Selected Calendar day index*/
 
 /*Core data part*/
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
@@ -431,6 +432,9 @@
         
         //4.Clear the inputNewActTf
         self.inputNewActTf.text = @"";
+        
+        //5.Reload the currentCollectionView
+        [self.currentCollectionView reloadData];
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -515,6 +519,7 @@
     [keyWindow addSubview:self.addNewActivityButton];
     
     [self refreshData];
+    [self.currentCollectionView reloadData];//Reload the current collectionView
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -625,9 +630,14 @@
      * 2. 确保当前日历是显示的当月
      * 3. 确保当前是CurrentMonth标记范围内的
      */
-    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
+    NSInteger selectedMonthDayIntegerValue = [self.currentSelectedMonthDay integerValue];
+    NSInteger currentMonthDayIntegerValue = [components day];
+    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH] && selectedMonthDayIntegerValue == currentMonthDayIntegerValue) {
         cell.hiddenSelectedView = false;
         /*确保当前保存的cell是默认当天选中的cell*/
+        self.tempSavedCollectionViewCell = cell;
+    }else if(indexPath.row == self.currentSelectedDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH] && selectedMonthDayIntegerValue != currentMonthDayIntegerValue){
+        cell.hiddenSelectedView = false;
         self.tempSavedCollectionViewCell = cell;
     }
     
@@ -650,6 +660,7 @@
         //当月 selectedIndex==1
         NSLog(@"current Date = %@",self.currentCalendarDate);
         self.currentSelectedMonthDay = monthDay;
+        self.currentSelectedDayIndex = indexPath.row;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
