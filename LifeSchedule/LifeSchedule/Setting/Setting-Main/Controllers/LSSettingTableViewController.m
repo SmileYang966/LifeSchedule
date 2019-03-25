@@ -37,11 +37,11 @@
         
         //section 2
         LSSettingSectionModel *section2 = [[LSSettingSectionModel alloc]init];
-        LSSettingCellModel *helpCenterModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"帮助中心" iconWithName:@"MoreHelp" destClass:[LSSettingPreferenceViewController class]];
+//        LSSettingCellModel *helpCenterModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"帮助中心" iconWithName:@"MoreHelp" destClass:[LSSettingPreferenceViewController class]];
         LSSettingCellModel *feedbackAndAdviceModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"反馈与建议" iconWithName:@"sound_Effect" destClass:[FeedbackViewController class]];
         LSSettingCellModel *aboutModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"MoreAbout" destClass:[AboutUsScreenViewController class]];
-        LSSettingCellModel *shareModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"推荐给好友" iconWithName:@"MoreShare" destClass:[LSSettingPreferenceViewController class]];
-        NSArray *group2 = @[helpCenterModel,feedbackAndAdviceModel,aboutModel,shareModel];
+//        LSSettingCellModel *shareModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"推荐给好友" iconWithName:@"MoreShare" destClass:[LSSettingPreferenceViewController class]];
+        NSArray *group2 = @[feedbackAndAdviceModel,aboutModel];
         section2.sectionItems = group2;
         
         //添加group0、group1以及group2到这个dataList数组中去
