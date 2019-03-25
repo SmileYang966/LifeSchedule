@@ -1065,6 +1065,67 @@
     return @"";
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return true;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSArray *ongoingTaskArray = self.ongoingTasks;
+    NSArray *completedTasksArray = self.completedTasks;
+    NSFetchRequest *deleteRequest = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
+    
+    NSDate *fromDate = self.currentCalendarDate==nil ? [NSDate date] : self.currentCalendarDate;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:fromDate];
+    components.day = [self.currentSelectedMonthDay integerValue];
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    NSDate *minDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    components.hour = 23;
+    components.minute = 59;
+    components.second = 59;
+    NSDate *maxDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    NSPredicate *pre = NULL;
+    if (ongoingTaskArray.count>0 && completedTasksArray.count>0) {//1.Ongoing tasks and Completed tasks both existed
+        pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d AND plannedBeginDate >= %@ AND plannedBeginDate <= %@",indexPath.section,minDate,maxDate];
+    }
+    else if(ongoingTaskArray.count>0) //2.Only ongoing tasks existed
+    {
+        pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d AND plannedBeginDate >= %@ AND plannedBeginDate <= %@",0,minDate,maxDate];
+    }
+    else if(completedTasksArray.count>0) //3.Only completed tasks existed
+    {
+        pre = [NSPredicate predicateWithFormat:@"isActivityCompleted=%d AND plannedBeginDate >= %@ AND plannedBeginDate <= %@",1,minDate,maxDate];
+    }
+    else
+    { //4.No tasks existed
+    }
+    
+    [deleteRequest setPredicate:pre];
+    
+    //创建排序描述器
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+    [deleteRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    NSArray *timeActivityDbArray = [self.managedObjContext executeFetchRequest:deleteRequest error:nil];
+    TimeActivity *act = timeActivityDbArray[indexPath.row];
+    NSLog(@"act.activityDescription=%@",act.activityDescription);
+    
+    [self.managedObjContext deleteObject:act];
+    
+    NSError *error = nil;
+    if ([self.managedObjContext save:&error]) {
+        NSLog(@"删除数据成功");
+        [self refreshData];
+        [self.dailyScheduledTableView reloadData];
+    }else{
+        NSLog(@"删除数据失败,%@",error);
+    }
+}
+
 -(NSDate *)getSelectedDate{
     NSDate *currentDate = self.currentCalendarDate == nil ? [NSDate date] : self.currentCalendarDate;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:currentDate];
