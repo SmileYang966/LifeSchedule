@@ -1121,6 +1121,10 @@
         NSLog(@"删除数据成功");
         [self refreshData];
         [self.dailyScheduledTableView reloadData];
+        
+        //Reload the current collection view
+        [self.currentCollectionView reloadData];
+        
     }else{
         NSLog(@"删除数据失败,%@",error);
     }
