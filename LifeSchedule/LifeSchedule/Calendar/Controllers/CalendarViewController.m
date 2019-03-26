@@ -684,12 +684,6 @@
         NSLog(@"current Date = %@",self.currentCalendarDate);
         self.currentSelectedMonthDay = monthDay;
         self.currentSelectedDayIndex = indexPath.row;
-        
-        NSDateComponents *components = [self getNSDateComponentsByDate:self.currentCalendarDate];
-        components.day = [monthDay integerValue];
-        NSDate *modifiedDate = [self getModifiedDateByNSDateComponents:components];
-        NSLog(@"modifiedDate=%@",modifiedDate);
-        self.selectedCalendarDate = modifiedDate;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
@@ -762,6 +756,9 @@
     NSDateComponents *movedComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
     NSDateComponents *currentComponents = [self getNSDateComponentsByDate:[NSDate date]];
     if (movedComponents.year==currentComponents.year && movedComponents.month==currentComponents.month && movedComponents.day==currentComponents.day) {
+        self.currentSelectedMonthDay = [NSNumber numberWithInteger:currentComponents.day];
+        self.currentSelectedDayIndex = self.currentDayIndex;
+        
         [self refreshData];
     }
     [self.dailyScheduledTableView reloadData];
