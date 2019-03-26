@@ -743,6 +743,12 @@
     }else if(scrollView.contentOffset.x < self.calendarScrollView.bounds.size.width) {
         NSLog(@"向右滑动");
         [self scrollTheCalendarToLeft:false];
+    }else{
+        NSLog(@"scrollView.contentOffset.x=%lf,self.calendarScrollView.bounds.size.width=%lf",
+              scrollView.contentOffset.x,self.calendarScrollView.bounds.size.width);
+        NSLog(@"滑动后仍在原位");
+        [self.dailyScheduledTableView reloadData];
+        return;
     }
     
     self.calendarScrollView.contentOffset = CGPointMake(self.calendarScrollView.bounds.size.width, 0);
