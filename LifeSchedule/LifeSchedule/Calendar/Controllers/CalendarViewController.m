@@ -25,7 +25,7 @@
 
 #define     CalendarCollectionViewItemSizeWidthOrHeight     38.0f
 
-@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,TaskCollectionTableViewCellDelegate>
+@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
 
 /*1.Defined a scrollView on the top half*/
 @property(nonatomic,strong) UIScrollView *calendarScrollView;
@@ -531,7 +531,8 @@
 -(void)initOperations{
     /*1.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
-//    [self.view addGestureRecognizer:tapGr];
+    tapGr.delegate = self;
+    [self.view addGestureRecognizer:tapGr];
     /*2.Add two notifications related to the keyboard*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -646,6 +647,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //Resign all the responders
+    [self resignResponderForAllTextFields];
+    
     int selectedIndex = [self isDayIndexInCurrentMonthWithDate:self.currentCalendarDate dayIndex:(int)indexPath.row];
     NSArray *monthDays = [self getMonthDaysByDate:self.currentCalendarDate];
     NSNumber *monthDay = monthDays[indexPath.row];
@@ -1243,6 +1247,14 @@
         return true;
     }
     return false;
+}
+
+#pragma mark Delegate for the gestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isDescendantOfView:self.currentCollectionView]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end
