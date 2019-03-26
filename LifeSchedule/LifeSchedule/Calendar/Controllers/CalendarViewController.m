@@ -520,6 +520,7 @@
     
     [self refreshData];
     [self.currentCollectionView reloadData];//Reload the current collectionView
+    [self.dailyScheduledTableView reloadData];//Reload the current dailyScheduledTableView
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
