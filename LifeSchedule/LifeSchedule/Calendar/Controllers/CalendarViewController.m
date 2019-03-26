@@ -756,6 +756,13 @@
     /*When scroll to another month , the data will be refreshed*/
     self.ongoingTasks = [NSMutableArray array];
     self.completedTasks = [NSMutableArray array];
+    
+    /*If scroll the collectionView to the current month , we just default show the activities of today if indeed existed*/
+    NSDateComponents *movedComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
+    NSDateComponents *currentComponents = [self getNSDateComponentsByDate:[NSDate date]];
+    if (movedComponents.year==currentComponents.year && movedComponents.month==currentComponents.month && movedComponents.day==currentComponents.day) {
+        [self refreshData];
+    }
     [self.dailyScheduledTableView reloadData];
 }
 
