@@ -1292,6 +1292,11 @@
     if ([touch.view isDescendantOfView:self.currentCollectionView]) {
         return NO;
     }
+    
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    
     return YES;
 }
 
