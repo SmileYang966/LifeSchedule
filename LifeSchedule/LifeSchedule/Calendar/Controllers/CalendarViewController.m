@@ -66,6 +66,7 @@
 
 @property(nonatomic,strong) NSNumber *currentSelectedMonthDay;/*Selected Calendar day number*/
 @property(nonatomic,assign) NSInteger currentSelectedDayIndex;/*Selected Calendar day index*/
+@property(nonatomic,strong) NSDate *selectedCalendarDate;/*Selected Calendar Date*/
 
 /*Core data part*/
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
@@ -80,7 +81,6 @@
 /*Activity related database*/
 @property(nonatomic,strong) NSMutableArray *ongoingTasks;
 @property(nonatomic,strong) NSMutableArray *completedTasks;
-@property(nonatomic,strong) NSDate *calendarSelectedDate;
 
 @end
 
@@ -529,7 +529,7 @@
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     self.currentSelectedMonthDay = [NSNumber numberWithInteger:comp.day];
     [self initOperations];
-    
+    self.selectedCalendarDate = dt;
     
      NSURL *url = [self applicationDocumentsDirectory];
      NSLog(@"url path =%@",url.absoluteString);
@@ -655,14 +655,9 @@
      * 2. 确保当前日历是显示的当月
      * 3. 确保当前是CurrentMonth标记范围内的
      */
-    NSInteger selectedMonthDayIntegerValue = [self.currentSelectedMonthDay integerValue];
-    NSInteger currentMonthDayIntegerValue = [components day];
-    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH] && selectedMonthDayIntegerValue == currentMonthDayIntegerValue) {
+    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
         cell.hiddenSelectedView = false;
         /*确保当前保存的cell是默认当天选中的cell*/
-        self.tempSavedCollectionViewCell = cell;
-    }else if(indexPath.row == self.currentSelectedDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH] && selectedMonthDayIntegerValue != currentMonthDayIntegerValue){
-        cell.hiddenSelectedView = false;
         self.tempSavedCollectionViewCell = cell;
     }
     
@@ -689,6 +684,12 @@
         NSLog(@"current Date = %@",self.currentCalendarDate);
         self.currentSelectedMonthDay = monthDay;
         self.currentSelectedDayIndex = indexPath.row;
+        
+        NSDateComponents *components = [self getNSDateComponentsByDate:self.currentCalendarDate];
+        components.day = [monthDay integerValue];
+        NSDate *modifiedDate = [self getModifiedDateByNSDateComponents:components];
+        NSLog(@"modifiedDate=%@",modifiedDate);
+        self.selectedCalendarDate = modifiedDate;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
@@ -826,6 +827,10 @@
     return dateArrayM;
 }
 
+-(NSDate *)getModifiedDateByNSDateComponents:(NSDateComponents *)dateComponents{
+    return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+}
+
 /*根据日期得到日期当月一共有多少天*/
 -(NSUInteger)getDaysByCurrentMonth:(NSDate *)date{
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -909,7 +914,7 @@
     }
     
     NSDateComponents *comp = [self getNSDateComponentsByDate:self.currentCalendarDate];
-    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
+//    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     
     [self.totalDict setObject:currentMonth forKey:CURRENTMONTH];
