@@ -86,17 +86,17 @@
     if (_keyboardTopAccessoryView == NULL) {
         _keyboardTopAccessoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50.0f)];
         _keyboardTopAccessoryView.backgroundColor = [UIColor whiteColor];
-        _keyboardTopAccessoryView.layer.borderWidth = 0.7;
-        _keyboardTopAccessoryView.layer.borderColor = [UIColor orangeColor].CGColor;
+        _keyboardTopAccessoryView.layer.borderWidth = 0.8f;
+        _keyboardTopAccessoryView.layer.borderColor = [UIColor colorWithRed:65/255.0 green:149/255.0 blue:213/255.0 alpha:1.0f].CGColor;
         
-        UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_keyboardTopAccessoryView.bounds.size.width-60-12, 4, 60, 45)];
-        [sendBtn setTitle:@"Go" forState:UIControlStateNormal];
+        UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_keyboardTopAccessoryView.bounds.size.width-60, 2.5, 60, 45)];
         [sendBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
         [sendBtn addTarget:self action:@selector(sendNewActivity:) forControlEvents:UIControlEventTouchUpInside];
+        [sendBtn setImage:[UIImage imageNamed:@"send_64px.png"] forState:UIControlStateNormal];
         [_keyboardTopAccessoryView addSubview:sendBtn];
         
         UITextField *inputTf = [[UITextField alloc]init];
-        inputTf.frame = CGRectMake(10, 4, _keyboardTopAccessoryView.bounds.size.width-72-10, 45);
+        inputTf.frame = CGRectMake(10, 2.5, _keyboardTopAccessoryView.bounds.size.width-60-10, 45);
         inputTf.placeholder = @"请输入新的任务";
         inputTf.layer.cornerRadius = 5;
         inputTf.layer.masksToBounds = YES;
