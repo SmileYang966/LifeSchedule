@@ -389,14 +389,37 @@
     [self.hiddenTf becomeFirstResponder];
 }
 
+-(BOOL)isBlankString:(NSString *)string{
+    if (string==nil || string == NULL) {
+        return YES;
+    }
+    
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 -(void)sendNewActivity:(UIButton *)sendNewActivityButton{
-    // 1. Record the text of inputNewActTf
+    /*1.Check if the inputNewActTf is empty*/
+    if ([self isBlankString:self.inputNewActTf.text]) {
+        UIAlertController *warnController = [UIAlertController alertControllerWithTitle:@"Error" message:@"任务描述不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [warnController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:warnController animated:YES completion:nil];
+        return;
+    }
+    
+    // 2. Record the text of inputNewActTf
     NSString *recordNewActText = self.inputNewActTf.text;
     
-    // 2. 隐藏keyboard
+    // 3. 隐藏keyboard
     [self resignResponderForAllTextFields];
     
-    // 3. 弹出UIAlertController
+    // 4. 弹出UIAlertController
     UIAlertController *alertController = [[UIAlertController alloc]init];
     
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];

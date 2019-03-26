@@ -176,11 +176,34 @@
     [self.hiddenTf becomeFirstResponder];
 }
 
+-(BOOL)isBlankString:(NSString *)string{
+    if (string==nil || string == NULL) {
+        return YES;
+    }
+    
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 -(void)sendNewActivity:(UIButton *)button{
-    /*1.Record the inputNewActTf's text and it will be used later*/
+    /*1.Check if the inputNewActTf is empty*/
+    if ([self isBlankString:self.inputNewActTf.text]) {
+        UIAlertController *warnController = [UIAlertController alertControllerWithTitle:@"Error" message:@"任务描述不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [warnController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:warnController animated:YES completion:nil];
+        return;
+    }
+    
+    /*2.Record the inputNewActTf's text and it will be used later*/
     NSString *newActivityDesc = self.inputNewActTf.text;
     
-    /*2.All TextFields Lose the first responder , as the UIDatePicker will be the first responder*/
+    /*3.All TextFields Lose the first responder , as the UIDatePicker will be the first responder*/
     [self resignResponderForAllTextFields];
     
     UIAlertController *alertController = [[UIAlertController alloc]init];
@@ -223,7 +246,6 @@
     [self presentViewController:alertController animated:YES completion:^{
         
     }];
-    
 }
 
 -(void)saveActivityWithDesc:(NSString *)activityDesc plannedBeginDate:(NSDate *)beginDate isActivityCompleted:(BOOL)isCompleted{
