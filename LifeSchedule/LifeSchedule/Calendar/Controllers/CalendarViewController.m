@@ -123,12 +123,6 @@
     return _managedObjContext;
 }
 
--(NSURL *)applicationDocumentsDirectory
-{
-    //获取沙盒路径下documents文件夹的路径(类似于search)
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
 - (NSMutableArray *)publicHolidayList{
     if (_publicHolidayList == NULL) {
         _publicHolidayList = [NSMutableArray array];
@@ -525,16 +519,7 @@
     //Set the initalized contentOffset
     [self.calendarScrollView setContentOffset:CGPointMake(self.view.bounds.size.width, 0) animated:false];
     
-    //Get the currentDayIndex in a calendar month(42 Items in a calendar)
-    NSDate *dt = [NSDate date];
-    NSDateComponents *comp = [self getNSDateComponentsByDate:dt];
-    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
-    self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
-    self.currentSelectedMonthDay = [NSNumber numberWithInteger:comp.day];
     [self initOperations];
-    
-     NSURL *url = [self applicationDocumentsDirectory];
-     NSLog(@"url path =%@",url.absoluteString);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -554,13 +539,26 @@
 }
 
 -(void)initOperations{
-    /*1.Hide the keyboard*/
+    
+    //1.Set the initalized values
+    [self initValues];
+    
+    /*2.Hide the keyboard*/
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
     tapGr.delegate = self;
     [self.view addGestureRecognizer:tapGr];
     /*2.Add two notifications related to the keyboard*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+-(void)initValues{
+    //Get the currentDayIndex in a calendar month(42 Items in a calendar)
+    NSDateComponents *comp = [self getNSDateComponentsByDate:[NSDate date]];
+    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
+    self.currentSelectedDayIndex = self.currentDayIndex;
+    self.currentSelectedMonthDay = [NSNumber numberWithInteger:comp.day];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
 }
 
 -(void)tapClicked:(UITapGestureRecognizer *)tap{
@@ -640,13 +638,12 @@
         if (dayIndexInCurrentMonth == 1) {
             if ([self isCalendarActivitiesExistedByAssignedDate:currentDate withDayNumber:dayNumber]) {
                 //Temp workaround , will do the enhancement later
-                //                cell.backgroundColor = UIColor.redColor;
                 cell.hiddenActivityMark = false;
             }
         }
     }
     
-    NSDateComponents *currentDayComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate date]];
+    NSDateComponents *currentDayComponents = [self getNSDateComponentsByDate:[NSDate date]];
     NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:currentDayComponents];
     NSTimeInterval interval = [firstDateOfMonthDate timeIntervalSinceDate:self.currentCalendarDate];
     
@@ -656,19 +653,19 @@
      * 2. 确保当前日历是显示的当月
      * 3. 确保当前是CurrentMonth标记范围内的
      */
-    if (interval==0.0f) {
-        if(self.selectedCalendarDate == nil){
+    if (interval==0.0f) {//当月
+        if(self.selectedCalendarDate == nil){//1.若在当月，没有选中其它日期创建活动，默认选择当日
             if (indexPath.row == self.currentDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
                 cell.hiddenSelectedView = false;
                 self.tempSavedCollectionViewCell = cell;
             }
-        }else{
+        }else{//2.若在当月，选择当月某一天去进行活动创建，需要取另外的选中日期的index来加上selection background view
             if (indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
                 cell.hiddenSelectedView = false;
                 self.tempSavedCollectionViewCell = cell;
             }
         }
-    }else{
+    }else{//其它月
         if (self.selectedCalendarDate != nil && indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
             cell.hiddenSelectedView = false;
             /*确保当前保存的cell是默认当天选中的cell*/
@@ -747,13 +744,12 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    
-     self.selectedCalendarDate = nil;
-    
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
     
-    NSLog(@"----CGPoint=%@----frame111=%f",NSStringFromCGPoint(scrollView.contentOffset),CGRectGetWidth(scrollView.frame));
+    /*Reset the self.selectedCalendarDate */
+    self.selectedCalendarDate = nil;
+    
     if (scrollView.contentOffset.x > self.calendarScrollView.bounds.size.width) {
         NSLog(@"向左滑动");
         [self scrollTheCalendarToLeft:true];
@@ -761,8 +757,6 @@
         NSLog(@"向右滑动");
         [self scrollTheCalendarToLeft:false];
     }else{
-        NSLog(@"scrollView.contentOffset.x=%lf,self.calendarScrollView.bounds.size.width=%lf",
-              scrollView.contentOffset.x,self.calendarScrollView.bounds.size.width);
         NSLog(@"滑动后仍在原位");
         [self.dailyScheduledTableView reloadData];
         return;
@@ -929,7 +923,6 @@
     }
     
     NSDateComponents *comp = [self getNSDateComponentsByDate:self.currentCalendarDate];
-//    self.currentDayIndex = [self getCurrentDayIndexInMonth:comp];
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     
     [self.totalDict setObject:currentMonth forKey:CURRENTMONTH];
