@@ -18,8 +18,8 @@
     //CheckBox
     CGFloat checkBoxX = COLLECTIONCELLMARGINX;
     CGFloat checkBoxY = COLLECTIONCELLMARGINY;
-    CGFloat checkBoxWidth = 20;
-    CGFloat checkBoxHeight = 20;
+    CGFloat checkBoxWidth = 25;
+    CGFloat checkBoxHeight = 25;
     self.checkBoxF = CGRectMake(checkBoxX, checkBoxY, checkBoxWidth, checkBoxHeight);
     
     //Title
