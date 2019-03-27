@@ -135,7 +135,17 @@
     // Do any additional setup after loading the view.
     
     [self initOperations];
+    
+    NSURL *url = [self applicationDocumentsDirectory];
+    NSLog(@"url=%@",url.absoluteString);
 }
+
+-(NSURL *)applicationDocumentsDirectory
+{
+    //获取沙盒路径下documents文件夹的路径(类似于search)
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 
 #pragma mark Reload data
 -(void)refreshData{
@@ -397,6 +407,10 @@
                 break;
         }
         deleteRequest.predicate = pre;
+        
+        //创建排序描述器
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"plannedBeginDate" ascending:YES];
+        [deleteRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         
         //这边得到的要删除的Array是经过预先筛选过的
         NSArray *deleteArray = [self.managedObjContext executeFetchRequest:deleteRequest error:nil];
