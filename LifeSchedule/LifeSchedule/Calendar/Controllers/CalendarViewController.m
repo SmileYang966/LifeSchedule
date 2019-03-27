@@ -638,14 +638,14 @@
         if (dayIndexInCurrentMonth == 1) {
             if ([self isCalendarActivitiesExistedByAssignedDate:currentDate withDayNumber:dayNumber]) {
                 //Temp workaround , will do the enhancement later
-//                cell.backgroundColor = UIColor.redColor;
+                //                cell.backgroundColor = UIColor.redColor;
                 cell.hiddenActivityMark = false;
             }
         }
     }
     
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate date]];
-    NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    NSDateComponents *currentDayComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate date]];
+    NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:currentDayComponents];
     NSTimeInterval interval = [firstDateOfMonthDate timeIntervalSinceDate:self.currentCalendarDate];
     
     //Current day will set the black circle background
@@ -655,10 +655,24 @@
      * 2. 确保当前日历是显示的当月
      * 3. 确保当前是CurrentMonth标记范围内的
      */
-    if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
-        cell.hiddenSelectedView = false;
-        /*确保当前保存的cell是默认当天选中的cell*/
-        self.tempSavedCollectionViewCell = cell;
+    
+    /*One scenario need to be specially considered , During the current month, when user choose one day to create the activity
+      Default selected day should be the workday with activities*/
+    NSDateComponents *selectedDateComponents = [self getNSDateComponentsByDate:self.selectedCalendarDate];
+    if (currentDayComponents.year == selectedDateComponents.year
+        && currentDayComponents.month == selectedDateComponents.month
+        && currentDayComponents.day != selectedDateComponents.day) {
+        if (indexPath.row == self.currentSelectedDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
+            cell.hiddenSelectedView = false;
+            /*确保当前保存的cell是默认当天选中的cell*/
+            self.tempSavedCollectionViewCell = cell;
+        }
+    }else{
+        if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
+            cell.hiddenSelectedView = false;
+            /*确保当前保存的cell是默认当天选中的cell*/
+            self.tempSavedCollectionViewCell = cell;
+        }
     }
     
     return cell;
@@ -684,6 +698,12 @@
         NSLog(@"current Date = %@",self.currentCalendarDate);
         self.currentSelectedMonthDay = monthDay;
         self.currentSelectedDayIndex = indexPath.row;
+        
+        NSDateComponents *components = [self getNSDateComponentsByDate:self.currentCalendarDate];
+        components.day = [monthDay integerValue];
+        NSDate *modifiedDate = [self getModifiedDateByNSDateComponents:components];
+        NSLog(@"modifiedDate=%@",modifiedDate);
+        self.selectedCalendarDate = modifiedDate;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
@@ -720,6 +740,10 @@
     [self refreshData];
     [self.dailyScheduledTableView reloadData];
     [self.dailyScheduledTableView reloadSectionIndexTitles];
+}
+
+-(NSDate *)getModifiedDateByNSDateComponents:(NSDateComponents *)dateComponents{
+    return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
 }
 
 #pragma mark -UIScrollView Delegate
@@ -822,10 +846,6 @@
     NSArray *dateArrayM = [self GetCalendarForCurrentMonthDays:daysOfCurrentMonth FirstDayOfCurrentMonth:indexDay LatMonthDays:daysOfLastMonth];
     
     return dateArrayM;
-}
-
--(NSDate *)getModifiedDateByNSDateComponents:(NSDateComponents *)dateComponents{
-    return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
 }
 
 /*根据日期得到日期当月一共有多少天*/
