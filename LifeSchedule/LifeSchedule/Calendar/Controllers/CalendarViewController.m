@@ -456,7 +456,10 @@
         //4.Clear the inputNewActTf
         self.inputNewActTf.text = @"";
         
-        //5.Reload the currentCollectionView
+        //5.Saved the current date to the "self.selectedCalendarDate".
+        self.selectedCalendarDate = selectedDate;
+        
+        //6.Reload the currentCollectionView
         [self.currentCollectionView reloadData];
     }];
     
@@ -529,7 +532,6 @@
     self.navigationItem.title = [NSString stringWithFormat:@"%ld年%ld月",comp.year,comp.month];
     self.currentSelectedMonthDay = [NSNumber numberWithInteger:comp.day];
     [self initOperations];
-    self.selectedCalendarDate = dt;
     
      NSURL *url = [self applicationDocumentsDirectory];
      NSLog(@"url path =%@",url.absoluteString);
@@ -648,27 +650,26 @@
     NSDate *firstDateOfMonthDate = [[NSCalendar currentCalendar] dateFromComponents:currentDayComponents];
     NSTimeInterval interval = [firstDateOfMonthDate timeIntervalSinceDate:self.currentCalendarDate];
     
-    //Current day will set the black circle background
     //必须满足以下3个条件
     /*
      * 1. 当前的cell必须是当天的
      * 2. 确保当前日历是显示的当月
      * 3. 确保当前是CurrentMonth标记范围内的
      */
-    
-    /*One scenario need to be specially considered , During the current month, when user choose one day to create the activity
-      Default selected day should be the workday with activities*/
-    NSDateComponents *selectedDateComponents = [self getNSDateComponentsByDate:self.selectedCalendarDate];
-    if (currentDayComponents.year == selectedDateComponents.year
-        && currentDayComponents.month == selectedDateComponents.month
-        && currentDayComponents.day != selectedDateComponents.day) {
-        if (indexPath.row == self.currentSelectedDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
-            cell.hiddenSelectedView = false;
-            /*确保当前保存的cell是默认当天选中的cell*/
-            self.tempSavedCollectionViewCell = cell;
+    if (interval==0.0f) {
+        if(self.selectedCalendarDate == nil){
+            if (indexPath.row == self.currentDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
+                cell.hiddenSelectedView = false;
+                self.tempSavedCollectionViewCell = cell;
+            }
+        }else{
+            if (indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
+                cell.hiddenSelectedView = false;
+                self.tempSavedCollectionViewCell = cell;
+            }
         }
     }else{
-        if (indexPath.row == self.currentDayIndex && interval==0.0f && [KeyStr isEqualToString:CURRENTMONTH]) {
+        if (self.selectedCalendarDate != nil && indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
             cell.hiddenSelectedView = false;
             /*确保当前保存的cell是默认当天选中的cell*/
             self.tempSavedCollectionViewCell = cell;
@@ -698,12 +699,6 @@
         NSLog(@"current Date = %@",self.currentCalendarDate);
         self.currentSelectedMonthDay = monthDay;
         self.currentSelectedDayIndex = indexPath.row;
-        
-        NSDateComponents *components = [self getNSDateComponentsByDate:self.currentCalendarDate];
-        components.day = [monthDay integerValue];
-        NSDate *modifiedDate = [self getModifiedDateByNSDateComponents:components];
-        NSLog(@"modifiedDate=%@",modifiedDate);
-        self.selectedCalendarDate = modifiedDate;
     }
     else{
         //向右偏移到下一月 selectedIndex==2
@@ -752,6 +747,9 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+     self.selectedCalendarDate = nil;
+    
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
     
