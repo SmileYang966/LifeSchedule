@@ -417,10 +417,12 @@
     UIAlertController *alertController = [[UIAlertController alloc]init];
     
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    
+    CGFloat marginx = (self.view.bounds.size.width - datePicker.bounds.size.width) * 0.5f - 10.0f;
     CGRect datePickerFrame = datePicker.frame;
     datePickerFrame.origin.y += 35.0f;
-    datePicker.frame = datePickerFrame;
-    
+    datePickerFrame.origin.x += marginx;
+    datePicker.frame = datePickerFrame;    
     datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
     datePicker.datePickerMode = UIDatePickerModeTime;
     [alertController.view addSubview:datePicker];

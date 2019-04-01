@@ -217,12 +217,14 @@
     [self resignResponderForAllTextFields];
     
     UIAlertController *alertController = [[UIAlertController alloc]init];
-    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    UIDatePicker *datePicker = [UIDatePicker new];
+    NSLog(@"datePicker new = %@",NSStringFromCGRect(datePicker.frame));
     
+    CGFloat marginx = (self.view.bounds.size.width - datePicker.bounds.size.width) * 0.5f - 10.0f;
     CGRect datePickerFrame = datePicker.frame;
     datePickerFrame.origin.y += 35.0f;
+    datePickerFrame.origin.x += marginx;
     datePicker.frame = datePickerFrame;
-    
     datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
     datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     [alertController.view addSubview:datePicker];
