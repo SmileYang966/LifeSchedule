@@ -29,11 +29,12 @@
         _iconView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,200)];
         _iconView.backgroundColor = UIColor.clearColor;
         UIImage *img = [UIImage imageNamed:@"list.png"];
-        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-img.size.width)*0.5f, (_iconView.bounds.size.height-img.size.height-64)*0.5 + 54 , img.size.width, img.size.height)];
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake((self.view.bounds.size.width-img.size.width)*0.5f, (_iconView.bounds.size.height-img.size.height-Height_TopBar)*0.5 + (Height_TopBar-10.0f) ,img.size.width, img.size.height)];
         imgView.image = img;
         [_iconView addSubview:imgView];
         
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(imgView.frame.origin.x-3, CGRectGetMaxY(imgView.frame)-10.0f, imgView.frame.size.width+20, 30.0f)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame)-8.0f, self.view.bounds.size.width, 30.0f)];
+        label.textAlignment = NSTextAlignmentCenter;
 //        label.font = [UIFont fontWithName:@"Cloudtype-JGjingxinkaiGB-Regular" size:23.0f];
         label.font = [UIFont fontWithName:@"IowanOldStyle-BoldItalic" size:21.0f];
         label.textColor = [UIColor colorWithRed:66/255.0 green:130/255.0 blue:210/255.0 alpha:1.0f];
