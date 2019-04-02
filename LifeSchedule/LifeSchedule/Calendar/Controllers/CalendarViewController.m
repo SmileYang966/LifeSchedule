@@ -139,7 +139,7 @@
 
 - (UIView *)headerView{
     if (_headerView == NULL) {
-        _headerView = [[CalendarHeaderView alloc]initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 30.0f)];
+        _headerView = [[CalendarHeaderView alloc]initWithFrame:CGRectMake(0, Height_TopBar, self.view.bounds.size.width, 30.0f)];
         [self.view addSubview:_headerView];
     }
     return _headerView;
