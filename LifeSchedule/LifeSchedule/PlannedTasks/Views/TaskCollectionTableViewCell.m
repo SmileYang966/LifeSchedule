@@ -17,6 +17,9 @@
 
 /*Some additonal info like the task's planned time,and some icons*/
 @property(nonatomic,strong) UILabel *additionalDetailInfo;
+
+/*Show the info of '星期几'*/
+@property(nonatomic,strong) UILabel *workDayDesc;
 @end
 
 
@@ -60,6 +63,16 @@
     return _additionalDetailInfo;
 }
 
+- (UILabel *)workDayDesc{
+    if (_workDayDesc == NULL) {
+        _workDayDesc = [[UILabel alloc]init];
+        _workDayDesc.font = [UIFont systemFontOfSize:COLLECTIONCELLDETAILINFOLABELOFSIZE];
+        _workDayDesc.textColor = [UIColor redColor];
+        [self addSubview:_workDayDesc];
+    }
+    return _workDayDesc;
+}
+
 #pragma mark-Initalization
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -68,6 +81,7 @@
         [self taskcheckBoxSelected];
         [self contentLabel];
         [self additionalDetailInfo];
+        [self workDayDesc];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -103,9 +117,18 @@
     
     /*Convert the date to the string*/
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateStr = [dateFormatter stringFromDate:model.taskStartedDate];
     self.additionalDetailInfo.text = dateStr;
+    
+    /* Work day description */
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *comps = [calendar components:unitFlags fromDate:model.taskStartedDate];
+    NSInteger index = [comps weekday];
+    NSString *dayDesc = WeekDayStringArray[index-1];
+    self.workDayDesc.frame = CGRectMake(CGRectGetMaxX(self.additionalDetailInfo.frame) + 2.0f, self.additionalDetailInfo.frame.origin.y, 50.0f, self.additionalDetailInfo.frame.size.height);
+    self.workDayDesc.text = dayDesc;
 }
 
 - (void)awakeFromNib {

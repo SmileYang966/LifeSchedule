@@ -32,15 +32,16 @@
     //Detail info
     if (taskCollectionModel.taskStartedDate != nil) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         NSString *dateStr = [dateFormatter stringFromDate:taskCollectionModel.taskStartedDate];
+                
         if (dateStr.length != 0) {
             CGFloat collectionDetailInfoX = self.collectionTitleF.origin.x;
             CGFloat collectionDetailInfoY = CGRectGetMaxY(self.collectionTitleF) + COLLECTIONCELLMINORMARGINY;
             CGSize detailInfoLabelSize = [dateStr sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:COLLECTIONCELLDETAILINFOLABELOFSIZE]}];
-            self.collectionDetailedInfoF = CGRectMake(collectionDetailInfoX, collectionDetailInfoY, detailInfoLabelSize.width, detailInfoLabelSize.height);
+            self.collectionDetailedInfoF = CGRectMake(collectionDetailInfoX, collectionDetailInfoY, 125.0f, detailInfoLabelSize.height);
         }
-        
+                
         //Row Height
         if (dateStr.length != 0) {
             self.collectionRowHegiht = CGRectGetMaxY(self.collectionDetailedInfoF) + COLLECTIONCELLMARGINY;

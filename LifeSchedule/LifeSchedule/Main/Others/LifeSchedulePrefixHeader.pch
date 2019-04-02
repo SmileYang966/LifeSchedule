@@ -48,6 +48,8 @@ typedef enum{
 #define Height_NavBar 44.0f
 #define Height_TopBar (Height_StatusBar + Height_NavBar)
 
+#define WeekDayStringArray @[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"]
+
 #ifdef DEBUG
 #define SCLog(...) NSLog(__VA_ARGS__)
 #else
