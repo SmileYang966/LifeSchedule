@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LSMainTabBarViewController.h"
-
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +24,12 @@
     LSMainTabBarViewController *mainTabBarController = [[LSMainTabBarViewController alloc]init];
     self.window.rootViewController = mainTabBarController;
     [self.window makeKeyWindow];
+    
+    //Register local Push Notification
+    [self registerAPN];
+    
+
+    
     return YES;
 }
 
@@ -54,5 +60,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//Register local Push Notification
+-(void)registerAPN{
+    
+    //1. Regiater the NotificationCenter
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+    }];
+}
 
 @end

@@ -13,6 +13,7 @@
 #import "TaskCollectionFrame.h"
 #import "TimeActivity+CoreDataProperties.h"
 #import "LSTextViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
 
@@ -138,6 +139,29 @@
     
     NSURL *url = [self applicationDocumentsDirectory];
     NSLog(@"url=%@",url.absoluteString);
+    
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Send By Mail" style:UIBarButtonItemStyleDone target:self action:@selector(sendByMailButtonClicked:)];
+}
+
+-(void)sendByMailButtonClicked:(UIBarButtonItem *)barButtonItem{
+    NSLog(@"sendByMailButtonClicked");
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    content.title = @"测试标题";
+    content.subtitle = @"测试通知副标题";
+    content.body = @"测试通知的具体内容";
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSTimeInterval time = [[NSDate dateWithTimeIntervalSinceNow:10] timeIntervalSinceNow];
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:time repeats:NO];
+    
+    NSString *notiId = @"notifiedID";
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:trigger];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"成功发送通知");
+    }];
 }
 
 -(NSURL *)applicationDocumentsDirectory
