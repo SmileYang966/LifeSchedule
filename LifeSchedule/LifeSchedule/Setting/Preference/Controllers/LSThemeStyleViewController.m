@@ -37,7 +37,7 @@ CGFloat cellMargin = 10.0f;
 - (UICollectionView *)collectionView{
     if (_collectionView == NULL) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        CGFloat itemWidth = (self.view.bounds.size.width - 4 * cellMargin) / 3.0f;
+        CGFloat itemWidth = (int)((self.view.bounds.size.width - 4 * cellMargin) / 3.0f) * 1.0f;
         CGFloat itemHeight = 150.0f;
         flowLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
         
@@ -45,7 +45,7 @@ CGFloat cellMargin = 10.0f;
         CGFloat collectionViewY = cellMargin;
         CGFloat collectionViewWidth = self.view.bounds.size.width - 2*collectionViewX;
         
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(collectionViewX, collectionViewY+64, collectionViewWidth, self.view.bounds.size.height) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(collectionViewX, collectionViewY+Height_TopBar,collectionViewWidth,self.view.bounds.size.height) collectionViewLayout:flowLayout];
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:collectionCellReuseId];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
