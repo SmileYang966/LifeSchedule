@@ -300,8 +300,6 @@
     }
 }
 
-//- (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDate:(NSDate *)date;
-
 -(void)createNotificationWithDate:(NSDate *)notiActDate activityDesc:(NSString *)activityDesc{
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
@@ -315,8 +313,7 @@
     notifyComponents.second = 0;
     
     UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
-    
-    NSString *notiId = @"notifiedID";
+    NSString *notiId = [NSString stringWithFormat:@"notificationId_%@",notiActDate.description];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         NSLog(@"成功发送通知");

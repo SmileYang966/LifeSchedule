@@ -10,7 +10,7 @@
 #import "LSMainTabBarViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -65,9 +65,40 @@
     
     //1. Regiater the NotificationCenter
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound  completionHandler:^(BOOL granted, NSError * _Nullable error) {
         
     }];
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        
+    }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    NSLog(@"-----willPresentNotification-----");
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler{
+    NSLog(@"-----didReceiveNotificationResponse-----");
+    //1. Process special logic
+    
+    
+    //2. After the logic was processed,just remove the penging notification
+    UNNotificationRequest *notiRequest = response.notification.request;
+    UNNotificationTrigger *trigger = notiRequest.trigger;
+    if (notiRequest != nil) {
+        NSString *notificationID = [notiRequest.identifier stringByTrimmingCharactersInSet:[NSMutableCharacterSet whitespaceCharacterSet]];
+        if (notificationID.length != 0 && !trigger.repeats) {
+            [center removePendingNotificationRequestsWithIdentifiers:@[notificationID]];
+        }
+    }
+    
+    //3. Need to call the completionHandler as the apple spec asked.
+    completionHandler();
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification{
+    NSLog(@"----openSettingsForNotification----");
 }
 
 @end
