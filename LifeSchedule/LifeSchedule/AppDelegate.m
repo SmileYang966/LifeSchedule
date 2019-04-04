@@ -72,6 +72,9 @@
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
         
     }];
+    
+    //Remove all delived notification(Delived but have not been deleted from notification center)
+    [center removeAllDeliveredNotifications];
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
