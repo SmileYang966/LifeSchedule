@@ -271,7 +271,7 @@
         //4.Clear the text for this textField
         self.inputNewActTf.text = @"";
         
-        //5. Create the a local notification by the specfici create date
+        //5. Create the a local notification by the specific create date
         [self createNotificationWithDate:selectedDate activityDesc:activityDesc];
         
     }];
@@ -313,7 +313,8 @@
     notifyComponents.second = 0;
     
     UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
-    NSString *notiId = [NSString stringWithFormat:@"notificationId_%@",notiActDate.description];
+    //To make sure the notification id is always unique, just fetch the current time as the part of notificationId
+    NSString *notiId = [NSString stringWithFormat:@"notificationId_%@",[NSDate date].description];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         NSLog(@"成功发送通知");

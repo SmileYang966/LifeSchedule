@@ -18,6 +18,7 @@
 #import "TaskCollectionModel.h"
 #import "TaskCollectionTableViewCell.h"
 #import "LSTextViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 #define CURRENTMONTH    @"currentMonth"
 #define NEXTMONTH       @"nextMonth"
@@ -457,6 +458,9 @@
         
         //6.Reload the currentCollectionView
         [self.currentCollectionView reloadData];
+        
+        //7.Create the activity with specific date
+        [self createNotificationWithDate:selectedDate activityDesc:recordNewActText];
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -481,6 +485,27 @@
         [self refreshData];
         [self.dailyScheduledTableView reloadData];
     }
+}
+
+-(void)createNotificationWithDate:(NSDate *)notiActDate activityDesc:(NSString *)activityDesc{
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    content.title = @"亲，您有一个新的活动提醒!";
+    content.body = activityDesc;
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *notifyComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:notiActDate];
+    notifyComponents.second = 0;
+
+    UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
+    //To make sure the notification id is always unique, just fetch the current time as the part of notificationId
+    NSString *notiId = [NSString stringWithFormat:@"notificationId_%@",[NSDate date].description];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"成功发送通知");
+    }];
 }
 
 -(void)resignResponderForAllTextFields{
