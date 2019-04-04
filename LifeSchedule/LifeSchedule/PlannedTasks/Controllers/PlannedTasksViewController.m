@@ -271,7 +271,9 @@
         //4.Clear the text for this textField
         self.inputNewActTf.text = @"";
         
-        //5. To do list : Order the activity by the date
+        //5. Create the a local notification by the specfici create date
+        [self createNotificationWithDate:selectedDate activityDesc:activityDesc];
+        
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -296,6 +298,29 @@
         [self refreshData];
         [self.tableView reloadData];
     }
+}
+
+//- (NSDateComponents *)components:(NSCalendarUnit)unitFlags fromDate:(NSDate *)date;
+
+-(void)createNotificationWithDate:(NSDate *)notiActDate activityDesc:(NSString *)activityDesc{
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    content.title = @"亲，您有一个新的活动提醒!";
+    content.body = activityDesc;
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *notifyComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:notiActDate];
+    notifyComponents.second = 0;
+    
+    UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
+    
+    NSString *notiId = @"notifiedID";
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"成功发送通知");
+    }];
 }
 
 - (void)tapClicked:(UITapGestureRecognizer *)tapGr{
