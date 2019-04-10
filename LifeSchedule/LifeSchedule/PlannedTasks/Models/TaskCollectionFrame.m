@@ -25,7 +25,10 @@
     //Title
     CGFloat collectionTitleX = CGRectGetMaxX(self.checkBoxF) + COLLECTIONCELLMARGINX;
     CGFloat collectionTitleY = self.checkBoxF.origin.y;
-    CGSize titleLabelSize = [taskCollectionModel.taskTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:COLLECTIONCELLTITLELABELFONTOFSIZE]}];
+    NSString *contentStr = taskCollectionModel.taskTitle;
+    contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\r" withString:@" "];
+    CGSize titleLabelSize = [contentStr sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:COLLECTIONCELLTITLELABELFONTOFSIZE]}];
     CGFloat collectionTitleWidth = UIScreen.mainScreen.bounds.size.width - CGRectGetMaxX(self.checkBoxF) - COLLECTIONCELLMARGINX-5.0f;
     self.collectionTitleF = CGRectMake(collectionTitleX, collectionTitleY, collectionTitleWidth, titleLabelSize.height);
     

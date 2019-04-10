@@ -28,9 +28,9 @@
         self.textView = [[UITextView alloc]initWithFrame:self.view.bounds];
         self.textView.delegate = self;
         self.textView.font = [UIFont systemFontOfSize:20.0f];
-        self.textView.returnKeyType = UIReturnKeyDone;
+        self.textView.returnKeyType = UIReturnKeyNext;
         [self.view addSubview:self.textView];
-        
+                
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(backAndSaveData)];
     }
     return self;
@@ -85,13 +85,13 @@
     [self backAndSaveData];
 }
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
+//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@"\n"]) {
+//        [textView resignFirstResponder];
+//        return NO;
+//    }
+//    return YES;
+//}
 
 @end

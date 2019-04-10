@@ -110,7 +110,11 @@
     
     //ContentLabel
     self.contentLabel.frame = taskCollectionFrame.collectionTitleF;
-    self.contentLabel.text = model.taskTitle;
+    
+    NSString *contentStr = model.taskTitle;
+    contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\r" withString:@" "];
+    self.contentLabel.text = contentStr;
     
     //detailed info
     self.additionalDetailInfo.frame = taskCollectionFrame.collectionDetailedInfoF;
