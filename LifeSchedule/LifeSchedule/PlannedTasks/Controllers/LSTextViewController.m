@@ -10,7 +10,7 @@
 #import "TaskCollectionModel.h"
 #import "TimeActivity+CoreDataProperties.h"
 
-@interface LSTextViewController ()
+@interface LSTextViewController ()<UITextViewDelegate>
 
 @property(nonatomic,strong) UITextView *textView;
 
@@ -26,10 +26,12 @@
         self.view.backgroundColor = UIColor.blueColor;
         
         self.textView = [[UITextView alloc]initWithFrame:self.view.bounds];
+        self.textView.delegate = self;
         self.textView.font = [UIFont systemFontOfSize:20.0f];
+        self.textView.returnKeyType = UIReturnKeyDone;
         [self.view addSubview:self.textView];
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(backAndSaveData)];
     }
     return self;
 }
@@ -41,7 +43,7 @@
     return _managedObjContext;
 }
 
--(void)backButtonClicked:(UIBarButtonItem *)barButtonItem{
+-(void)backAndSaveData{
     // Before press back button, we saved the description again
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
@@ -77,6 +79,19 @@
     NSString *dateStr = [dateFormatter stringFromDate:taskModel.taskStartedDate];
     self.navigationItem.title = dateStr;
     self.textView.text = taskModel.taskTitle;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [self backAndSaveData];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 @end
