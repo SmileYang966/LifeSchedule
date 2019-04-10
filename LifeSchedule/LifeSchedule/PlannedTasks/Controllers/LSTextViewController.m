@@ -10,7 +10,7 @@
 #import "TaskCollectionModel.h"
 #import "TimeActivity+CoreDataProperties.h"
 
-@interface LSTextViewController ()<UITextViewDelegate>
+@interface LSTextViewController ()<UITextViewDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong) UITextView *textView;
 
@@ -30,8 +30,10 @@
         self.textView.font = [UIFont systemFontOfSize:20.0f];
         self.textView.returnKeyType = UIReturnKeyNext;
         [self.view addSubview:self.textView];
-                
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(backAndSaveData)];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(backAndSaveData)];
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked:)];
     }
     return self;
 }
@@ -43,7 +45,39 @@
     return _managedObjContext;
 }
 
+-(void)backButtonClicked:(UIBarButtonItem *)barButtonItem{
+    
+    [self.textView resignFirstResponder];
+    
+    //Original navigationItem title
+    NSString *originalNavigationItemTitle = self.taskModel.taskTitle;
+    
+    //After changed
+    NSString *changedTitle = self.textView.text;
+    
+    //Compare the two string
+    if ([originalNavigationItemTitle compare:changedTitle] != kCFCompareEqualTo) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning" message:@"是否需要保存最新的修改？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self backAndSaveData];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertController addAction:confirmAction];
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 -(void)backAndSaveData{
+    [self.textView resignFirstResponder];
+    
     // Before press back button, we saved the description again
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
@@ -65,6 +99,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -81,17 +121,15 @@
     self.textView.text = taskModel.taskTitle;
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView{
-    [self backAndSaveData];
+#pragma mark - UIGestureRecognizerDelegate
+//这个方法是在手势将要激活前调用：返回YES允许右滑手势的激活，返回NO不允许右滑手势的激活
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (self.navigationController.viewControllers.count == 1) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
-
-//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-//{
-//    if ([text isEqualToString:@"\n"]) {
-//        [textView resignFirstResponder];
-//        return NO;
-//    }
-//    return YES;
-//}
 
 @end
