@@ -9,9 +9,8 @@
 #import "TomatoesTimerViewController.h"
 #import "SCCircleView.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "LSAudioPlayTool.h"
 #import "Setting+CoreDataClass.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 @interface TomatoesTimerViewController ()<SCCircleViewDelegate>
 
@@ -34,6 +33,7 @@
 @property(nonatomic,copy) NSString *workingTimeValue;
 @property(nonatomic,copy) NSString *breakTimeValue;
 
+@property(nonatomic,strong) AVAudioPlayer *audioPlayer;
 @end
 
 @implementation TomatoesTimerViewController
@@ -132,6 +132,11 @@
 -(void)focusBtnClicked:(UIButton *)button{
     [self.circleView stopTimer];
     
+    /*If the music is playing ,just stop the current music*/
+    if ([self.audioPlayer isPlaying]) {
+        [self.audioPlayer stop];
+    }
+    
     switch (self.currentTomatoesStatus) {
             
         //如果当前的工作是Default状态，那么按钮点击后进入到工作状态
@@ -202,23 +207,6 @@
     [self initData];
 }
 
-
-
-/*
--(void)playNotifySound{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"contineToWorking.caf" ofType:@"nil"];
-    SystemSoundID soundId = 0;
-    if (path) {
-        OSStatus error = AudioServicesCreateSystemSoundID((__bridge CFURLRef _Nonnull)([NSURL fileURLWithPath:path]), &soundId);
-        if (error != kAudioServicesNoError) {
-            NSLog(@"%d",(int)error);
-        }
-    }
-    AudioServicesPlayAlertSoundWithCompletion(soundId, ^{
-        int a = 5;
-    });
-}
- */
 
 #pragma mark -初始化操作
 -(void)initOperations{
@@ -338,16 +326,14 @@
 #pragma mark-Play Audio
 -(void)playRestAudio{
     NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"breakTimeExpired" ofType:@"mp3"];
-    [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
-        SCLog(@"Play Break audio");
-    }];
+    self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:musicFilePath] error:nil];
+    [self.audioPlayer play];
 }
 
 -(void)playContinueWorkingAudio{
     NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"workingTimeExpired" ofType:@"mp3"];
-    [LSAudioPlayTool playAudioWithPath:musicFilePath finishedAudioPlay:^{
-        SCLog(@"Play continue to work audio");
-    }];
+    self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:musicFilePath] error:nil];
+    [self.audioPlayer play];
 }
 
 
@@ -371,4 +357,13 @@
 -(BOOL)tabBarIsVisible{
     return self.tabBarController.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame);
 }
+
+#pragma mark -TouchBegin
+/*Touch the screen to stop the music when the music is playing*/
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if ([self.audioPlayer isPlaying]) {
+        [self.audioPlayer stop];
+    }
+}
+
 @end

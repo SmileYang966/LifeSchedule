@@ -19,12 +19,13 @@
 		2576FD2E21E39DAA00316F20 /* TimeActivity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2576FD2721E3969100316F20 /* TimeActivity+CoreDataProperties.m */; };
 		2592821D21E1C17C00DDE639 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2592821C21E1C17C00DDE639 /* CoreDataManager.m */; };
 		25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */; };
-		25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DE0781210C2817002D944E /* LSAudioPlayTool.m */; };
 		25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779DE21CE3E710028FBE3 /* CalendarHeaderView.m */; };
 		25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779E121CE47960028FBE3 /* PublicHolidayDay.m */; };
 		710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE6C223F494600BC41EF /* ConfigurationViewController.m */; };
 		710EDE74223F554D00BC41EF /* ConfigurationTimeSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */; };
 		710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */; };
+		710F050F225EF0F70085EB05 /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 710F050D225EF0F70085EB05 /* workingTimeExpired.mp3 */; };
+		710F0510225EF0F70085EB05 /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 710F050E225EF0F70085EB05 /* breakTimeExpired.mp3 */; };
 		71143E9522420C270040A412 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71143E9422420C270040A412 /* ThemeManager.m */; };
 		711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D58DA223B9DC2004A3635 /* CFNetwork.framework */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
@@ -33,8 +34,6 @@
 		71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */; };
 		7147886B223B6B650009F6ED /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71478869223B6B650009F6ED /* FeedbackViewController.m */; };
 		7147886C223B6B650009F6ED /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7147886A223B6B650009F6ED /* FeedbackViewController.xib */; };
-		71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */; };
-		71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */; };
 		71D351CD224216C200241CE4 /* ThemePlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71D351CC224216C200241CE4 /* ThemePlist.plist */; };
 		71D351D02242206100241CE4 /* LSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351CF2242206100241CE4 /* LSBaseViewController.m */; };
 		71D351D3224223C600241CE4 /* LSThemeTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D351D2224223C600241CE4 /* LSThemeTabBarItem.m */; };
@@ -113,8 +112,6 @@
 		2592821C21E1C17C00DDE639 /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		25B80B14211091560039F4AB /* TaskCollectionGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCollectionGroupModel.m; sourceTree = "<group>"; };
 		25B80B15211091560039F4AB /* TaskCollectionGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCollectionGroupModel.h; sourceTree = "<group>"; };
-		25DE0780210C2817002D944E /* LSAudioPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAudioPlayTool.h; sourceTree = "<group>"; };
-		25DE0781210C2817002D944E /* LSAudioPlayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAudioPlayTool.m; sourceTree = "<group>"; };
 		25F779DD21CE3E710028FBE3 /* CalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarHeaderView.h; sourceTree = "<group>"; };
 		25F779DE21CE3E710028FBE3 /* CalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarHeaderView.m; sourceTree = "<group>"; };
 		25F779E021CE47960028FBE3 /* PublicHolidayDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicHolidayDay.h; sourceTree = "<group>"; };
@@ -125,6 +122,8 @@
 		710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetCell.h; sourceTree = "<group>"; };
 		710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetCell.m; sourceTree = "<group>"; };
 		710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationTimeSetCell.xib; sourceTree = "<group>"; };
+		710F050D225EF0F70085EB05 /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
+		710F050E225EF0F70085EB05 /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
 		71143E9322420C270040A412 /* ThemeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		71143E9422420C270040A412 /* ThemeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
 		711D58DA223B9DC2004A3635 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -135,8 +134,6 @@
 		71478868223B6B650009F6ED /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		71478869223B6B650009F6ED /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		7147886A223B6B650009F6ED /* FeedbackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
-		71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
-		71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
 		71D351CC224216C200241CE4 /* ThemePlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ThemePlist.plist; sourceTree = "<group>"; };
 		71D351CE2242206100241CE4 /* LSBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBaseViewController.h; sourceTree = "<group>"; };
 		71D351CF2242206100241CE4 /* LSBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBaseViewController.m; sourceTree = "<group>"; };
@@ -301,18 +298,8 @@
 		25DE077E210C2817002D944E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				25DE077F210C2817002D944E /* Audio */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		25DE077F210C2817002D944E /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				25DE0780210C2817002D944E /* LSAudioPlayTool.h */,
-				25DE0781210C2817002D944E /* LSAudioPlayTool.m */,
-			);
-			path = Audio;
 			sourceTree = "<group>";
 		};
 		710EDE6A223F490500BC41EF /* ConfigurationScreen */ = {
@@ -360,8 +347,8 @@
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				71CF8BFE2227C7E000D8A51B /* breakTimeExpired.mp3 */,
-				71CF8BFF2227C7E000D8A51B /* workingTimeExpired.mp3 */,
+				710F050E225EF0F70085EB05 /* breakTimeExpired.mp3 */,
+				710F050D225EF0F70085EB05 /* workingTimeExpired.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -833,17 +820,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				710F050F225EF0F70085EB05 /* workingTimeExpired.mp3 in Resources */,
 				7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */,
 				7147886C223B6B650009F6ED /* FeedbackViewController.xib in Resources */,
 				7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */,
-				71CF8C002227C7E000D8A51B /* breakTimeExpired.mp3 in Resources */,
 				71D351CD224216C200241CE4 /* ThemePlist.plist in Resources */,
 				71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */,
 				7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */,
 				71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */,
 				7C16952020D76A7D004ED9D9 /* LSSettingTableViewCell.xib in Resources */,
 				710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */,
-				71CF8C012227C7E000D8A51B /* workingTimeExpired.mp3 in Resources */,
+				710F0510225EF0F70085EB05 /* breakTimeExpired.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,7 +917,6 @@
 				7CAC2DB220C9F50000D648E3 /* LSMainTabBarViewController.m in Sources */,
 				25B80B16211091560039F4AB /* TaskCollectionGroupModel.m in Sources */,
 				7C0F940420E1B5DD009B7D06 /* SecurityAndDataTableViewController.m in Sources */,
-				25DE0782210C2817002D944E /* LSAudioPlayTool.m in Sources */,
 				71D351D3224223C600241CE4 /* LSThemeTabBarItem.m in Sources */,
 				7CAC2DA620C9F22C00D648E3 /* LSBaseTableViewController.m in Sources */,
 				25230023210DACA200BBF862 /* TaskCollectionModel.m in Sources */,

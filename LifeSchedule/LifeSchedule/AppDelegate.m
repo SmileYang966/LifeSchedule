@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LSMainTabBarViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -28,8 +29,8 @@
     //Register local Push Notification
     [self registerAPN];
     
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
-    
     return YES;
 }
 
