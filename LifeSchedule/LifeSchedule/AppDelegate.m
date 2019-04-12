@@ -10,6 +10,7 @@
 #import "LSMainTabBarViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import <AVFoundation/AVFoundation.h>
+#import "LaunchViewController.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -23,7 +24,15 @@
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     LSMainTabBarViewController *mainTabBarController = [[LSMainTabBarViewController alloc]init];
-    self.window.rootViewController = mainTabBarController;
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstTimeToEnterTheScreen"];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTimeToEnterTheScreen"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTimeToEnterTheScreen"];
+        self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LaunchViewController alloc]init]];
+    }else{
+        self.window.rootViewController = mainTabBarController;
+    }
+    
     [self.window makeKeyWindow];
     
     //Register local Push Notification
