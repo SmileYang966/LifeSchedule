@@ -118,12 +118,9 @@
 
 #pragma mark - EventClick
 - (void)buttonClick:(UIButton *)button {
-    [UIView animateWithDuration:DDHidden_TIME animations:^{
-        self.alpha = 0;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(DDHidden_TIME * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(removeGuidePageHUD) withObject:nil afterDelay:1];
-        });
-    }];
+    if ([self.hUDDelegate respondsToSelector:@selector(goToHomeViewControllerWithGuidePageHUD:)]) {
+        [self.hUDDelegate goToHomeViewControllerWithGuidePageHUD:self];
+    }
 }
 
 - (void)removeGuidePageHUD {

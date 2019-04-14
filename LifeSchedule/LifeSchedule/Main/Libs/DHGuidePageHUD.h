@@ -10,12 +10,22 @@
 
 #define BOOLFORKEY @"dhGuidePage"
 
+@protocol DHGuidePageHUDDelegate <NSObject>
+
+-(void)goToHomeViewControllerWithGuidePageHUD:(UIView *)DhGuidePageHUD;
+
+@end
+
 @interface DHGuidePageHUD : UIView
 /**
  *  是否支持滑动进入APP(默认为NO-不支持滑动进入APP | 只有在buttonIsHidden为YES-隐藏状态下可用; buttonIsHidden为NO-显示状态下直接点击按钮进入)
  *  新增视频引导页同样不支持滑动进入APP
  */
 @property (nonatomic, assign) BOOL slideInto;
+
+//声明协议变量
+@property (nonatomic,assign) id<DHGuidePageHUDDelegate> hUDDelegate;
+
 /**
  *  DHGuidePageHUD(图片引导页 | 可自动识别动态图片和静态图片)
  *

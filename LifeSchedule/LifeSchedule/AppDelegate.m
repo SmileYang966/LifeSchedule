@@ -25,7 +25,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     LSMainTabBarViewController *mainTabBarController = [[LSMainTabBarViewController alloc]init];
     
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstTimeToEnterTheScreen"];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstTimeToEnterTheScreen"];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTimeToEnterTheScreen"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTimeToEnterTheScreen"];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LaunchViewController alloc]init]];
