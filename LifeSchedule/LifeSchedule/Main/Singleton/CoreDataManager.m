@@ -82,12 +82,12 @@ static CoreDataManager * _sharedManager;
     if (array.count == 0) {
         Setting *workTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
         workTimeSetting.settingKeyName = @"workTime";
-        workTimeSetting.settingValue = @"30";
+        workTimeSetting.settingValue = @"25";
         [_dBContext save:&error];
         
         Setting *breakTimeSetting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:_dBContext];
         breakTimeSetting.settingKeyName = @"breakTime";
-        breakTimeSetting.settingValue = @"5";
+        breakTimeSetting.settingValue = @"3";
         [_dBContext save:&error];
     }
 }

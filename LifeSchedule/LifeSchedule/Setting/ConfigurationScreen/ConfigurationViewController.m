@@ -15,7 +15,8 @@
 
 @property(nonatomic,strong) UIPickerView *pickerView;
 @property(nonatomic,strong) NSArray *totalData;
-@property(nonatomic,strong) NSArray *dataArray;
+@property(nonatomic,strong) NSArray *workingArray;
+@property(nonatomic,strong) NSArray *breakArray;
 
 /*DB part*/
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
@@ -86,15 +87,21 @@
     [self.view addSubview:self.pickerView];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
-    
+    self.pickerView.tag = category;
     [alertController.view addSubview:self.pickerView];
     [self presentViewController:alertController animated:YES completion:^{
         
     }];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSInteger selectedIndex = [self.pickerView selectedRowInComponent:0];
-        NSNumber *selectedTimeNum = self.dataArray[selectedIndex];
-        NSInteger recordedMinutes = [selectedTimeNum integerValue];
+        NSInteger recordedMinutes;
+        if (category == WorkingTime) {
+            NSNumber *selectedWorkingTimeNum = self.workingArray[selectedIndex];
+            recordedMinutes = [selectedWorkingTimeNum integerValue];
+        }else{
+            NSNumber *selectedBreakTimeNum = self.breakArray[selectedIndex];
+            recordedMinutes = [selectedBreakTimeNum integerValue];
+        }
         //Distinguish the workingTime or BreakTime
         NSLog(@"recordedMinutes=%ld",recordedMinutes);
         NSString *updatedTimeSetValue = [NSString stringWithFormat:@"%ld分钟",recordedMinutes];
@@ -120,9 +127,15 @@
         
     }]];
     
-    NSMutableArray *arrayM = [NSMutableArray array];
-    [arrayM addObjectsFromArray:@[@1,@2,@3,@4]];
-    self.dataArray = arrayM;
+    if (category == WorkingTime) {
+        NSMutableArray *arrayM = [NSMutableArray array];
+        [arrayM addObjectsFromArray:@[@25,@30,@35,@40,@45]];
+        self.workingArray = arrayM;
+    }else{
+        NSMutableArray *arrayM = [NSMutableArray array];
+        [arrayM addObjectsFromArray:@[@3,@5,@8,@10]];
+        self.breakArray = arrayM;
+    }
 }
 
 -(void)updateTimeSetValue:(NSString *)updatedValue withTimeCategory:(TimeCategory)timeCategory{
@@ -144,12 +157,21 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return self.dataArray.count;
+    if (pickerView.tag==WorkingTime) {
+        return self.workingArray.count;
+    }else{
+        return self.breakArray.count;
+    }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     //Only have 1 column
-    NSNumber *numberObj = self.dataArray[row];
+    NSNumber *numberObj = NULL;
+    if (pickerView.tag==WorkingTime) {
+        numberObj = self.workingArray[row];
+    }else{
+        numberObj = self.breakArray[row];
+    }
     return [NSString stringWithFormat:@" %ld 分钟",[numberObj integerValue]];
 }
 
