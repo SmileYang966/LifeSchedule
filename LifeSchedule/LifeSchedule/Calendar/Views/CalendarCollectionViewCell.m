@@ -46,7 +46,6 @@
 
 - (UILabel *)holidayDescLabel{
     if (_holidayDescLabel == NULL) {
-        CGFloat maxY = CGRectGetMaxY(self.dayLabel.frame);
         _holidayDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-7.0f, self.rectangleView.bounds.size.width, 10.0f)];
         _holidayDescLabel.font = [UIFont boldSystemFontOfSize:6.0f];
         _holidayDescLabel.textAlignment = NSTextAlignmentCenter;

@@ -36,9 +36,7 @@
     [self reloadThemeImage];
 }
 
-- (void) reloadThemeImage {
-    ThemeManager *themeManager = [ThemeManager sharedThemeManager];
-    
+- (void) reloadThemeImage {    
     [[UINavigationBar appearance] setBarTintColor:self.bgColor];
     [[UITabBar appearance] setBarTintColor:self.bgColor];
 }

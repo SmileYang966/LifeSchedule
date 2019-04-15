@@ -41,7 +41,6 @@
 }
 
 - (void) reloadThemeImage {
-    ThemeManager *themeManager = [ThemeManager sharedThemeManager];
     [self.navigationController.navigationBar setBarTintColor:self.bgColor];
     [self.tabBarController.tabBar setBarTintColor:self.bgColor];
 }

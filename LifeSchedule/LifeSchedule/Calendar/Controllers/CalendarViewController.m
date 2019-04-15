@@ -519,12 +519,6 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TimeActivity"];
     [request setReturnsObjectsAsFaults:NO];
     request.resultType = NSManagedObjectResultType;
-    
-    NSError *error = NULL;
-    NSArray *timeActivityArray = [self.managedObjContext executeFetchRequest:request error:&error];
-    for (TimeActivity *act in timeActivityArray) {
-        
-    }
 }
 
 #pragma mark -Basic operations for view
@@ -605,12 +599,10 @@
 #pragma mark -UICollectionView Delegate
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
     return 42;
 }
 
@@ -854,7 +846,6 @@
     NSInteger daysOfCurrentMonth = [self getDaysByCurrentMonth:date];
     //得到下月一共多少天
     NSDate *nextMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:1];
-    NSInteger daysOfNextMonth = [self getDaysByCurrentMonth:nextMonthDate];
     
     //得到上月一共多少天
     NSDate *lastMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:-1];
