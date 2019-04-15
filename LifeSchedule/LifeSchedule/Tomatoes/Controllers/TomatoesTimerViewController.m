@@ -12,7 +12,7 @@
 #import "Setting+CoreDataClass.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface TomatoesTimerViewController ()<SCCircleViewDelegate>
+@interface TomatoesTimerViewController ()<SCCircleViewDelegate,AVAudioPlayerDelegate>
 
 @property(nonatomic,strong) SCCircleView *circleView;
 @property(nonatomic,strong) UIButton *focusBtn;
@@ -327,13 +327,26 @@
 -(void)playRestAudio{
     NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"breakTimeExpired" ofType:@"mp3"];
     self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:musicFilePath] error:nil];
+    self.audioPlayer.delegate = self;
     [self.audioPlayer play];
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //连续震动?
+//    AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, NULL, NULL, soundCompleteCallback, NULL);
+}
+
+
+void soundCompleteCallback(SystemSoundID sound,void * clientData) {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);  //震动
 }
 
 -(void)playContinueWorkingAudio{
     NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"workingTimeExpired" ofType:@"mp3"];
     self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:musicFilePath] error:nil];
+    self.audioPlayer.delegate = self;
     [self.audioPlayer play];
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //连续震动?
+//    AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, NULL, NULL, soundCompleteCallback, NULL);
 }
 
 
@@ -364,6 +377,14 @@
     if ([self.audioPlayer isPlaying]) {
         [self.audioPlayer stop];
     }
+}
+
+#pragma mark -audioPlayerDidFinishPlaying
+/* audioPlayerDidFinishPlaying:successfully: is called when a sound has finished playing. This method is NOT called if the player is stopped due to an interruption. */
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    NSLog(@"stop button action");
+    AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+    AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate);
 }
 
 @end
