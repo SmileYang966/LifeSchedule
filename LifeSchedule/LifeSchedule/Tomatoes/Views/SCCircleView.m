@@ -96,7 +96,9 @@
     self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",minutes,seconds];
     self.showLabel.textColor = color;
     self.totalDuration = minutes * 60 + seconds;
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)stopTimer{

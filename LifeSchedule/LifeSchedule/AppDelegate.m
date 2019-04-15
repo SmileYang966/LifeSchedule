@@ -38,7 +38,12 @@
     //Register local Push Notification
     [self registerAPN];
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    //AVAudioSession
+    /*定时器后台运行*/
+    NSError *setCategoryErr = nil;
+    NSError *activationErr  = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryErr];
+    [[AVAudioSession sharedInstance] setActive:YES error:&activationErr];
 
     return YES;
 }
