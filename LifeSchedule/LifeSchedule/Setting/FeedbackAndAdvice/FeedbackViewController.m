@@ -56,6 +56,13 @@
 -(void)sendButtonClicked:(UIBarButtonItem *)barButtonItem{
 
     //1. Collect subject info
+    /*
+     * Note : I just found a bug when I send the mail , the send subject is chinese,
+     * but when I see the mail from 163 client , the subject always show the "???" .
+     * It's so confused. At last I just found a solution on the Internet.
+     * You can have a look at the the link https://www.jianshu.com/p/f9f57dd44b96
+     * It need make changes in the Pods "skpsmtpmessage", and the changes not be committed to the git control
+     */
     NSString *subjectInfo = self.subjectTf.text;
 
     //2. Collect content info
