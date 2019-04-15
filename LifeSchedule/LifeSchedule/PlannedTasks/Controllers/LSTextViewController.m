@@ -66,8 +66,9 @@
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
-        [alertController addAction:confirmAction];
         [alertController addAction:cancelAction];
+        [alertController addAction:confirmAction];
+        
         
         [self presentViewController:alertController animated:YES completion:nil];
     }else{
@@ -115,7 +116,7 @@
     
     //Detail info
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateStr = [dateFormatter stringFromDate:taskModel.taskStartedDate];
     self.navigationItem.title = dateStr;
     self.textView.text = taskModel.taskTitle;
