@@ -25,7 +25,7 @@
 
 #pragma mark - 设置APP静态图片引导页
 - (void)setStaticGuidePage {
-    NSArray *imageNameArray = @[@"guideImage1.jpg",@"guideImage2.jpg",@"guideImage3.jpg",@"guideImage4.jpg",@"guideImage5.jpg"];
+    NSArray *imageNameArray = @[@"launch1.png",@"launch3.png",@"guideImage3.jpg",@"guideImage8.jpg"];
     DHGuidePageHUD *guidePage = [[DHGuidePageHUD alloc] dh_initWithFrame:self.view.bounds imageNameArray:imageNameArray buttonIsHidden:NO];
     guidePage.hUDDelegate = self;
     guidePage.slideInto = YES;

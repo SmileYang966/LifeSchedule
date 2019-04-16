@@ -31,6 +31,12 @@
 		712EFD662260C1A00040CB43 /* GuideImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 712EFD652260C1A00040CB43 /* GuideImage.bundle */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
+		713D86352265BF56003C2EBB /* launch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D86342265BF56003C2EBB /* launch1.png */; };
+		713D86372265C338003C2EBB /* launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D86362265C338003C2EBB /* launch2.png */; };
+		713D863B2265C6E1003C2EBB /* launch3.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D863A2265C6E1003C2EBB /* launch3.png */; };
+		713D863F2265DF03003C2EBB /* guideImage6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 713D863E2265DF02003C2EBB /* guideImage6.jpg */; };
+		713D86412265E1C3003C2EBB /* guideImage7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 713D86402265E1C3003C2EBB /* guideImage7.jpg */; };
+		713D86432265E309003C2EBB /* guideImage8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 713D86422265E309003C2EBB /* guideImage8.jpg */; };
 		71478862223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */; };
 		71478866223B543D0009F6ED /* 方正粗谭黑简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */; };
 		7147886B223B6B650009F6ED /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71478869223B6B650009F6ED /* FeedbackViewController.m */; };
@@ -144,6 +150,12 @@
 		712EFD652260C1A00040CB43 /* GuideImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GuideImage.bundle; sourceTree = "<group>"; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
+		713D86342265BF56003C2EBB /* launch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch1.png; sourceTree = "<group>"; };
+		713D86362265C338003C2EBB /* launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch2.png; sourceTree = "<group>"; };
+		713D863A2265C6E1003C2EBB /* launch3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch3.png; sourceTree = "<group>"; };
+		713D863E2265DF02003C2EBB /* guideImage6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guideImage6.jpg; sourceTree = "<group>"; };
+		713D86402265E1C3003C2EBB /* guideImage7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guideImage7.jpg; sourceTree = "<group>"; };
+		713D86422265E309003C2EBB /* guideImage8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guideImage8.jpg; sourceTree = "<group>"; };
 		71478861223B53F00009F6ED /* 云书法手书建刚静心楷简.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "云书法手书建刚静心楷简.ttf"; sourceTree = "<group>"; };
 		71478865223B543D0009F6ED /* 方正粗谭黑简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正粗谭黑简体.ttf"; sourceTree = "<group>"; };
 		71478868223B6B650009F6ED /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -378,6 +390,12 @@
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				713D86422265E309003C2EBB /* guideImage8.jpg */,
+				713D86402265E1C3003C2EBB /* guideImage7.jpg */,
+				713D863E2265DF02003C2EBB /* guideImage6.jpg */,
+				713D863A2265C6E1003C2EBB /* launch3.png */,
+				713D86342265BF56003C2EBB /* launch1.png */,
+				713D86362265C338003C2EBB /* launch2.png */,
 				71DDE2C9225F35EA002F4A96 /* guideImage1.jpg */,
 				71DDE2CB225F35EA002F4A96 /* guideImage2.jpg */,
 				71DDE2C7225F35EA002F4A96 /* guideImage3.jpg */,
@@ -876,6 +894,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				713D86432265E309003C2EBB /* guideImage8.jpg in Resources */,
+				713D86412265E1C3003C2EBB /* guideImage7.jpg in Resources */,
+				713D863F2265DF03003C2EBB /* guideImage6.jpg in Resources */,
+				713D863B2265C6E1003C2EBB /* launch3.png in Resources */,
+				713D86372265C338003C2EBB /* launch2.png in Resources */,
+				713D86352265BF56003C2EBB /* launch1.png in Resources */,
 				71DDE2CC225F35EA002F4A96 /* guideMovie1.mov in Resources */,
 				71DDE2CD225F35EA002F4A96 /* guideImage8.gif in Resources */,
 				71DDE2CE225F35EA002F4A96 /* guideImage4.jpg in Resources */,
