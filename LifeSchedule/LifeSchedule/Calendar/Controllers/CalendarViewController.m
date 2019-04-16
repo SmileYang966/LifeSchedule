@@ -857,8 +857,6 @@
 -(NSArray *)getMonthDaysByDate:(NSDate *)date{
     //得到当月一共多少天
     NSInteger daysOfCurrentMonth = [self getDaysByCurrentMonth:date];
-    //得到下月一共多少天
-    NSDate *nextMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:1];
     
     //得到上月一共多少天
     NSDate *lastMonthDate = [self getPreviousOrNextDateFromDate:date WithMonth:-1];
