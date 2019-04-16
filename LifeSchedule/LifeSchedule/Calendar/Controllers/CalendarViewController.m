@@ -549,7 +549,20 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.addNewActivityButton];
     
-    [self refreshData];
+    /*It's just a workaround to fixed the bug.*/
+    if (self.currentCalendarDate != nil) {
+        NSDateComponents *movedComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
+        NSDateComponents *currentComponents = [self getNSDateComponentsByDate:[NSDate date]];
+        if (movedComponents.year==currentComponents.year && movedComponents.month==currentComponents.month && movedComponents.day==currentComponents.day) {
+            self.currentSelectedMonthDay = [NSNumber numberWithInteger:currentComponents.day];
+            self.currentSelectedDayIndex = self.currentDayIndex;
+            
+            [self refreshData];
+        }
+    }else{
+        [self refreshData];
+    }
+
     [self.currentCollectionView reloadData];//Reload the current collectionView
     [self.dailyScheduledTableView reloadData];//Reload the current dailyScheduledTableView
 }
