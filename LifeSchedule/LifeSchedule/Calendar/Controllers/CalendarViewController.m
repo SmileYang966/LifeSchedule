@@ -170,9 +170,10 @@
 
 - (UITableView *)dailyScheduledTableView{
     if (_dailyScheduledTableView == NULL) {
-        _dailyScheduledTableView = [[UITableView alloc]initWithFrame:self.scheduleView.bounds];
+        _dailyScheduledTableView = [[UITableView alloc]initWithFrame:self.scheduleView.bounds style:UITableViewStyleGrouped];
         _dailyScheduledTableView.dataSource = self;
         _dailyScheduledTableView.delegate = self;
+        _dailyScheduledTableView.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
     }
     return _dailyScheduledTableView;
 }
@@ -185,6 +186,7 @@
         _infoLabel.font = [UIFont systemFontOfSize:25.0f];
         _infoLabel.textColor = UIColor.lightGrayColor;
         _infoLabel.textAlignment = NSTextAlignmentCenter;
+        _infoLabel.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
     }
     return _infoLabel;
 }
