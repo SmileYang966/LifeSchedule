@@ -29,6 +29,7 @@
         self.textView.delegate = self;
         self.textView.font = [UIFont systemFontOfSize:20.0f];
         self.textView.returnKeyType = UIReturnKeyNext;
+        self.textView.backgroundColor = AppMajorTintColor;
         [self.view addSubview:self.textView];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(backAndSaveData)];

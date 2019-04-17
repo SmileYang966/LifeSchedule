@@ -32,6 +32,9 @@
     //2.Clicked the send button
     UIBarButtonItem *sendBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Send" style:UIBarButtonItemStylePlain target:self action:@selector(sendButtonClicked:)];
     self.navigationItem.rightBarButtonItem = sendBarButtonItem;
+    
+    self.view.backgroundColor = AppMajorTintColor;
+    self.subjectTf.backgroundColor =  AppMajorTintColor;
 }
 
 -(void)initOperations{

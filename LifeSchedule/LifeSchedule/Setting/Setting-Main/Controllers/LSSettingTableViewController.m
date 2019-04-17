@@ -55,6 +55,8 @@
     [super viewDidLoad];
 
     self.dataList = self.settingItemsList;
+    
+    self.view.backgroundColor = AppMajorTintColor;    
 }
 
 @end

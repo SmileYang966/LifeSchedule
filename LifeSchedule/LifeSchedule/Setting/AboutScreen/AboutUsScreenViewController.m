@@ -19,7 +19,7 @@
 
 - (instancetype)init{
     if (self=[super init]) {
-        self.view.backgroundColor = UIColor.whiteColor;
+        self.view.backgroundColor = AppMajorTintColor;
     }
     return self;
 }
@@ -52,6 +52,7 @@
         _aboutTableView = [[UITableView alloc]initWithFrame:aboutTableViewFrame style:UITableViewStyleGrouped];
         _aboutTableView.delegate = self;
         _aboutTableView.dataSource = self;
+        _aboutTableView.backgroundColor = AppMajorTintColor;
         [self.view addSubview:_aboutTableView];
     }
     return _aboutTableView;

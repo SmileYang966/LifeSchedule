@@ -18,7 +18,7 @@
 
 - (instancetype)init{
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-        
+        self.view.backgroundColor = AppMajorTintColor;
     }
     return self;
 }

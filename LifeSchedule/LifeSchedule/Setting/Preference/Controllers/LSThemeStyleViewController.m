@@ -57,8 +57,8 @@ CGFloat cellMargin = 10.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColor.whiteColor;
-    self.collectionView.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = AppMajorTintColor;
+    self.collectionView.backgroundColor = UIColor.clearColor;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"恢复" style:UIBarButtonItemStylePlain target:self action:@selector(recoverClicked:)];
 }
