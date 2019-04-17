@@ -22,6 +22,7 @@
 		25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779DE21CE3E710028FBE3 /* CalendarHeaderView.m */; };
 		25F779E221CE47960028FBE3 /* PublicHolidayDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F779E121CE47960028FBE3 /* PublicHolidayDay.m */; };
 		710800832266CE3F0005A694 /* noTasksBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 710800822266CE3F0005A694 /* noTasksBg.png */; };
+		7108009322671BF60005A694 /* noPlannedActivitiesOnCalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7108009222671BF50005A694 /* noPlannedActivitiesOnCalendar.png */; };
 		710EDE6D223F494600BC41EF /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE6C223F494600BC41EF /* ConfigurationViewController.m */; };
 		710EDE74223F554D00BC41EF /* ConfigurationTimeSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 710EDE72223F554D00BC41EF /* ConfigurationTimeSetCell.m */; };
 		710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */; };
@@ -139,6 +140,7 @@
 		25F779E121CE47960028FBE3 /* PublicHolidayDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicHolidayDay.m; sourceTree = "<group>"; };
 		2B7627EF8ACC6834EA8B2FF5 /* libPods-LifeSchedule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeSchedule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		710800822266CE3F0005A694 /* noTasksBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noTasksBg.png; sourceTree = "<group>"; };
+		7108009222671BF50005A694 /* noPlannedActivitiesOnCalendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noPlannedActivitiesOnCalendar.png; sourceTree = "<group>"; };
 		710EDE6B223F494600BC41EF /* ConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		710EDE6C223F494600BC41EF /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
 		710EDE71223F554D00BC41EF /* ConfigurationTimeSetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetCell.h; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7108009222671BF50005A694 /* noPlannedActivitiesOnCalendar.png */,
 				710800822266CE3F0005A694 /* noTasksBg.png */,
 				713D86422265E309003C2EBB /* guideImage8.jpg */,
 				713D86402265E1C3003C2EBB /* guideImage7.jpg */,
@@ -897,6 +900,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7108009322671BF60005A694 /* noPlannedActivitiesOnCalendar.png in Resources */,
 				710800832266CE3F0005A694 /* noTasksBg.png in Resources */,
 				713D86432265E309003C2EBB /* guideImage8.jpg in Resources */,
 				713D86412265E1C3003C2EBB /* guideImage7.jpg in Resources */,

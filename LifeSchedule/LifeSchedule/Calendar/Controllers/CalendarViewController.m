@@ -37,6 +37,7 @@
 /*4.Defined a tableView to save the schedule for the current day*/
 @property(nonatomic,strong)UITableView *dailyScheduledTableView;
 @property(nonatomic,strong)UILabel *infoLabel;
+@property(nonatomic,strong)UIImageView *dailyScheduledBgView;
 
 /*3.Header View for the calendar*/
 @property(nonatomic,strong)UIView *headerView;
@@ -162,7 +163,7 @@
 - (UIView *)scheduleView{
     if (_scheduleView == NULL) {
         _scheduleView = [[UIView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(self.calendarScrollView.frame),self.view.bounds.size.width,self.view.bounds.size.height-CGRectGetMaxY(self.calendarScrollView.frame))];
-        _scheduleView.backgroundColor = UIColor.whiteColor;
+        _scheduleView.backgroundColor = AppMajorTintColor;
         [self.view addSubview:_scheduleView];
     }
     return _scheduleView;
@@ -176,6 +177,16 @@
         _dailyScheduledTableView.backgroundColor = AppMajorTintColor;
     }
     return _dailyScheduledTableView;
+}
+
+- (UIImageView *)dailyScheduledBgView{
+    if (_dailyScheduledBgView == NULL) {
+        _dailyScheduledBgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.scheduleView.bounds.size.width, self.scheduleView.bounds.size.height-44.0f-39.0f)];
+        _dailyScheduledBgView.image = [UIImage imageNamed:@"noPlannedActivitiesOnCalendar.png"];
+        _dailyScheduledBgView.backgroundColor = AppMajorTintColor;
+        _dailyScheduledBgView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _dailyScheduledBgView;
 }
 
 - (UILabel *)infoLabel{
@@ -372,9 +383,11 @@
     
     if (self.ongoingTasks.count==0 && self.completedTasks.count==0) {
         [self.dailyScheduledTableView removeFromSuperview];
-        [self.scheduleView addSubview:self.infoLabel];
+//        [self.scheduleView addSubview:self.infoLabel];
+        [self.scheduleView addSubview:self.dailyScheduledBgView];
     }else{
-        [self.infoLabel removeFromSuperview];
+//        [self.infoLabel removeFromSuperview];
+        [self.dailyScheduledBgView removeFromSuperview];
         [self.scheduleView addSubview:self.dailyScheduledTableView];
     }
 }
