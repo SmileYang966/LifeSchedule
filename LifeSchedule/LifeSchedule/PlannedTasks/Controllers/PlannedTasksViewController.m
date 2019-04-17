@@ -15,7 +15,7 @@
 #import "LSTextViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
-@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
+@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UIButton *addNewActivityButton;
 
@@ -31,6 +31,8 @@
 @property(nonatomic,strong) UIView *keyboardTopAccessoryView;
 @property(nonatomic,strong) UITextField *inputNewActTf;
 
+@property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) UIImageView *bgImgView;
 @end
 
 @implementation PlannedTasksViewController
@@ -49,11 +51,24 @@
     return _completedTasks;
 }
 
-- (instancetype)init{
-    if (self = [super init]) {
-        self = [self initWithStyle:UITableViewStyleGrouped];
+- (UITableView *)tableView{
+    if (_tableView == NULL) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self.view addSubview:_tableView];
     }
-    return self;
+    return _tableView;
+}
+
+- (UIImageView *)bgImgView{
+    if (_bgImgView == NULL) {
+        _bgImgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+        _bgImgView.contentMode = UIViewContentModeScaleAspectFit;
+        _bgImgView.image = [UIImage imageNamed:@"noTasksBg.png"];
+        [self.view addSubview:_bgImgView];
+    }
+    return _bgImgView;
 }
 
 - (UIButton *)addNewActivityButton{
@@ -120,10 +135,11 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.addNewActivityButton];
     
-    
     //Refresh the data
     [self refreshData];
-    [self.tableView reloadData];
+    if ([self isActivitiesExisted]) {
+        [self.tableView reloadData];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -178,8 +194,22 @@
     }
     self.ongoingTasks = ongoingActivityarrayM;
     self.completedTasks = completedActivityArrayM;
+    
+    //After refresh the data , and on ongoing tasks or completed tasks,it will show another defautl backgroundview for
+    //better user experience.
+    if (![self isActivitiesExisted]) {
+        [self.view bringSubviewToFront:self.bgImgView];
+    }else{
+        [self.view bringSubviewToFront:self.tableView];
+    }
 }
 
+#pragma mark common method
+-(BOOL)isActivitiesExisted{
+    if (self.ongoingTasks.count==0 && self.completedTasks.count==0)
+        return false;
+    return true;
+}
 
 #pragma mark Event Clicked
 -(void)addNewActivityButtonClicked:(UIButton *)button{
