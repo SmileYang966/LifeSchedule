@@ -263,7 +263,6 @@
         _addNewActivityButton.frame = CGRectMake(addNewActivityButtonX, addNewActivityButtonY, addNewActivityButtonWidth, addNewActivityButtonHeight);
         [_addNewActivityButton setBackgroundImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
         _addNewActivityButton.layer.masksToBounds = YES;
-        _addNewActivityButton.alpha = 0.7f;
         [_addNewActivityButton addTarget:self action:@selector(addNewActivityButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addNewActivityButton;

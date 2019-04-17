@@ -56,6 +56,8 @@
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        /*主色系 - Major tint color*/
+        _tableView.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
         [self.view addSubview:_tableView];
     }
     return _tableView;
@@ -81,7 +83,6 @@
         _addNewActivityButton.frame = CGRectMake(addNewActivityButtonX, addNewActivityButtonY, addNewActivityButtonWidth, addNewActivityButtonHeight);
         [_addNewActivityButton setBackgroundImage:[UIImage imageNamed:@"Add"] forState:UIControlStateNormal];
         _addNewActivityButton.layer.masksToBounds = YES;
-        _addNewActivityButton.alpha = 0.7f;
         [_addNewActivityButton addTarget:self action:@selector(addNewActivityButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addNewActivityButton;
