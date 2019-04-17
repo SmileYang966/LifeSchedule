@@ -173,7 +173,7 @@
         _dailyScheduledTableView = [[UITableView alloc]initWithFrame:self.scheduleView.bounds style:UITableViewStyleGrouped];
         _dailyScheduledTableView.dataSource = self;
         _dailyScheduledTableView.delegate = self;
-        _dailyScheduledTableView.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
+        _dailyScheduledTableView.backgroundColor = AppMajorTintColor;
     }
     return _dailyScheduledTableView;
 }

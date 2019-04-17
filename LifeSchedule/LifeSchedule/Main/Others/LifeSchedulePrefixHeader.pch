@@ -50,6 +50,8 @@ typedef enum{
 
 #define WeekDayStringArray @[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"]
 
+#define AppMajorTintColor   [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f]
+
 #ifdef DEBUG
 #define SCLog(...) NSLog(__VA_ARGS__)
 #else

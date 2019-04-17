@@ -57,7 +57,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         /*主色系 - Major tint color*/
-        _tableView.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
+        _tableView.backgroundColor = AppMajorTintColor;
         [self.view addSubview:_tableView];
     }
     return _tableView;
