@@ -36,7 +36,6 @@
 
 /*4.Defined a tableView to save the schedule for the current day*/
 @property(nonatomic,strong)UITableView *dailyScheduledTableView;
-@property(nonatomic,strong)UILabel *infoLabel;
 @property(nonatomic,strong)UIImageView *dailyScheduledBgView;
 
 /*3.Header View for the calendar*/
@@ -187,19 +186,6 @@
         _dailyScheduledBgView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _dailyScheduledBgView;
-}
-
-- (UILabel *)infoLabel{
-    if (_infoLabel == NULL) {
-        _infoLabel = [[UILabel alloc]initWithFrame:self.scheduleView.bounds];
-        _infoLabel.backgroundColor = UIColor.whiteColor;
-        _infoLabel.text = @"没有任务，放松一下";
-        _infoLabel.font = [UIFont systemFontOfSize:25.0f];
-        _infoLabel.textColor = UIColor.lightGrayColor;
-        _infoLabel.textAlignment = NSTextAlignmentCenter;
-        _infoLabel.backgroundColor = [UIColor colorWithRed:246/255.0 green:249/255.0 blue:250/255.0 alpha:1.0f];
-    }
-    return _infoLabel;
 }
 
 /*Three collection views to save the data*/
@@ -383,10 +369,8 @@
     
     if (self.ongoingTasks.count==0 && self.completedTasks.count==0) {
         [self.dailyScheduledTableView removeFromSuperview];
-//        [self.scheduleView addSubview:self.infoLabel];
         [self.scheduleView addSubview:self.dailyScheduledBgView];
     }else{
-//        [self.infoLabel removeFromSuperview];
         [self.dailyScheduledBgView removeFromSuperview];
         [self.scheduleView addSubview:self.dailyScheduledTableView];
     }
@@ -822,8 +806,11 @@
         self.currentSelectedDayIndex = self.currentDayIndex;
         
         [self refreshData];
+        [self.dailyScheduledTableView reloadData];
+    }else{
+        [self.dailyScheduledTableView removeFromSuperview];
+        [self.scheduleView addSubview:self.dailyScheduledBgView];
     }
-    [self.dailyScheduledTableView reloadData];
 }
 
 /* called when setContentOffset/scrollRectVisible:animated: finishes */
