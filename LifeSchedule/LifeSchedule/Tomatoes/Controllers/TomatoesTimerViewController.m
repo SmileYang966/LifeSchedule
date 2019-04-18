@@ -112,7 +112,7 @@
         _focusBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
         _focusBtn.center = CGPointMake(self.view.center.x, CGRectGetMaxY(self.circleView.frame)+50);
         _focusBtn.backgroundColor = [UIColor colorWithRed:126/255.0 green:127/255.0 blue:132/255.0 alpha:1.0];
-        _focusBtn.font = [UIFont systemFontOfSize:16.0f];
+        _focusBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [_focusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _focusBtn.layer.cornerRadius = 40;
         _focusBtn.layer.masksToBounds = YES;
@@ -301,7 +301,7 @@
         [self adjustGradientColorByTomatoesMode];
     }else{
         self.bgImgView.image = nil;
-        self.bgImgView.backgroundColor = UIColor.whiteColor;
+        self.bgImgView.backgroundColor = AppMajorTintColor;
     }
     
     if (hideBars) {
