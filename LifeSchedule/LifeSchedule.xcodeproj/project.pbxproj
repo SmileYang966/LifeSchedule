@@ -33,6 +33,7 @@
 		712EFD662260C1A00040CB43 /* GuideImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 712EFD652260C1A00040CB43 /* GuideImage.bundle */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
 		712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A7221A975E0017A359 /* LSTextViewController.h */; };
+		71348E9D22685B4500E0CF46 /* LSHandleEnterBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 71348E9C22685B4500E0CF46 /* LSHandleEnterBackground.m */; };
 		713D86352265BF56003C2EBB /* launch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D86342265BF56003C2EBB /* launch1.png */; };
 		713D86372265C338003C2EBB /* launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D86362265C338003C2EBB /* launch2.png */; };
 		713D863B2265C6E1003C2EBB /* launch3.png in Resources */ = {isa = PBXBuildFile; fileRef = 713D863A2265C6E1003C2EBB /* launch3.png */; };
@@ -154,6 +155,8 @@
 		712EFD652260C1A00040CB43 /* GuideImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GuideImage.bundle; sourceTree = "<group>"; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
 		712F34A8221A975E0017A359 /* LSTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTextViewController.m; sourceTree = "<group>"; };
+		71348E9B22685B4500E0CF46 /* LSHandleEnterBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSHandleEnterBackground.h; sourceTree = "<group>"; };
+		71348E9C22685B4500E0CF46 /* LSHandleEnterBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSHandleEnterBackground.m; sourceTree = "<group>"; };
 		713D86342265BF56003C2EBB /* launch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch1.png; sourceTree = "<group>"; };
 		713D86362265C338003C2EBB /* launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch2.png; sourceTree = "<group>"; };
 		713D863A2265C6E1003C2EBB /* launch3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch3.png; sourceTree = "<group>"; };
@@ -758,6 +761,8 @@
 			children = (
 				7CAC2DAA20C9F27E00D648E3 /* TomatoesTimerViewController.h */,
 				7CAC2DAB20C9F27E00D648E3 /* TomatoesTimerViewController.m */,
+				71348E9B22685B4500E0CF46 /* LSHandleEnterBackground.h */,
+				71348E9C22685B4500E0CF46 /* LSHandleEnterBackground.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -976,6 +981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712F34AA221AC2820017A359 /* LSTextViewController.h in Sources */,
+				71348E9D22685B4500E0CF46 /* LSHandleEnterBackground.m in Sources */,
 				2576FD2D21E39DAA00316F20 /* TimeActivity+CoreDataClass.m in Sources */,
 				2576FD2E21E39DAA00316F20 /* TimeActivity+CoreDataProperties.m in Sources */,
 				71DDE2E2225F39F5002F4A96 /* LaunchViewController.m in Sources */,
@@ -1195,6 +1201,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;
@@ -1215,6 +1222,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;

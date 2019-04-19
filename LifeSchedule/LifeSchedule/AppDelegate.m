@@ -14,6 +14,8 @@
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
+@property(nonatomic,strong) LSMainTabBarViewController *mainTabBarController;
+
 @end
 
 @implementation AppDelegate
@@ -23,14 +25,14 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    LSMainTabBarViewController *mainTabBarController = [[LSMainTabBarViewController alloc]init];
+    self.mainTabBarController = [[LSMainTabBarViewController alloc]init];
     
 //    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstTimeToEnterTheScreen"];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTimeToEnterTheScreen"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTimeToEnterTheScreen"];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LaunchViewController alloc]init]];
     }else{
-        self.window.rootViewController = mainTabBarController;
+        self.window.rootViewController = self.mainTabBarController;
     }
     
     [self.window makeKeyWindow];
@@ -58,11 +60,15 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"applicationDidEnterBackground");
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    NSLog(@"applicationWillEnterForeground");
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 

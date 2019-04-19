@@ -24,6 +24,12 @@
 
 @property(nonatomic,assign)TomatoesStatus currentTomatoesStatus;
 
+
+@property(nonatomic,assign) CFAbsoluteTime startedTime;
+@property(nonatomic,assign) CFAbsoluteTime enterBackgroundTime;
+@property(nonatomic,assign) CFAbsoluteTime enterForegroundTime;
+@property(nonatomic,assign) int savedCountLastTime;
+
 @end
 
 
@@ -34,6 +40,9 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColor.clearColor;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
@@ -96,7 +105,14 @@
     self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",minutes,seconds];
     self.showLabel.textColor = color;
     self.totalDuration = minutes * 60 + seconds;
-    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    self.startedTime = CFAbsoluteTimeGetCurrent();
+//    self.count = beginCount;
+//    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+
+    [self startTimer];
+}
+
+-(void)startTimer{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
@@ -104,6 +120,9 @@
 - (void)stopTimer{
     [self.timer invalidate];
     //取消之前绘制的图像，恢复到初始状态
+    if (self.count !=0) {
+        self.savedCountLastTime = self.count;
+    }
     self.count=0;
     [self setNeedsDisplay];
     self.timer = NULL;
@@ -128,7 +147,7 @@
             [self.delegate SCCircleViewTimeFinishedWithTomatoesStatus:self.currentTomatoesStatus];
         }
     }else{
-            self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",self.minutes,self.seconds];
+        self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",self.minutes,self.seconds];
     }
     [self setNeedsDisplay];
 }
@@ -136,6 +155,31 @@
 - (void)setCircleTitleWithStr:(NSString *)title textColor:(UIColor *)titleColor{
     self.showLabel.text = title;
     self.showLabel.textColor = titleColor;
+}
+
+-(void)appWillGoToBackground{
+    [self stopTimer];
+    self.enterBackgroundTime = CFAbsoluteTimeGetCurrent();
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+-(void)appWillGoToForeground{
+    self.enterForegroundTime = CFAbsoluteTimeGetCurrent();
+    
+    //1.重新计算self.count
+    long totalDuration = lround(self.enterForegroundTime - self.enterBackgroundTime);
+    NSLog(@"totalDuration=%ld",totalDuration);
+    self.count = (int)totalDuration + self.savedCountLastTime;
+    [self setNeedsDisplay];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    //2.计算显示的倒计时时间
+    
+    
+    //3.重新开启timer，继续运行
+    
+    
 }
 
 
