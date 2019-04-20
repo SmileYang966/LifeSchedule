@@ -272,6 +272,7 @@
 
 #pragma mark-倒计时结束后触发的Delegate
 - (void)SCCircleViewTimeFinishedWithTomatoesStatus:(TomatoesStatus)finishedStatus{
+    [self cancelRegisterNotifications];
     if (finishedStatus == BreakTomatoesStatus) {//1.休息时间结束后，进入到工作时间
         self.currentTomatoesStatus = WaitToStartWorkingTomatoesStatus;
         NSString *workingTitleStr = [NSString stringWithFormat:@"%02ld : 00",[self.workingTimeValue integerValue]];
@@ -402,26 +403,23 @@ void soundCompleteCallback(SystemSoundID sound,void * clientData) {
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
     content.title = @"ScheduleLife";
     
+    NSString *notiId;
+    NSTimeInterval interval;
     if (tomatoesStatus == WorkingTomatoesStatus) {
         content.body = @"您完成了一个番茄，休息一下吧!";
-    }else if(tomatoesStatus == BreakTomatoesStatus){
+        notiId = @"workingTomatoesStatus";
+        interval = [self.workingTimeValue integerValue] * 60.0f;
+    }else {
         content.body = @"一个休息周期完成了，继续工作吧!";
+        notiId = @"breakTomatoesStatus";
+        interval = [self.breakTimeValue integerValue] * 60.0f;
     }
     
-    
-    NSTimeInterval interval = [self.workingTimeValue integerValue] * 60.0f;
     NSDate *futureDate = [[NSDate alloc]initWithTimeIntervalSinceNow:interval];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *notifyComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:futureDate];
     UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
     //To make sure the notification id is always unique, just fetch the current time as the part of notificationId
-    
-    NSString *notiId;
-    if (tomatoesStatus == WorkingTomatoesStatus) {
-        notiId = @"workingTomatoesStatus";
-    }else if(tomatoesStatus == BreakTomatoesStatus){
-        notiId = @"breakTomatoesStatus";
-    }
     
     content.sound = [UNNotificationSound soundNamed:@"countdownNotification.m4r"];
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];

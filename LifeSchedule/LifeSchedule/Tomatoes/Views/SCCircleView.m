@@ -40,9 +40,6 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColor.clearColor;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
@@ -108,6 +105,10 @@
     self.startedTime = CFAbsoluteTimeGetCurrent();
 //    self.count = beginCount;
 //    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
 
     [self startTimer];
 }
