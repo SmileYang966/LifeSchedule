@@ -28,7 +28,10 @@
 		710EDE75223F554D00BC41EF /* ConfigurationTimeSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */; };
 		710F050F225EF0F70085EB05 /* workingTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 710F050D225EF0F70085EB05 /* workingTimeExpired.mp3 */; };
 		710F0510225EF0F70085EB05 /* breakTimeExpired.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 710F050E225EF0F70085EB05 /* breakTimeExpired.mp3 */; };
+		71136C7F226B47DF00B2308C /* countdownNotification.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 71136C7E226B47DF00B2308C /* countdownNotification.m4r */; };
 		71143E9522420C270040A412 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 71143E9422420C270040A412 /* ThemeManager.m */; };
+		711623A0226B01FA00642081 /* workingTimeExpired.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7116239E226B01F900642081 /* workingTimeExpired.m4a */; };
+		711623A1226B01FA00642081 /* breakTimeExpired.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 7116239F226B01FA00642081 /* breakTimeExpired.m4a */; };
 		711D58DB223B9DC2004A3635 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D58DA223B9DC2004A3635 /* CFNetwork.framework */; };
 		712EFD662260C1A00040CB43 /* GuideImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 712EFD652260C1A00040CB43 /* GuideImage.bundle */; };
 		712F34A9221A975E0017A359 /* LSTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 712F34A8221A975E0017A359 /* LSTextViewController.m */; };
@@ -149,8 +152,11 @@
 		710EDE73223F554D00BC41EF /* ConfigurationTimeSetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationTimeSetCell.xib; sourceTree = "<group>"; };
 		710F050D225EF0F70085EB05 /* workingTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workingTimeExpired.mp3; sourceTree = "<group>"; };
 		710F050E225EF0F70085EB05 /* breakTimeExpired.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakTimeExpired.mp3; sourceTree = "<group>"; };
+		71136C7E226B47DF00B2308C /* countdownNotification.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = countdownNotification.m4r; sourceTree = "<group>"; };
 		71143E9322420C270040A412 /* ThemeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		71143E9422420C270040A412 /* ThemeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
+		7116239E226B01F900642081 /* workingTimeExpired.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = workingTimeExpired.m4a; sourceTree = "<group>"; };
+		7116239F226B01FA00642081 /* breakTimeExpired.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = breakTimeExpired.m4a; sourceTree = "<group>"; };
 		711D58DA223B9DC2004A3635 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		712EFD652260C1A00040CB43 /* GuideImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GuideImage.bundle; sourceTree = "<group>"; };
 		712F34A7221A975E0017A359 /* LSTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTextViewController.h; sourceTree = "<group>"; };
@@ -397,6 +403,9 @@
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				71136C7E226B47DF00B2308C /* countdownNotification.m4r */,
+				7116239F226B01FA00642081 /* breakTimeExpired.m4a */,
+				7116239E226B01F900642081 /* workingTimeExpired.m4a */,
 				7108009222671BF50005A694 /* noPlannedActivitiesOnCalendar.png */,
 				710800822266CE3F0005A694 /* noTasksBg.png */,
 				713D86422265E309003C2EBB /* guideImage8.jpg */,
@@ -905,6 +914,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71136C7F226B47DF00B2308C /* countdownNotification.m4r in Resources */,
+				711623A0226B01FA00642081 /* workingTimeExpired.m4a in Resources */,
+				711623A1226B01FA00642081 /* breakTimeExpired.m4a in Resources */,
 				7108009322671BF60005A694 /* noPlannedActivitiesOnCalendar.png in Resources */,
 				710800832266CE3F0005A694 /* noTasksBg.png in Resources */,
 				713D86432265E309003C2EBB /* guideImage8.jpg in Resources */,
@@ -1201,7 +1213,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;
@@ -1222,7 +1234,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;

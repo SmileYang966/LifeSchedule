@@ -11,8 +11,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "Setting+CoreDataClass.h"
 #import <AVFoundation/AVFoundation.h>
+#import <UserNotifications/UserNotifications.h>
 
-@interface TomatoesTimerViewController ()<SCCircleViewDelegate,AVAudioPlayerDelegate>
+@interface TomatoesTimerViewController ()<SCCircleViewDelegate,AVAudioPlayerDelegate,UNUserNotificationCenterDelegate>
 
 @property(nonatomic,strong) SCCircleView *circleView;
 @property(nonatomic,strong) UIButton *focusBtn;
@@ -176,18 +177,23 @@
     switch (self.currentTomatoesStatus) {
         case DefaultTomatoesStatus:
             [self setDefaultStatusForCircleView];
+            [self removeAllNotifications];
             break;
         
         case WorkingTomatoesStatus:
             [self adjustDifferentScreenWithButtonTextDesc:@"退出" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
             
             [self.circleView startTimerWithMinutes:[self.workingTimeValue integerValue] seconds:0 status:WorkingTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
+            
+            [self createNotificationWithTomatoesStatus:WorkingTomatoesStatus];
             break;
         
         case BreakTomatoesStatus:
             [self adjustDifferentScreenWithButtonTextDesc:@"退出" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
             
             [self.circleView startTimerWithMinutes:[self.breakTimeValue integerValue] seconds:0 status:BreakTomatoesStatus displayedTimeColor:[UIColor whiteColor]];
+            
+            [self createNotificationWithTomatoesStatus:BreakTomatoesStatus];
             break;
             
         default:
@@ -270,7 +276,7 @@
         NSString *workingTitleStr = [NSString stringWithFormat:@"%02ld : 00",[self.workingTimeValue integerValue]];
         [self.circleView setCircleTitleWithStr:workingTitleStr textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始专注" buttonTextColor:[UIColor redColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor redColor]];
-        [self playRestAudio];
+//        [self playRestAudio];
     }
     
     if (finishedStatus == WorkingTomatoesStatus) {//2.工作时间结束后，进入到休息时间
@@ -278,7 +284,7 @@
         NSString *breakTitleStr = [NSString stringWithFormat:@"%02ld : 00",[self.breakTimeValue integerValue]];
         [self.circleView setCircleTitleWithStr:breakTitleStr textColor:[UIColor whiteColor]];
         [self adjustDifferentScreenWithButtonTextDesc:@"开始休息" buttonTextColor:[UIColor greenColor] buttonBackgroundColor:[UIColor whiteColor] isHideBars:YES tintColor:[UIColor greenColor]];
-        [self playContinueWorkingAudio];
+//        [self playContinueWorkingAudio];
     }
 }
 
@@ -385,6 +391,51 @@ void soundCompleteCallback(SystemSoundID sound,void * clientData) {
     NSLog(@"stop button action");
     AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
     AudioServicesDisposeSystemSoundID(kSystemSoundID_Vibrate);
+}
+
+#pragma mark -local push
+-(void)createNotificationWithTomatoesStatus:(TomatoesStatus)tomatoesStatus{
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
+    content.title = @"ScheduleLife";
+    
+    if (tomatoesStatus == WorkingTomatoesStatus) {
+        content.body = @"您完成了一个番茄，休息一下吧!";
+    }else if(tomatoesStatus == BreakTomatoesStatus){
+        content.body = @"一个休息周期完成了，继续工作吧!";
+    }
+    
+    
+    NSTimeInterval interval = [self.workingTimeValue integerValue] * 60.0f;
+    NSDate *futureDate = [[NSDate alloc]initWithTimeIntervalSinceNow:interval];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *notifyComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:futureDate];
+    UNCalendarNotificationTrigger *calendarTrigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:notifyComponents repeats:NO];
+    //To make sure the notification id is always unique, just fetch the current time as the part of notificationId
+    
+    NSString *notiId;
+    if (tomatoesStatus == WorkingTomatoesStatus) {
+        notiId = @"workingTomatoesStatus";
+    }else if(tomatoesStatus == BreakTomatoesStatus){
+        notiId = @"breakTomatoesStatus";
+    }
+    
+    content.sound = [UNNotificationSound soundNamed:@"countdownNotification.m4r"];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notiId content:content trigger:calendarTrigger];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"成功发送通知");
+    }];
+}
+
+- (void)removeAllNotifications{
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center removePendingNotificationRequestsWithIdentifiers:@[@"workingTomatoesStatus",@"breakTomatoesStatus"]];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
 }
 
 @end
