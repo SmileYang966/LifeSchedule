@@ -192,6 +192,11 @@
         //显示0
         self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",(NSInteger)0,(NSInteger)0];
         [self stopTimer];
+
+        //番茄时间到了，应该休息或者继续工作啦
+        if ([self.delegate respondsToSelector:@selector(SCCircleViewTimeFinishedWithTomatoesStatus:)]) {
+            [self.delegate SCCircleViewTimeFinishedWithTomatoesStatus:self.currentTomatoesStatus];
+        }
     }
 }
 
