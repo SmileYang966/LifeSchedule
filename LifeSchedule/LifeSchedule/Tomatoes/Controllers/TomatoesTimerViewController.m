@@ -177,7 +177,8 @@
     switch (self.currentTomatoesStatus) {
         case DefaultTomatoesStatus:
             [self setDefaultStatusForCircleView];
-            [self removeAllNotifications];
+            [self removeAllLocalPushNotis];
+            [self cancelRegisterNotifications];
             break;
         
         case WorkingTomatoesStatus:
@@ -429,9 +430,14 @@ void soundCompleteCallback(SystemSoundID sound,void * clientData) {
     }];
 }
 
-- (void)removeAllNotifications{
+- (void)removeAllLocalPushNotis{
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center removePendingNotificationRequestsWithIdentifiers:@[@"workingTomatoesStatus",@"breakTomatoesStatus"]];
+}
+
+- (void)cancelRegisterNotifications{
+    [[NSNotificationCenter defaultCenter] removeObserver:self.circleView name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.circleView name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
