@@ -162,24 +162,37 @@
     self.enterBackgroundTime = CFAbsoluteTimeGetCurrent();
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 -(void)appWillGoToForeground{
     self.enterForegroundTime = CFAbsoluteTimeGetCurrent();
     
     //1.重新计算self.count
-    long totalDuration = lround(self.enterForegroundTime - self.enterBackgroundTime);
-    NSLog(@"totalDuration=%ld",totalDuration);
-    self.count = (int)totalDuration + self.savedCountLastTime;
+    long backgroundDuration = lround(self.enterForegroundTime - self.enterBackgroundTime);
+    NSLog(@"backgroundDuration=%ld",backgroundDuration);
+    self.count = (int)backgroundDuration + self.savedCountLastTime;
     [self setNeedsDisplay];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillGoToBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+ 
     
     //2.计算显示的倒计时时间
-    
-    
-    //3.重新开启timer，继续运行
-    
-    
+    NSInteger restTotalTime = self.totalDuration - self.count;
+    if (restTotalTime > 0) {
+        //显示剩余时间
+        NSInteger restMins = restTotalTime / 60;
+        NSInteger restSeconds = restTotalTime % 60;
+        self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",restMins,restSeconds];
+        self.minutes = restMins;
+        self.seconds = restSeconds;
+        //3.重新开启timer，继续运行
+        [self startTimer];
+    }else{
+        //显示0
+        self.showLabel.text = [NSString stringWithFormat:@"%02ld : %02ld",(NSInteger)0,(NSInteger)0];
+        [self stopTimer];
+    }
 }
 
 
