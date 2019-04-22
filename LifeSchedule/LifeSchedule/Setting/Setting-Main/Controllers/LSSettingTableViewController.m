@@ -30,16 +30,16 @@
     if (_settingItemsList == NULL) {
         //section 0
         LSSettingSectionModel *section0 = [[LSSettingSectionModel alloc]init];
-        LSSettingCellModel *themesModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"配置" iconWithName:@"IDInfo" destClass:[ConfigurationViewController class]];
-        LSSettingCellModel *advancedOptionsModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"偏好设置" iconWithName:@"MoreUpdate" destClass:[LSSettingPreferenceViewController class]];
+        LSSettingCellModel *themesModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"配置" iconWithName:@"config" destClass:[ConfigurationViewController class]];
+        LSSettingCellModel *advancedOptionsModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"偏好设置" iconWithName:@"preference" destClass:[LSSettingPreferenceViewController class]];
         NSArray *group0 =  @[themesModel,advancedOptionsModel];
         section0.sectionItems = group0;
         
         //section 2
         LSSettingSectionModel *section2 = [[LSSettingSectionModel alloc]init];
 //        LSSettingCellModel *helpCenterModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"帮助中心" iconWithName:@"MoreHelp" destClass:[LSSettingPreferenceViewController class]];
-        LSSettingCellModel *feedbackAndAdviceModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"反馈与建议" iconWithName:@"sound_Effect" destClass:[FeedbackViewController class]];
-        LSSettingCellModel *aboutModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"MoreAbout" destClass:[AboutUsScreenViewController class]];
+        LSSettingCellModel *feedbackAndAdviceModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"反馈与建议" iconWithName:@"feedback" destClass:[FeedbackViewController class]];
+        LSSettingCellModel *aboutModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"关于" iconWithName:@"about" destClass:[AboutUsScreenViewController class]];
 //        LSSettingCellModel *shareModel = [LSArrowSettingCellModel LSSettingCellModelWithTitle:@"推荐给好友" iconWithName:@"MoreShare" destClass:[LSSettingPreferenceViewController class]];
         NSArray *group2 = @[feedbackAndAdviceModel,aboutModel];
         section2.sectionItems = group2;
