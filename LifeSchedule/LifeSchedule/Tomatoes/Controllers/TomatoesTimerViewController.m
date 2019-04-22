@@ -401,16 +401,16 @@ void soundCompleteCallback(SystemSoundID sound,void * clientData) {
     center.delegate = self;
     
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
-    content.title = @"ScheduleLife";
+    content.title = @"番茄计时";
     
     NSString *notiId;
     NSTimeInterval interval;
     if (tomatoesStatus == WorkingTomatoesStatus) {
-        content.body = @"您完成了一个番茄，休息一下吧!";
+        content.body = @"您完成了一个工作周期，休息一下吧😊";
         notiId = @"workingTomatoesStatus";
         interval = [self.workingTimeValue integerValue] * 60.0f;
     }else {
-        content.body = @"一个休息周期完成了，继续工作吧!";
+        content.body = @"一个休息周期结束了，继续工作吧😊";
         notiId = @"breakTomatoesStatus";
         interval = [self.breakTimeValue integerValue] * 60.0f;
     }
