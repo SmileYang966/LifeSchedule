@@ -15,7 +15,7 @@
 #import "LSTextViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
-@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,UNUserNotificationCenterDelegate>
 
 @property(nonatomic,strong) UIButton *addNewActivityButton;
 
@@ -265,7 +265,7 @@
     [alertControllerStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,7)];
     [alertControllerStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0,7)];
     [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         /*1.Get the selected date*/
         NSDate *selectedDate = datePicker.date;
@@ -283,7 +283,7 @@
         [self createNotificationWithDate:selectedDate activityDesc:activityDesc];
         
     }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertController addAction:ok];
@@ -310,9 +310,10 @@
 
 -(void)createNotificationWithDate:(NSDate *)notiActDate activityDesc:(NSString *)activityDesc{
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
-    content.title = @"亲，您有一个新的活动提醒!";
+    content.title = @"您有一个新的活动提醒😊";
     content.body = activityDesc;
     content.sound = [UNNotificationSound defaultSound];
     
@@ -526,6 +527,11 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark Delegate for the Notification
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
 }
 
 @end

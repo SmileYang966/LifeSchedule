@@ -26,7 +26,7 @@
 
 #define     CalendarCollectionViewItemSizeWidthOrHeight     38.0f
 
-@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate>
+@interface CalendarViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate,UNUserNotificationCenterDelegate>
 
 /*1.Defined a scrollView on the top half*/
 @property(nonatomic,strong) UIScrollView *calendarScrollView;
@@ -431,7 +431,7 @@
     [alertControllerStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0,7)];
     [alertController setValue:alertControllerStr forKey:@"attributedTitle"];
     
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         /* 1.We can get the Hour、minute info from the current "datePicker.date" */
         NSDate *selectedDate = datePicker.date;
         /* 2.We can get the Year、month info from the  self.currentCalendarDate */
@@ -461,7 +461,7 @@
         [self createNotificationWithDate:selectedDate activityDesc:recordNewActText];
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     
     [alertController addAction:confirmAction];
@@ -487,9 +487,10 @@
 
 -(void)createNotificationWithDate:(NSDate *)notiActDate activityDesc:(NSString *)activityDesc{
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
-    content.title = @"亲，您有一个新的活动提醒!";
+    content.title = @"您有一个新的活动提醒😊";
     content.body = activityDesc;
     content.sound = [UNNotificationSound defaultSound];
     
@@ -1339,6 +1340,11 @@
     }
     
     return YES;
+}
+
+#pragma mark Delegate for the Notification
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
 }
 
 @end
