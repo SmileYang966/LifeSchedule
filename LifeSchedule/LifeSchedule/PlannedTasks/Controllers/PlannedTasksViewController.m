@@ -153,9 +153,6 @@
     // Do any additional setup after loading the view.
     
     [self initOperations];
-    
-    NSURL *url = [self applicationDocumentsDirectory];
-    NSLog(@"url=%@",url.absoluteString);
 }
 
 -(NSURL *)applicationDocumentsDirectory
