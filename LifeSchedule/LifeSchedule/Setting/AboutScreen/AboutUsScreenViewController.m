@@ -87,7 +87,7 @@
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"版本";
-            cell.detailTextLabel.text = @"V0.01";
+            cell.detailTextLabel.text = @"V1.0";
             break;
         case 1:
             cell.textLabel.text = @"作者";
