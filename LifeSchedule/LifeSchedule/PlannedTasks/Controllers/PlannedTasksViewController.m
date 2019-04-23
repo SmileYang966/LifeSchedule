@@ -337,9 +337,13 @@
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked:)];
     tapGr.delegate = self;
     [self.view addGestureRecognizer:tapGr];
+    
     /*2.Add two notifications related to the keyboard*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    /*3.Set the background color*/
+    self.view.backgroundColor = UIColor.whiteColor;
 }
 
 /*显示键盘*/
