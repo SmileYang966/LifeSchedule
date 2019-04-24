@@ -1293,6 +1293,13 @@
     TimeActivity *act = timeActivityDbArray[cellIndex.row];
     act.isActivityCompleted = !act.isActivityCompleted;
     NSLog(@"act.ISComplete=%d,act Desc=%@",act.isActivityCompleted,act.activityDescription);
+    if (act.isActivityCompleted) {
+        //进行中->完成 的音效
+        [LSPlayAudioTool playAudioWithAudioName:@"buttonSoundEffect1" audioType:@"mp3"];
+    }else{
+        //完成时->进行 的音效
+        [LSPlayAudioTool playAudioWithAudioName:@"buttonSoundEffect2" audioType:@"mp3"];
+    }
     NSError *error = nil;
     [self.managedObjContext save:&error];
     

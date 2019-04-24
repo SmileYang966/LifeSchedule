@@ -14,6 +14,7 @@
 #import "TimeActivity+CoreDataProperties.h"
 #import "LSTextViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface PlannedTasksViewController ()<TaskCollectionTableViewCellDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource,UNUserNotificationCenterDelegate>
 
@@ -514,6 +515,14 @@
     TimeActivity *act = timeActivityDbArray[cellIndex.row];
     act.isActivityCompleted = !act.isActivityCompleted;
     NSLog(@"act.ISComplete=%d",act.isActivityCompleted);
+    if (act.isActivityCompleted) {
+        //进行中->完成 的音效
+        [LSPlayAudioTool playAudioWithAudioName:@"buttonSoundEffect1" audioType:@"mp3"];
+    }else{
+        //完成时->进行 的音效
+        [LSPlayAudioTool playAudioWithAudioName:@"buttonSoundEffect2" audioType:@"mp3"];
+    }
+    
     NSError *error = nil;
     [self.managedObjContext save:&error];
     

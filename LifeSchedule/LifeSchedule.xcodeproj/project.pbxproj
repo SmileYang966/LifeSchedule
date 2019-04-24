@@ -68,6 +68,10 @@
 		71DDE2DE225F3692002F4A96 /* DHGifImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DDE2DC225F3692002F4A96 /* DHGifImageOperation.m */; };
 		71DDE2DF225F3692002F4A96 /* DHGuidePageHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DDE2DD225F3692002F4A96 /* DHGuidePageHUD.m */; };
 		71DDE2E2225F39F5002F4A96 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DDE2E1225F39F5002F4A96 /* LaunchViewController.m */; };
+		71EF200B22703C200054DB82 /* buttonSoundEffect2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71EF200822703C200054DB82 /* buttonSoundEffect2.mp3 */; };
+		71EF200C22703C200054DB82 /* buttonSoundEffect1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71EF200922703C200054DB82 /* buttonSoundEffect1.mp3 */; };
+		71EF200D22703C200054DB82 /* buttonSoundEffect3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71EF200A22703C200054DB82 /* buttonSoundEffect3.mp3 */; };
+		71EF201422703E7D0054DB82 /* LSPlayAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EF201322703E7D0054DB82 /* LSPlayAudioTool.m */; };
 		71FC3D72223FC4B00079FDDC /* ConfigurationTimeSetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */; };
 		71FD6D5122433F8400F4693C /* LSThemeBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FD6D5022433F8400F4693C /* LSThemeBaseTableViewController.m */; };
 		7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E2ED820CDED6A00EFD1D5 /* LSTabBar.m */; };
@@ -204,6 +208,11 @@
 		71DDE2DD225F3692002F4A96 /* DHGuidePageHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHGuidePageHUD.m; sourceTree = "<group>"; };
 		71DDE2E0225F39F5002F4A96 /* LaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		71DDE2E1225F39F5002F4A96 /* LaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
+		71EF200822703C200054DB82 /* buttonSoundEffect2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonSoundEffect2.mp3; sourceTree = "<group>"; };
+		71EF200922703C200054DB82 /* buttonSoundEffect1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonSoundEffect1.mp3; sourceTree = "<group>"; };
+		71EF200A22703C200054DB82 /* buttonSoundEffect3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonSoundEffect3.mp3; sourceTree = "<group>"; };
+		71EF201222703E7D0054DB82 /* LSPlayAudioTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSPlayAudioTool.h; sourceTree = "<group>"; };
+		71EF201322703E7D0054DB82 /* LSPlayAudioTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSPlayAudioTool.m; sourceTree = "<group>"; };
 		71FC3D70223FC4B00079FDDC /* ConfigurationTimeSetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationTimeSetModel.h; sourceTree = "<group>"; };
 		71FC3D71223FC4B00079FDDC /* ConfigurationTimeSetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTimeSetModel.m; sourceTree = "<group>"; };
 		71FD6D4F22433F8400F4693C /* LSThemeBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSThemeBaseTableViewController.h; sourceTree = "<group>"; };
@@ -348,13 +357,6 @@
 			path = Singleton;
 			sourceTree = "<group>";
 		};
-		25DE077E210C2817002D944E /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
 		710EDE6A223F490500BC41EF /* ConfigurationScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +402,9 @@
 		71CF8BFD2227C7AD00D8A51B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				71EF200922703C200054DB82 /* buttonSoundEffect1.mp3 */,
+				71EF200822703C200054DB82 /* buttonSoundEffect2.mp3 */,
+				71EF200A22703C200054DB82 /* buttonSoundEffect3.mp3 */,
 				71136C7E226B47DF00B2308C /* countdownNotification.m4r */,
 				7116239F226B01FA00642081 /* breakTimeExpired.m4a */,
 				7116239E226B01F900642081 /* workingTimeExpired.m4a */,
@@ -437,6 +442,15 @@
 				71DDE2DD225F3692002F4A96 /* DHGuidePageHUD.m */,
 			);
 			path = Libs;
+			sourceTree = "<group>";
+		};
+		71EF201122703E5B0054DB82 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				71EF201222703E7D0054DB82 /* LSPlayAudioTool.h */,
+				71EF201322703E7D0054DB82 /* LSPlayAudioTool.m */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		71FC3D6F223FC3E50079FDDC /* Models */ = {
@@ -616,12 +630,12 @@
 			children = (
 				7C69675020C75BFA00EAC951 /* AppDelegate.h */,
 				7C69675120C75BFA00EAC951 /* AppDelegate.m */,
+				71EF201122703E5B0054DB82 /* Tools */,
 				71DDE2D7225F3624002F4A96 /* Libs */,
 				71143E9222420C090040A412 /* Theme */,
 				71478860223B53AD0009F6ED /* fonts */,
 				2576FD1421E393F900316F20 /* DB */,
 				2592821A21E1BF2700DDE639 /* Singleton */,
-				25DE077E210C2817002D944E /* Tools */,
 				7C0E2ED520CDECEA00EFD1D5 /* Views */,
 				7CAC2DAF20C9F49200D648E3 /* Controllers */,
 				7CAC2DAD20C9F46C00D648E3 /* Others */,
@@ -909,6 +923,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71EF200B22703C200054DB82 /* buttonSoundEffect2.mp3 in Resources */,
+				71EF200C22703C200054DB82 /* buttonSoundEffect1.mp3 in Resources */,
+				71EF200D22703C200054DB82 /* buttonSoundEffect3.mp3 in Resources */,
 				71136C7F226B47DF00B2308C /* countdownNotification.m4r in Resources */,
 				711623A0226B01FA00642081 /* workingTimeExpired.m4a in Resources */,
 				711623A1226B01FA00642081 /* breakTimeExpired.m4a in Resources */,
@@ -994,6 +1011,7 @@
 				71DDE2E2225F39F5002F4A96 /* LaunchViewController.m in Sources */,
 				7C0E2ED920CDED6A00EFD1D5 /* LSTabBar.m in Sources */,
 				2576FD1D21E3945A00316F20 /* LifeScheduleDb.xcdatamodeld in Sources */,
+				71EF201422703E7D0054DB82 /* LSPlayAudioTool.m in Sources */,
 				7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */,
 				25F779DF21CE3E710028FBE3 /* CalendarHeaderView.m in Sources */,
 				71D351D6224225D300241CE4 /* UIFactory.m in Sources */,
@@ -1207,7 +1225,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;
@@ -1228,7 +1246,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
 				INFOPLIST_FILE = LifeSchedule/Info.plist;

@@ -37,6 +37,7 @@ typedef enum{
 #import "LSBaseViewController.h"
 #import "LSThemeBaseTableViewController.h"
 #import "LSThemeTabBarItem.h"
+#import "LSPlayAudioTool.h"
 
 #define COLLECTIONCELLMARGINX 18
 #define COLLECTIONCELLMARGINY 18
