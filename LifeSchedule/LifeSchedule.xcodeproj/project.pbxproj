@@ -80,7 +80,6 @@
 		7C16952920D7917F004ED9D9 /* LSSwitcherSettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16952820D7917F004ED9D9 /* LSSwitcherSettingCellModel.m */; };
 		7C16953620D80327004ED9D9 /* LSSettingPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16953520D80327004ED9D9 /* LSSettingPreferenceViewController.m */; };
 		7C69675220C75BFA00EAC951 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675120C75BFA00EAC951 /* AppDelegate.m */; };
-		7C69675520C75BFA00EAC951 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C69675420C75BFA00EAC951 /* ViewController.m */; };
 		7C69675820C75BFA00EAC951 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675620C75BFA00EAC951 /* Main.storyboard */; };
 		7C69675A20C75BFA00EAC951 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675920C75BFA00EAC951 /* Assets.xcassets */; };
 		7C69675D20C75BFA00EAC951 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C69675B20C75BFA00EAC951 /* LaunchScreen.storyboard */; };
@@ -230,8 +229,6 @@
 		7C69674D20C75BFA00EAC951 /* LifeSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C69675020C75BFA00EAC951 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C69675120C75BFA00EAC951 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7C69675320C75BFA00EAC951 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7C69675420C75BFA00EAC951 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7C69675720C75BFA00EAC951 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7C69675920C75BFA00EAC951 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C69675C20C75BFA00EAC951 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -590,15 +587,8 @@
 				7CAC2D9520C9F1D600D648E3 /* PlannedTasks */,
 				7CAC2D9D20C9F1D600D648E3 /* Tomatoes */,
 				7CAC2D8320C8A70100D648E3 /* Main */,
-				7C69675020C75BFA00EAC951 /* AppDelegate.h */,
-				7C69675120C75BFA00EAC951 /* AppDelegate.m */,
-				7C69675320C75BFA00EAC951 /* ViewController.h */,
-				7C69675420C75BFA00EAC951 /* ViewController.m */,
-				7C69675620C75BFA00EAC951 /* Main.storyboard */,
 				7C69675920C75BFA00EAC951 /* Assets.xcassets */,
-				7C69675B20C75BFA00EAC951 /* LaunchScreen.storyboard */,
 				7C69675E20C75BFA00EAC951 /* Info.plist */,
-				7C69675F20C75BFA00EAC951 /* main.m */,
 			);
 			path = LifeSchedule;
 			sourceTree = "<group>";
@@ -624,6 +614,8 @@
 		7CAC2D8320C8A70100D648E3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				7C69675020C75BFA00EAC951 /* AppDelegate.h */,
+				7C69675120C75BFA00EAC951 /* AppDelegate.m */,
 				71DDE2D7225F3624002F4A96 /* Libs */,
 				71143E9222420C090040A412 /* Theme */,
 				71478860223B53AD0009F6ED /* fonts */,
@@ -788,6 +780,9 @@
 		7CAC2DAD20C9F46C00D648E3 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				7C69675620C75BFA00EAC951 /* Main.storyboard */,
+				7C69675B20C75BFA00EAC951 /* LaunchScreen.storyboard */,
+				7C69675F20C75BFA00EAC951 /* main.m */,
 				7C14722E20D664E000903852 /* LifeSchedulePrefixHeader.pch */,
 			);
 			path = Others;
@@ -1016,7 +1011,6 @@
 				7C16952320D77608004ED9D9 /* LSSettingSectionModel.m in Sources */,
 				254928B621D2759500AFC0DD /* CalendarTableViewCell.m in Sources */,
 				71DCA0182240A6E200810958 /* Setting+CoreDataProperties.m in Sources */,
-				7C69675520C75BFA00EAC951 /* ViewController.m in Sources */,
 				2592821D21E1C17C00DDE639 /* CoreDataManager.m in Sources */,
 				7CAC2DA920C9F25500D648E3 /* PlannedTasksViewController.m in Sources */,
 				7CF0B6BC20F9825800705C44 /* SCCircleView.m in Sources */,
