@@ -1224,7 +1224,8 @@
 			baseConfigurationReference = F78168C9BE3997275B570EDD /* Pods-LifeSchedule.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
@@ -1236,6 +1237,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evanyang.LifeSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "LifeSchedule Provisioning Profiles";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -1246,7 +1248,8 @@
 			baseConfigurationReference = A3FB79D7199F325FB4102AAA /* Pods-LifeSchedule.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 88E42JQ9R5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LifeSchedule/Main/Others/LifeSchedulePrefixHeader.pch";
@@ -1258,6 +1261,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evanyang.LifeSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "LifeSchedule Provisioning Profiles";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
