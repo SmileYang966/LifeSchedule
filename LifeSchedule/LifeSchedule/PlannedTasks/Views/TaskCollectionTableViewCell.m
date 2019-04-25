@@ -99,14 +99,15 @@
     
     if (model.isCompleted) {
         //Completed
-        [_taskcheckBoxSelected setBackgroundImage:[UIImage imageNamed:@"checkboxSelected"] forState:UIControlStateNormal];
+        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"check-box-lightGray-selected"] forState:UIControlStateNormal];
     }else {
         //Not completed
-        [_taskcheckBoxSelected setBackgroundImage:[UIImage imageNamed:@"checkboxNonSelected"] forState:UIControlStateNormal];
+        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"check-box-lightGray-unselected"] forState:UIControlStateNormal];
     }
     
     //CheckBox
     self.taskcheckBoxSelected.frame = taskCollectionFrame.checkBoxF;
+//    self.taskcheckBoxSelected.backgroundColor = UIColor.redColor;
     
     //ContentLabel
     self.contentLabel.frame = taskCollectionFrame.collectionTitleF;

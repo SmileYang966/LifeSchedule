@@ -17,14 +17,14 @@
     
     //CheckBox
     CGFloat checkBoxX = COLLECTIONCELLMARGINX;
-    CGFloat checkBoxY = COLLECTIONCELLMARGINY;
-    CGFloat checkBoxWidth = 25;
-    CGFloat checkBoxHeight = 25;
+    CGFloat checkBoxY = COLLECTIONCELLMARGINY-5.0f;
+    CGFloat checkBoxWidth = 48;
+    CGFloat checkBoxHeight = 48;
     self.checkBoxF = CGRectMake(checkBoxX, checkBoxY, checkBoxWidth, checkBoxHeight);
     
     //Title
     CGFloat collectionTitleX = CGRectGetMaxX(self.checkBoxF) + COLLECTIONCELLMARGINX;
-    CGFloat collectionTitleY = self.checkBoxF.origin.y;
+    CGFloat collectionTitleY = COLLECTIONCELLMARGINY;
     NSString *contentStr = taskCollectionModel.taskTitle;
     contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     contentStr = [contentStr stringByReplacingOccurrencesOfString:@"\r" withString:@" "];
