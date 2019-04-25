@@ -12,6 +12,7 @@
 
 @property(nonatomic,strong) UIView *iconView;
 @property(nonatomic,strong) UITableView *aboutTableView;
+@property(nonatomic,strong) NSDictionary *infoDictionary;
 
 @end
 
@@ -22,6 +23,13 @@
         self.view.backgroundColor = AppMajorTintColor;
     }
     return self;
+}
+
+- (NSDictionary *)infoDictionary{
+    if (_infoDictionary == NULL) {
+     _infoDictionary =  [[NSBundle mainBundle] infoDictionary];
+    }
+    return _infoDictionary;
 }
 
 -(UIView *)iconView{
@@ -87,7 +95,7 @@
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"版本";
-            cell.detailTextLabel.text = @"V1.0";
+            cell.detailTextLabel.text = [self.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             break;
         case 1:
             cell.textLabel.text = @"作者";
