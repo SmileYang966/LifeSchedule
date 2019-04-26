@@ -67,7 +67,7 @@
 
 @property(nonatomic,strong) NSNumber *currentSelectedMonthDay;/*Selected Calendar day number*/
 @property(nonatomic,assign) NSInteger currentSelectedDayIndex;/*Selected Calendar day index*/
-@property(nonatomic,strong) NSDate *selectedCalendarDate;/*Selected Calendar Date*/
+@property(nonatomic,strong) NSDate *currentSelectedDate;
 
 /*Core data part*/
 @property(nonatomic,strong) NSManagedObjectContext *managedObjContext;
@@ -82,6 +82,10 @@
 /*Activity related database*/
 @property(nonatomic,strong) NSMutableArray *ongoingTasks;
 @property(nonatomic,strong) NSMutableArray *completedTasks;
+
+
+/*Global Variable*/
+@property(nonatomic,assign) BOOL isBackFromEditAcitivityScreen;
 
 @end
 
@@ -451,9 +455,6 @@
         //4.Clear the inputNewActTf
         self.inputNewActTf.text = @"";
         
-        //5.Saved the current date to the "self.selectedCalendarDate".
-        self.selectedCalendarDate = selectedDate;
-        
         //6.Reload the currentCollectionView
         [self.currentCollectionView reloadData];
         
@@ -548,8 +549,12 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.addNewActivityButton];
     
+    /* When user click a activity with a another calendar day(Not today) , it will go to the
+     * Edit screen, when we back the calendar screen, it should stay on the another calendar day, or not today
+     */
+    
     /*It's just a workaround to fixed the bug.*/
-    if (self.currentCalendarDate != nil) {
+    if (self.currentCalendarDate != nil && !self.isBackFromEditAcitivityScreen) {
         NSDateComponents *movedComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
         NSDateComponents *currentComponents = [self getNSDateComponentsByDate:[NSDate date]];
         if (movedComponents.year==currentComponents.year && movedComponents.month==currentComponents.month && movedComponents.day==currentComponents.day) {
@@ -564,6 +569,9 @@
 
     [self.currentCollectionView reloadData];//Reload the current collectionView
     [self.dailyScheduledTableView reloadData];//Reload the current dailyScheduledTableView
+    
+    /*Restore the status*/
+    self.isBackFromEditAcitivityScreen = false;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -685,7 +693,7 @@
      * 3. 确保当前是CurrentMonth标记范围内的
      */
     if (interval==0.0f) {//当月
-        if(self.selectedCalendarDate == nil){//1.若在当月，没有选中其它日期创建活动，默认选择当日
+        if(self.currentSelectedDate == nil){//1.若在当月，没有选中其它日期创建活动，默认选择当日
             if (indexPath.row == self.currentDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
                 cell.hiddenSelectedView = false;
                 self.tempSavedCollectionViewCell = cell;
@@ -697,7 +705,7 @@
             }
         }
     }else{//其它月
-        if (self.selectedCalendarDate != nil && indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
+        if (self.currentSelectedDate != nil && indexPath.row == self.currentSelectedDayIndex && [KeyStr isEqualToString:CURRENTMONTH]) {
             cell.hiddenSelectedView = false;
             /*确保当前保存的cell是默认当天选中的cell*/
             self.tempSavedCollectionViewCell = cell;
@@ -760,6 +768,16 @@
     self.tempSavedCollectionViewCell = cell;
     NSLog(@"After clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
     
+    if (self.currentCalendarDate != NULL) {
+        NSDateComponents *dateComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
+        dateComponents.day = [self.currentSelectedMonthDay integerValue];
+        dateComponents.hour = 0;
+        dateComponents.minute = 0;
+        dateComponents.second = 0;
+        self.currentSelectedDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+        NSLog(@"Date=%@",self.currentSelectedDate);
+    }
+    
     [self refreshData];
     [self.dailyScheduledTableView reloadData];
     [self.dailyScheduledTableView reloadSectionIndexTitles];
@@ -778,8 +796,8 @@
     if ([scrollView isKindOfClass:[self.dailyScheduledTableView class]])
         return;
     
-    /*Reset the self.selectedCalendarDate */
-    self.selectedCalendarDate = nil;
+    /*Reset the currentSelectedDate */
+    self.currentSelectedDate = nil;
     
     if (scrollView.contentOffset.x > self.calendarScrollView.bounds.size.width) {
         NSLog(@"向左滑动");
@@ -1125,6 +1143,9 @@
     LSTextViewController *plannedActDetailVC = [[LSTextViewController alloc]init];
     plannedActDetailVC.taskModel = itemFrame.taskCollectionModel;
     [self.navigationController pushViewController:plannedActDetailVC animated:true];
+    
+    /*When user enter into the Edit activity screen, we need to record it , and it will be used in the ViewWillAppear*/
+    self.isBackFromEditAcitivityScreen = true;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
