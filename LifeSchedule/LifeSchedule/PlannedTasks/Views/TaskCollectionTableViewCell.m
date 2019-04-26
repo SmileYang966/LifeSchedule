@@ -99,10 +99,10 @@
     
     if (model.isCompleted) {
         //Completed
-        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"check-box-lightGray-selected"] forState:UIControlStateNormal];
+        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"checkBoxsSelected-Blue"] forState:UIControlStateNormal];
     }else {
         //Not completed
-        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"check-box-lightGray-unselected"] forState:UIControlStateNormal];
+        [_taskcheckBoxSelected setImage:[UIImage imageNamed:@"checkBoxsUnSelected-Blue"] forState:UIControlStateNormal];
     }
     
     //CheckBox
