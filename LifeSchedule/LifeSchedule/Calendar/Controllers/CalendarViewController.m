@@ -769,13 +769,17 @@
     NSLog(@"After clicked - contentOffset=%@",NSStringFromCGPoint(self.calendarScrollView.contentOffset));
     
     if (self.currentCalendarDate != NULL) {
-        NSDateComponents *dateComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
-        dateComponents.day = [self.currentSelectedMonthDay integerValue];
-        dateComponents.hour = 0;
-        dateComponents.minute = 0;
-        dateComponents.second = 0;
-        self.currentSelectedDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-        NSLog(@"Date=%@",self.currentSelectedDate);
+        if (selectedIndex == 1) {/*Current month*/
+            NSDateComponents *dateComponents = [self getNSDateComponentsByDate:self.currentCalendarDate];
+            dateComponents.day = [self.currentSelectedMonthDay integerValue];
+            dateComponents.hour = 0;
+            dateComponents.minute = 0;
+            dateComponents.second = 0;
+            self.currentSelectedDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+            NSLog(@"Date=%@",self.currentSelectedDate);
+        }else{/*Other months*/
+            self.currentSelectedDate = nil;
+        }
     }
     
     [self refreshData];
