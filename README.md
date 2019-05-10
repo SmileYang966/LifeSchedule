@@ -1,10 +1,8 @@
-#LifeSchedule
+LifeSchedule
+=
 
-
-[TOC]
-
-
-##1.项目准备
+1.项目准备
+-
 
 ###1.1 Pod安装第三方框架(Use pod-SDWebImage、AFNetworking以及MBProgressHUD)
 **Pod**现在已经成为主流的第三方框架的管理工具，其具体的详细流程我是follow这个[分享](https://www.cnblogs.com/chuancheng/p/8443677.html)来的。安装完成后，需要在每个工程目录下面都去touch一个Podfile，然后再Podfile里去编辑所需要用到的第三方框架的name，当然第三方框架的name要先通过pod serach '第三方框架name' 以保证第三方框架确实是在pod的库里面的。
