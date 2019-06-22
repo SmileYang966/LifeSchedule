@@ -3,4 +3,5 @@ pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'MBProgressHUD'
 pod 'skpsmtpmessage'
+pod 'Aspects'
 end
