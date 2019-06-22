@@ -53,10 +53,6 @@
             cell.textLabel.text = @"主题样式";
             break;
             
-        case 1:
-            cell.textLabel.text = @"字体样式";
-            break;
-            
         default:
             break;
     }
@@ -70,11 +66,6 @@
         case 0:
             destVC = [[LSThemeStyleViewController alloc]init];
             destVC.title = @"主题样式";
-            break;
-       
-        case 1:
-            destVC = [[LSFontStyleViewController alloc]init];
-            destVC.title = @"字体样式";
             break;
             
         default:
